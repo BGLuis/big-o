@@ -1,0 +1,372 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+  <style>
+    :root{
+      --wall:#ffffff; --wall-tint:#f3f6f3;
+      --board:#26332c; --board-deep:#1f2a24;
+      --panel:#ffffff;
+      --ink:#1c2621; --ink-soft:#3f4c45; --ink-dim:#5a6660;
+      --chalk:#f4f1e6; --chalk-soft:#d7ded6; --chalk-dim:#b7c2b9;
+      --pine:#17603e; --pine-strong:#0f4a2f;
+      --o:#8a6a12; --omega:#2160b0; --theta:#1c7350;
+      --o-lt:#e8c14a; --omega-lt:#8ec3ee; --theta-lt:#8ad9ab;
+      --edge:#6f7d74; --rule:#d8e0da; --frame-soft:#c3d0c7;
+      --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s6:#9085e9;
+      --hand:'Caveat','Segoe Script',cursive;
+      --sans:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+      --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;
+      background-color:var(--wall);
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
+      background-size:160px 160px;
+    }
+    h1,h2,h3,h4,p{margin:0;}
+    a{color:var(--pine);text-decoration:none;}
+    a:hover{color:var(--pine-strong);}
+    .page{width:1440px;}
+    .hand{font-family:var(--hand);font-weight:600;line-height:0.98;}
+    .mono{font-family:var(--mono);}
+    .card{border:1.5px solid var(--frame-soft);border-radius:16px 30px 18px 26px/26px 18px 30px 20px;background:var(--panel);}
+    .card-2{border:1.5px solid var(--frame-soft);border-radius:26px 16px 28px 18px/18px 30px 20px 26px;background:var(--panel);}
+    .board{background:var(--board);border:1.5px solid var(--board-deep);border-radius:18px 24px 18px 24px/22px 18px 24px 18px;color:var(--chalk);}
+    .chip{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--ink-dim);padding:3px 10px;border:1.5px solid var(--edge);border-radius:9px 16px 10px 15px/15px 10px 16px 9px;}
+    .chip.on-board{color:var(--chalk-soft);border-color:rgba(244,241,230,0.4);}
+    .btn{font-family:var(--sans);font-weight:600;font-size:14px;height:46px;padding:0 22px;display:inline-flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;border:1.5px solid var(--edge);border-radius:15px 26px 16px 24px/22px 16px 26px 16px;background:var(--panel);color:var(--ink);}
+    .btn svg{width:17px;height:17px;}
+    .btn-primary{background:var(--pine);color:#ffffff;border-color:var(--pine);font-weight:700;}
+    .kicker{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-dim);}
+    .icon{width:22px;height:22px;fill:none;stroke:var(--pine);stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;}
+  </style>
+</helmet>
+
+<div class="page">
+
+  <!-- Top rail -->
+  <header style="display:flex;align-items:center;justify-content:space-between;padding:22px 80px;border-bottom:1.5px solid var(--rule);">
+    <div style="display:flex;align-items:baseline;gap:12px;">
+      <span class="hand" style="font-size:34px;color:var(--ink);">Big<span style="color:var(--o);"> O</span></span>
+      <span class="hand" style="font-size:24px;color:var(--omega);">Ω</span>
+      <span class="hand" style="font-size:24px;color:var(--theta);">Θ</span>
+      <span style="font-size:12px;color:var(--ink-dim);font-family:var(--mono);padding-left:6px;">laboratório de algoritmos</span>
+    </div>
+    <nav style="display:flex;align-items:center;gap:30px;">
+      <a href="#notacao" style="font-size:14px;color:var(--ink-soft);">Notação</a>
+      <a href="#crescimento" style="font-size:14px;color:var(--ink-soft);">Crescimento</a>
+      <a href="#trilhas" style="font-size:14px;color:var(--ink-soft);">Trilhas</a>
+      <a href="#trilhas" class="btn btn-primary" style="height:40px;">Entrar na aula</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section style="display:grid;grid-template-columns:1fr 560px;gap:56px;align-items:center;padding:72px 80px 60px;">
+    <div style="display:flex;flex-direction:column;gap:22px;max-width:600px;">
+      <span class="kicker">Notação assintótica · para quem está aprendendo</span>
+      <h1 class="hand" style="font-size:64px;color:var(--ink);">
+        Veja o algoritmo rodar<br>e entenda <span style="color:var(--o);">quanto</span> ele custa.
+      </h1>
+      <p style="font-size:17px;line-height:1.65;color:var(--ink-soft);">
+        Cada estrutura de dados e cada ordenação executada passo a passo, com o desenho na lousa, a narração de cada comparação e a linha do pseudocódigo em foco. E, ao lado, o custo: <span class="mono" style="color:var(--o);font-weight:600;">O</span>, <span class="mono" style="color:var(--omega);font-weight:600;">Ω</span> e <span class="mono" style="color:var(--theta);font-weight:600;">Θ</span>.
+      </p>
+      <div style="display:flex;gap:12px;padding-top:4px;">
+        <a href="#trilhas" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="stroke:none;"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+          Começar a estudar
+        </a>
+        <a href="#crescimento" class="btn">Ver as curvas de crescimento</a>
+      </div>
+      <div style="display:flex;gap:26px;padding-top:14px;">
+        <div style="display:flex;flex-direction:column;gap:2px;">
+          <span class="hand" style="font-size:30px;color:var(--ink);">11</span>
+          <span style="font-size:12px;color:var(--ink-dim);">algoritmos de ordenação</span>
+        </div>
+        <div style="width:1.5px;background:var(--rule);"></div>
+        <div style="display:flex;flex-direction:column;gap:2px;">
+          <span class="hand" style="font-size:30px;color:var(--ink);">7</span>
+          <span style="font-size:12px;color:var(--ink-dim);">estruturas de dados</span>
+        </div>
+        <div style="width:1.5px;background:var(--rule);"></div>
+        <div style="display:flex;flex-direction:column;gap:2px;">
+          <span class="hand" style="font-size:30px;color:var(--ink);">Ω Θ O</span>
+          <span style="font-size:12px;color:var(--ink-dim);">as três notações, sempre à vista</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Board card: lesson glimpse -->
+    <div class="board" style="padding:0;overflow:hidden;box-shadow:0 20px 44px -24px rgba(31,42,36,0.5);">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1.5px dashed rgba(244,241,230,0.28);">
+        <span class="hand" style="font-size:22px;color:var(--chalk);">Quick Sort · passo 7 / 24</span>
+        <span class="chip on-board">linear</span>
+      </div>
+      <div style="padding:24px 20px 16px;background:var(--board-deep);">
+        <div style="display:flex;align-items:flex-end;gap:9px;height:150px;">
+          <div style="flex:1;height:40%;background:var(--theta-lt);border-radius:3px 3px 0 0;"></div>
+          <div style="flex:1;height:24%;background:var(--theta-lt);border-radius:3px 3px 0 0;"></div>
+          <div style="flex:1;height:52%;background:var(--theta-lt);border-radius:3px 3px 0 0;"></div>
+          <div style="flex:1;height:62%;background:var(--o-lt);border-radius:3px 3px 0 0;"></div>
+          <div style="flex:1;height:88%;background:#5c6d61;border-radius:3px 3px 0 0;"></div>
+          <div style="flex:1;height:96%;background:#5c6d61;border-radius:3px 3px 0 0;"></div>
+          <div style="flex:1;height:56%;background:#5c6d61;border-radius:3px 3px 0 0;"></div>
+          <div style="flex:1;height:74%;background:#5c6d61;border-radius:3px 3px 0 0;"></div>
+          <div style="flex:1;height:66%;background:transparent;border:1.5px dashed #e8998d;border-radius:3px 3px 0 0;"></div>
+          <div style="flex:1;height:14%;background:var(--theta-lt);border-radius:3px 3px 0 0;"></div>
+        </div>
+        <div style="display:flex;gap:14px;padding-top:12px;flex-wrap:wrap;">
+          <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--chalk-dim);"><span style="width:10px;height:10px;background:var(--theta-lt);border-radius:2px;"></span>&le; pivô</span>
+          <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--chalk-dim);"><span style="width:10px;height:10px;background:var(--o-lt);border-radius:2px;"></span>comparando</span>
+          <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--chalk-dim);"><span style="width:10px;height:10px;border:1px dashed #e8998d;border-radius:2px;"></span>pivô</span>
+        </div>
+      </div>
+      <div style="padding:12px 18px;border-top:1.5px dashed rgba(244,241,230,0.28);font-size:13px;color:var(--chalk-soft);line-height:1.45;">
+        <span class="hand" style="font-size:18px;color:var(--o-lt);">passo 7:</span> A[3] = 33 &le; pivô 58 — incrementa <span class="mono">i</span> e troca <span class="mono">A[i]</span> com <span class="mono">A[j]</span>.
+      </div>
+      <pre class="mono" style="margin:0;padding:12px 0;font-size:12px;line-height:1.8;background:var(--board-deep);border-top:1.5px dashed rgba(244,241,230,0.28);color:var(--chalk-soft);overflow:hidden;"><span style="display:block;padding:0 18px;"><span style="color:var(--chalk-dim);">11&nbsp;&nbsp;</span>para j de inicio até fim - 1 faça</span><span style="display:block;padding:0 18px;background:rgba(232,193,74,0.22);color:#f6e6b6;font-weight:600;"><span style="color:#f6e6b6;">12&nbsp;&nbsp;</span>&nbsp;&nbsp;se A[j] &lt;= pivo então</span><span style="display:block;padding:0 18px;"><span style="color:var(--chalk-dim);">13&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;i = i + 1</span><span style="display:block;padding:0 18px;"><span style="color:var(--chalk-dim);">14&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;trocar(A[i], A[j])</span></pre>
+    </div>
+  </section>
+
+  <!-- Notação assintótica -->
+  <section id="notacao" style="padding:58px 80px;background:var(--wall-tint);border-top:1.5px solid var(--rule);border-bottom:1.5px solid var(--rule);">
+    <div style="display:flex;align-items:flex-end;gap:16px;padding-bottom:30px;">
+      <h2 class="hand" style="font-size:40px;color:var(--ink);">Três formas de dizer "quanto custa"</h2>
+      <span style="font-size:13px;color:var(--ink-dim);padding-bottom:8px;">a mesma ideia, três limites diferentes</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;">
+
+      <div class="card" style="padding:24px;display:flex;flex-direction:column;gap:12px;border-top:3px solid var(--o);">
+        <div style="display:flex;align-items:baseline;gap:12px;">
+          <span class="hand" style="font-size:46px;color:var(--o);">O(n)</span>
+          <span class="kicker" style="letter-spacing:0.1em;">limite superior</span>
+        </div>
+        <p style="font-size:14px;line-height:1.6;color:var(--ink-soft);">No <strong>máximo</strong> tão custoso. Descreve o pior caso — o algoritmo nunca cresce mais rápido do que isso.</p>
+        <span class="mono" style="font-size:12px;color:var(--ink-dim);">busca linear = O(n) · o alvo pode ser o último</span>
+      </div>
+
+      <div class="card-2" style="padding:24px;display:flex;flex-direction:column;gap:12px;border-top:3px solid var(--omega);">
+        <div style="display:flex;align-items:baseline;gap:12px;">
+          <span class="hand" style="font-size:46px;color:var(--omega);">Ω(n)</span>
+          <span class="kicker" style="letter-spacing:0.1em;">limite inferior</span>
+        </div>
+        <p style="font-size:14px;line-height:1.6;color:var(--ink-soft);">No <strong>mínimo</strong> esse esforço. Descreve o melhor caso — o algoritmo nunca é mais rápido do que isso.</p>
+        <span class="mono" style="font-size:12px;color:var(--ink-dim);">busca linear = Ω(1) · o alvo pode ser o primeiro</span>
+      </div>
+
+      <div class="card" style="padding:24px;display:flex;flex-direction:column;gap:12px;border-top:3px solid var(--theta);">
+        <div style="display:flex;align-items:baseline;gap:12px;">
+          <span class="hand" style="font-size:46px;color:var(--theta);">Θ(n)</span>
+          <span class="kicker" style="letter-spacing:0.1em;">limite justo</span>
+        </div>
+        <p style="font-size:14px;line-height:1.6;color:var(--ink-soft);">Superior e inferior <strong>coincidem</strong>. O crescimento é exatamente essa ordem, em todos os casos.</p>
+        <span class="mono" style="font-size:12px;color:var(--ink-dim);">merge sort = Θ(n log n) · sempre</span>
+      </div>
+
+    </div>
+    <p style="font-size:13.5px;color:var(--ink-soft);padding-top:18px;line-height:1.6;">
+      <span class="hand" style="font-size:18px;color:var(--ink);">na prática:</span>
+      Quick Sort é <span class="mono" style="color:var(--omega);font-weight:600;">Ω(n log n)</span> no melhor caso e <span class="mono" style="color:var(--o);font-weight:600;">O(n²)</span> no pior — como não coincidem, não existe um Θ único para ele.
+    </p>
+  </section>
+
+  <!-- Curvas de crescimento -->
+  <section id="crescimento" style="padding:64px 80px;">
+    <div style="display:flex;flex-direction:column;gap:8px;padding-bottom:26px;">
+      <span class="kicker">Por que a ordem importa</span>
+      <h2 class="hand" style="font-size:40px;color:var(--ink);">Como cada classe cresce</h2>
+      <p style="font-size:14px;color:var(--ink-soft);max-width:640px;line-height:1.6;">Mesmo eixo, mesma entrada. A diferença entre <span class="mono">O(n)</span> e <span class="mono">O(n²)</span> não aparece com 10 elementos — aparece com 10 mil.</p>
+    </div>
+
+    <div class="board" style="padding:22px 24px 26px;">
+      <!-- legend -->
+      <div style="display:flex;flex-wrap:wrap;gap:14px 20px;padding-bottom:14px;">
+        <span style="display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12px;color:var(--chalk-soft);"><span style="width:16px;height:3px;border-radius:2px;background:var(--s1);"></span>O(1)</span>
+        <span style="display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12px;color:var(--chalk-soft);"><span style="width:16px;height:3px;border-radius:2px;background:var(--s2);"></span>O(log n)</span>
+        <span style="display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12px;color:var(--chalk-soft);"><span style="width:16px;height:3px;border-radius:2px;background:var(--s3);"></span>O(n)</span>
+        <span style="display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12px;color:var(--chalk-soft);"><span style="width:16px;height:3px;border-radius:2px;background:var(--s4);"></span>O(n log n)</span>
+        <span style="display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12px;color:var(--chalk-soft);"><span style="width:16px;height:3px;border-radius:2px;background:var(--s5);"></span>O(n²)</span>
+        <span style="display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12px;color:var(--chalk-soft);"><span style="width:16px;height:3px;border-radius:2px;background:var(--s6);"></span>O(2ⁿ)</span>
+      </div>
+
+      <svg viewBox="0 0 1180 430" width="100%" role="img" aria-label="Gráfico de linhas comparando o crescimento de O(1), O(log n), O(n), O(n log n), O(n ao quadrado) e O(2 elevado a n) conforme o tamanho da entrada aumenta. As classes quadrática e exponencial disparam para fora do gráfico já com n pequeno.">
+        <rect x="70" y="24" width="964" height="360" fill="#1a241e"></rect>
+        <g stroke="#f4f1e6" stroke-opacity="0.11" stroke-width="1">
+          <line x1="70" y1="114" x2="1034" y2="114"></line>
+          <line x1="70" y1="204" x2="1034" y2="204"></line>
+          <line x1="70" y1="294" x2="1034" y2="294"></line>
+          <line x1="311" y1="24" x2="311" y2="384"></line>
+          <line x1="552" y1="24" x2="552" y2="384"></line>
+          <line x1="793" y1="24" x2="793" y2="384"></line>
+        </g>
+        <g stroke="#b7c2b9" stroke-width="1.75" stroke-linecap="round">
+          <line x1="70" y1="24" x2="70" y2="384"></line>
+          <line x1="70" y1="384" x2="1034" y2="384"></line>
+        </g>
+        <polygon points="70,18 66,28 74,28" fill="#b7c2b9"></polygon>
+        <polygon points="1040,384 1030,380 1030,388" fill="#b7c2b9"></polygon>
+        <text x="40" y="30" fill="#b7c2b9" style="font-family:'IBM Plex Mono',monospace;" font-size="12" text-anchor="end">ops</text>
+        <text x="1034" y="406" fill="#b7c2b9" style="font-family:'IBM Plex Mono',monospace;" font-size="12" text-anchor="end">tamanho da entrada (n)</text>
+
+        <path d="M70,372 L1034,372" fill="none" stroke="#3987e5" stroke-width="2.5" stroke-linecap="round"></path>
+        <path d="M70,374 C220,300 360,250 520,232 C680,214 860,206 1034,202" fill="none" stroke="#d95926" stroke-width="2.5" stroke-linecap="round"></path>
+        <path d="M70,376 C300,330 520,250 720,180 C840,138 940,110 1034,92" fill="none" stroke="#199e70" stroke-width="2.5" stroke-linecap="round"></path>
+        <path d="M70,378 C260,340 430,270 560,180 C650,118 720,70 774,30" fill="none" stroke="#c98500" stroke-width="2.5" stroke-linecap="round"></path>
+        <path d="M70,380 C210,352 330,300 420,220 C480,166 520,96 548,30" fill="none" stroke="#d55181" stroke-width="2.5" stroke-linecap="round"></path>
+        <path d="M70,382 C150,368 210,320 258,230 C288,172 306,96 318,30" fill="none" stroke="#9085e9" stroke-width="2.5" stroke-linecap="round"></path>
+
+        <g style="font-family:'IBM Plex Mono',monospace;" font-size="13" font-weight="600">
+          <text x="1042" y="376" fill="#8ab6ec">O(1)</text>
+          <text x="1042" y="206" fill="#eb8f6a">O(log n)</text>
+          <text x="1042" y="96" fill="#5cc79b">O(n)</text>
+          <text x="784" y="18" fill="#e0b25e" text-anchor="middle">O(n log n)</text>
+          <text x="556" y="18" fill="#e58aa9" text-anchor="middle">O(n²)</text>
+          <text x="322" y="18" fill="#b1a8f0" text-anchor="middle">O(2ⁿ)</text>
+        </g>
+
+        <text x="150" y="150" fill="#b7c2b9" style="font-family:'Caveat',cursive;" font-size="25" transform="rotate(-8 150 150)">impraticável já com n pequeno</text>
+        <path d="M300,150 C330,150 350,140 360,120" fill="none" stroke="#b7c2b9" stroke-width="1.5" stroke-dasharray="3 4"></path>
+        <polygon points="360,116 356,126 366,124" fill="#b7c2b9"></polygon>
+      </svg>
+
+      <!-- table view -->
+      <div style="overflow-x:auto;padding-top:20px;border-top:1.5px dashed rgba(244,241,230,0.28);margin-top:16px;">
+        <table style="border-collapse:collapse;width:100%;font-family:var(--mono);font-size:12.5px;color:var(--chalk-soft);">
+          <thead>
+            <tr style="color:var(--chalk-dim);text-align:right;">
+              <th style="text-align:left;padding:6px 12px;font-weight:600;">classe</th>
+              <th style="padding:6px 12px;font-weight:600;">n = 10</th>
+              <th style="padding:6px 12px;font-weight:600;">n = 100</th>
+              <th style="padding:6px 12px;font-weight:600;">n = 1 000</th>
+              <th style="padding:6px 12px;font-weight:600;">n = 1 000 000</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="text-align:right;border-top:1px solid rgba(244,241,230,0.2);"><td style="text-align:left;padding:6px 12px;color:#8ab6ec;">O(1)</td><td style="padding:6px 12px;">1</td><td style="padding:6px 12px;">1</td><td style="padding:6px 12px;">1</td><td style="padding:6px 12px;">1</td></tr>
+            <tr style="text-align:right;border-top:1px solid rgba(244,241,230,0.2);"><td style="text-align:left;padding:6px 12px;color:#eb8f6a;">O(log n)</td><td style="padding:6px 12px;">3</td><td style="padding:6px 12px;">7</td><td style="padding:6px 12px;">10</td><td style="padding:6px 12px;">20</td></tr>
+            <tr style="text-align:right;border-top:1px solid rgba(244,241,230,0.2);"><td style="text-align:left;padding:6px 12px;color:#5cc79b;">O(n)</td><td style="padding:6px 12px;">10</td><td style="padding:6px 12px;">100</td><td style="padding:6px 12px;">1 000</td><td style="padding:6px 12px;">10⁶</td></tr>
+            <tr style="text-align:right;border-top:1px solid rgba(244,241,230,0.2);"><td style="text-align:left;padding:6px 12px;color:#e0b25e;">O(n log n)</td><td style="padding:6px 12px;">33</td><td style="padding:6px 12px;">664</td><td style="padding:6px 12px;">9 966</td><td style="padding:6px 12px;">≈ 2·10⁷</td></tr>
+            <tr style="text-align:right;border-top:1px solid rgba(244,241,230,0.2);"><td style="text-align:left;padding:6px 12px;color:#e58aa9;">O(n²)</td><td style="padding:6px 12px;">100</td><td style="padding:6px 12px;">10⁴</td><td style="padding:6px 12px;">10⁶</td><td style="padding:6px 12px;">10¹²</td></tr>
+            <tr style="text-align:right;border-top:1px solid rgba(244,241,230,0.2);"><td style="text-align:left;padding:6px 12px;color:#b1a8f0;">O(2ⁿ)</td><td style="padding:6px 12px;">1 024</td><td style="padding:6px 12px;">≈ 10³⁰</td><td style="padding:6px 12px;">não termina</td><td style="padding:6px 12px;">não termina</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trilhas -->
+  <section id="trilhas" style="padding:60px 80px;border-top:1.5px solid var(--rule);">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;padding-bottom:28px;">
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <span class="kicker">O quadro de avisos</span>
+        <h2 class="hand" style="font-size:40px;color:var(--ink);">Comece por um clássico</h2>
+      </div>
+      <a href="#catalogo" style="font-size:14px;font-weight:600;color:var(--pine);">ver as 18 trilhas →</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;">
+
+      <a href="#estudo" class="card" style="padding:20px;display:flex;flex-direction:column;gap:11px;color:inherit;border-top:3px solid var(--theta);">
+        <div style="display:flex;align-items:center;justify-content:space-between;"><span class="chip">ordenação</span><span class="mono" style="font-size:12px;color:var(--theta);font-weight:600;">Θ(n log n)</span></div>
+        <h3 class="hand" style="font-size:26px;color:var(--ink);">Merge Sort</h3>
+        <p style="font-size:13px;line-height:1.55;color:var(--ink-soft);flex:1;">Divide ao meio até sublistas unitárias e as intercala ordenadas num buffer auxiliar.</p>
+        <span class="mono" style="font-size:11.5px;color:var(--ink-dim);">Ω(n log n) · O(n log n) · espaço O(n)</span>
+      </a>
+
+      <a href="#estudo" class="card-2" style="padding:20px;display:flex;flex-direction:column;gap:11px;color:inherit;border-top:3px solid var(--o);">
+        <div style="display:flex;align-items:center;justify-content:space-between;"><span class="chip">ordenação</span><span class="mono" style="font-size:12px;color:var(--o);font-weight:600;">O(n²)</span></div>
+        <h3 class="hand" style="font-size:26px;color:var(--ink);">Quick Sort</h3>
+        <p style="font-size:13px;line-height:1.55;color:var(--ink-soft);flex:1;">Particiona o array ao redor de um pivô e ordena as duas partes recursivamente.</p>
+        <span class="mono" style="font-size:11.5px;color:var(--ink-dim);">Ω(n log n) · pior O(n²) · espaço O(log n)</span>
+      </a>
+
+      <a href="#estudo" class="card" style="padding:20px;display:flex;flex-direction:column;gap:11px;color:inherit;border-top:3px solid var(--o);">
+        <div style="display:flex;align-items:center;justify-content:space-between;"><span class="chip">ordenação</span><span class="mono" style="font-size:12px;color:var(--o);font-weight:600;">O(n²)</span></div>
+        <h3 class="hand" style="font-size:26px;color:var(--ink);">Bubble Sort</h3>
+        <p style="font-size:13px;line-height:1.55;color:var(--ink-soft);flex:1;">Compara pares de elementos adjacentes e os troca sempre que estão fora de ordem.</p>
+        <span class="mono" style="font-size:11.5px;color:var(--ink-dim);">Ω(n) · pior O(n²) · espaço O(1)</span>
+      </a>
+
+      <a href="#estudo" class="card-2" style="padding:20px;display:flex;flex-direction:column;gap:11px;color:inherit;border-top:3px solid var(--theta);">
+        <div style="display:flex;align-items:center;justify-content:space-between;"><span class="chip">estrutura</span><span class="mono" style="font-size:12px;color:var(--theta);font-weight:600;">Θ(log n)</span></div>
+        <h3 class="hand" style="font-size:26px;color:var(--ink);">Árvore Binária de Busca</h3>
+        <p style="font-size:13px;line-height:1.55;color:var(--ink-soft);flex:1;">Nós à esquerda menores, à direita maiores que a raiz — busca e inserção eficientes.</p>
+        <span class="mono" style="font-size:11.5px;color:var(--ink-dim);">médio O(log n) · pior O(n) · espaço O(n)</span>
+      </a>
+
+      <a href="#estudo" class="card" style="padding:20px;display:flex;flex-direction:column;gap:11px;color:inherit;border-top:3px solid var(--o);">
+        <div style="display:flex;align-items:center;justify-content:space-between;"><span class="chip">estrutura</span><span class="mono" style="font-size:12px;color:var(--o);font-weight:600;">O(n)</span></div>
+        <h3 class="hand" style="font-size:26px;color:var(--ink);">Lista Encadeada</h3>
+        <p style="font-size:13px;line-height:1.55;color:var(--ink-soft);flex:1;">Nós ligados por ponteiros, sem posições contíguas. Inserção Θ(1) na cabeça.</p>
+        <span class="mono" style="font-size:11.5px;color:var(--ink-dim);">inserir Θ(1) · buscar O(n) · espaço O(n)</span>
+      </a>
+
+      <a href="#estudo" class="card-2" style="padding:20px;display:flex;flex-direction:column;gap:11px;color:inherit;border-top:3px solid var(--o);">
+        <div style="display:flex;align-items:center;justify-content:space-between;"><span class="chip">estrutura</span><span class="mono" style="font-size:12px;color:var(--o);font-weight:600;">O(n)</span></div>
+        <h3 class="hand" style="font-size:26px;color:var(--ink);">Tabela Hash</h3>
+        <p style="font-size:13px;line-height:1.55;color:var(--ink-soft);flex:1;">Chave-valor com função hash e encadeamento separado para tratar colisões.</p>
+        <span class="mono" style="font-size:11.5px;color:var(--ink-dim);">médio Θ(1) · pior O(n) · espaço O(n)</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- O que você acompanha -->
+  <section style="padding:56px 80px;border-top:1.5px solid var(--rule);background:var(--wall-tint);">
+    <h2 class="hand" style="font-size:34px;color:var(--ink);padding-bottom:24px;">O que fica na lousa a cada passo</h2>
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;">
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <svg viewBox="0 0 24 24" class="icon"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18"></path><path d="M9 21V9"></path></svg>
+        <h4 style="font-size:14px;font-weight:700;color:var(--ink);">O desenho da memória</h4>
+        <p style="font-size:13px;line-height:1.55;color:var(--ink-soft);">Barras, nós e arestas redesenhados a cada evento, com cores para partição, ponteiros e pivô.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <svg viewBox="0 0 24 24" class="icon"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        <h4 style="font-size:14px;font-weight:700;color:var(--ink);">A narração do professor</h4>
+        <p style="font-size:13px;line-height:1.55;color:var(--ink-soft);">Uma frase por evento, explicando a comparação ou a troca que acabou de acontecer.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <svg viewBox="0 0 24 24" class="icon"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+        <h4 style="font-size:14px;font-weight:700;color:var(--ink);">O pseudocódigo em foco</h4>
+        <p style="font-size:13px;line-height:1.55;color:var(--ink-soft);">A linha do passo atual fica destacada e o painel rola sozinho para acompanhar.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <svg viewBox="0 0 24 24" class="icon"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+        <h4 style="font-size:14px;font-weight:700;color:var(--ink);">O custo: Ω, Θ e O</h4>
+        <p style="font-size:13px;line-height:1.55;color:var(--ink-soft);">Melhor, médio e pior caso, mais o espaço — com o símbolo certo quando os limites coincidem.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="sobre" style="display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:32px;padding:44px 80px 52px;border-top:1.5px solid var(--rule);">
+    <div style="display:flex;flex-direction:column;gap:12px;max-width:340px;">
+      <span class="hand" style="font-size:26px;color:var(--ink);">Big<span style="color:var(--o);"> O</span> <span style="color:var(--omega);">Ω</span> <span style="color:var(--theta);">Θ</span></span>
+      <p style="font-size:13px;line-height:1.6;color:var(--ink-dim);">Laboratório de algoritmos para estudantes de computação. Visualização passo a passo, feita para a sala de aula.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <span class="kicker">Trilhas</span>
+      <a href="#trilhas" style="font-size:13px;color:var(--ink-soft);">Ordenação</a>
+      <a href="#trilhas" style="font-size:13px;color:var(--ink-soft);">Estruturas de dados</a>
+      <a href="#crescimento" style="font-size:13px;color:var(--ink-soft);">Curvas de crescimento</a>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <span class="kicker">Sobre</span>
+      <a href="#sobre" style="font-size:13px;color:var(--ink-soft);">O projeto</a>
+      <a href="#sobre" style="font-size:13px;color:var(--ink-soft);">Referências</a>
+      <a href="#sobre" style="font-size:13px;color:var(--ink-soft);">Contribuir</a>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+</body>
+</html>

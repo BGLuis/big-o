@@ -1,0 +1,8 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "title": "Página inicial", "x": 0, "y": 0, "w": 1440, "h": 3360 },
+    { "file": "Catalog.dc.html", "title": "Catálogo de trilhas", "x": 1560, "y": 0, "w": 1440, "h": 1880 },
+    { "file": "Lesson.dc.html", "title": "Estudo passo a passo", "x": 3120, "y": 0, "w": 1440, "h": 1080 }
+  ],
+  "launch": { "view": "canvas" }
+}

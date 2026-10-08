@@ -1,0 +1,30 @@
+@use "styles/tokens";
+@use "styles/variables" as *;
+
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  width: 100%;
+  background: var(--color-bg-main, #081425);
+  color: var(--color-text-main, #d8e3fb);
+  font-family: var(--font-family-main, system-ui, -apple-system, sans-serif);
+}
+
+.app-shell {
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+}
+
+.app-main {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+

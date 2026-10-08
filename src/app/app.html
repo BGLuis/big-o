@@ -1,0 +1,9 @@
+<div class="app-shell">
+  <app-side-nav-bar
+    [collapsed]="isSidebarCollapsed()"
+    (collapseToggled)="toggleSidebar()"
+  />
+  <main class="app-main">
+    <router-outlet />
+  </main>
+</div>
