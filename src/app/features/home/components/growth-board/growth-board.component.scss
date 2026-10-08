@@ -1,0 +1,115 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.growth-board {
+  background-color: #26332c;
+  border: 1px solid #1f2a24;
+  border-radius: 6px;
+  padding: 22px 24px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @media (max-width: 640px) {
+    padding: 16px;
+  }
+}
+
+.complexity-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-bottom: 8px;
+
+  .complexity-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    .tag-color {
+      width: 16px;
+      height: 3px;
+      border-radius: 2px;
+    }
+
+    code {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: #d7ded6;
+    }
+
+    &.tag-o1 .tag-color { background-color: #3987e5; }
+    &.tag-ologn .tag-color { background-color: #d95926; }
+    &.tag-on .tag-color { background-color: #199e70; }
+    &.tag-onlogn .tag-color { background-color: #c98500; }
+    &.tag-on2 .tag-color { background-color: #d55181; }
+    &.tag-o2n .tag-color { background-color: #9085e9; }
+  }
+}
+
+.chart-wrapper {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+
+  .growth-chart-img {
+    width: 100%;
+    height: auto;
+    max-height: 460px;
+    object-fit: contain;
+    display: block;
+  }
+}
+
+.table-responsive {
+  overflow-x: auto;
+  border-top: 1px dashed rgba(244, 241, 230, 0.28);
+  padding-top: 16px;
+}
+
+.growth-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12.5px;
+  color: #d7ded6;
+
+  th, td {
+    padding: 8px 12px;
+    border-top: 1px solid rgba(244, 241, 230, 0.15);
+  }
+
+  thead th {
+    border-top: none;
+    font-weight: 600;
+    color: #b7c2b9;
+  }
+
+  .th-class, .td-class {
+    text-align: left;
+    font-weight: 600;
+  }
+
+  .th-num, .td-num {
+    text-align: right;
+  }
+
+  .row-badge {
+    font-weight: 500;
+
+    &.badge-o1 { color: #8ab6ec; }
+    &.badge-ologn { color: #eb8f6a; }
+    &.badge-on { color: #5cc79b; }
+    &.badge-onlogn { color: #e0b25e; }
+    &.badge-on2 { color: #e58aa9; }
+    &.badge-o2n { color: #b1a8f0; }
+  }
+
+  .unfeasible {
+    color: #eb8f6a;
+    font-style: italic;
+  }
+}

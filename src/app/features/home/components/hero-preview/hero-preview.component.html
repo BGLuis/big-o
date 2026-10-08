@@ -1,0 +1,55 @@
+<div class="chalkboard-card" aria-label="Quadro demonstrativo interativo do Quick Sort">
+  <!-- Cabeçalho do Card -->
+  <div class="card-header">
+    <span class="card-title">Quick Sort · passo 7 / 24</span>
+    <span class="card-badge">linear</span>
+  </div>
+
+  <!-- Gráfico de Barras da Lousa -->
+  <div class="bars-container" aria-label="Visualização do particionamento do Quick Sort" role="img">
+    <div class="bars-stage">
+      <div class="bar bar-less" style="height: 60px;" title="Elemento menor ou igual ao pivô"></div>
+      <div class="bar bar-less" style="height: 36px;" title="Elemento menor ou igual ao pivô"></div>
+      <div class="bar bar-less" style="height: 78px;" title="Elemento menor ou igual ao pivô"></div>
+      <div class="bar bar-comparing" style="height: 93px;" title="Elemento sendo comparado"></div>
+      <div class="bar bar-neutral" style="height: 132px;" title="Elemento não particionado"></div>
+      <div class="bar bar-neutral" style="height: 144px;" title="Elemento não particionado"></div>
+      <div class="bar bar-neutral" style="height: 84px;" title="Elemento não particionado"></div>
+      <div class="bar bar-neutral" style="height: 111px;" title="Elemento não particionado"></div>
+      <div class="bar bar-pivot" style="height: 99px;" title="Pivô atual"></div>
+      <div class="bar bar-less" style="height: 21px;" title="Elemento menor ou igual ao pivô"></div>
+    </div>
+
+    <!-- Legenda das Barras -->
+    <div class="bars-legend">
+      <span class="legend-item">
+        <span class="legend-swatch swatch-less" aria-hidden="true"></span>
+        <span class="legend-text">≤ pivô</span>
+      </span>
+      <span class="legend-item">
+        <span class="legend-swatch swatch-comparing" aria-hidden="true"></span>
+        <span class="legend-text">comparando</span>
+      </span>
+      <span class="legend-item">
+        <span class="legend-swatch swatch-pivot" aria-hidden="true"></span>
+        <span class="legend-text">pivô</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- Narração do Professor -->
+  <div class="chalkboard-narration">
+    <p class="narration-text">
+      <span class="narration-step">passo 7:</span>
+      A[3] = 33 ≤ pivô 58 — incrementa <code>i</code> e troca <code>A[i]</code> com <code>A[j]</code>.
+    </p>
+  </div>
+
+  <!-- Pseudocódigo com linha em foco -->
+  <div class="code-block" aria-label="Trecho de pseudocódigo com linha 12 destacada">
+    <pre class="code-lines"><code><span class="code-line"><span class="line-num">11</span>  para j de inicio até fim - 1 faça</span>
+<span class="code-line line-highlighted"><span class="line-num">12</span>    se A[j] &lt;= pivo então</span>
+<span class="code-line"><span class="line-num">13</span>      i = i + 1</span>
+<span class="code-line"><span class="line-num">14</span>      trocar(A[i], A[j])</span></code></pre>
+  </div>
+</div>

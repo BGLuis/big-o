@@ -1,0 +1,312 @@
+<div class="landing-page">
+  <!-- 1. Header / Navbar -->
+  <header class="landing-header" role="banner">
+    <div class="header-inner">
+      <a routerLink="/" class="brand-link" aria-label="Big O - Laboratório de algoritmos">
+        <span class="logo-title">Big <span class="accent-o">O</span></span>
+        <span class="logo-symbol symbol-omega" aria-hidden="true">Ω</span>
+        <span class="logo-symbol symbol-theta" aria-hidden="true">Θ</span>
+        <span class="logo-tagline">laboratório de algoritmos</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="desktop-nav" aria-label="Navegação da página inicial">
+        <ul class="nav-menu">
+          <li><a href="#notacao" class="nav-item">Notação</a></li>
+          <li><a href="#crescimento" class="nav-item">Crescimento</a></li>
+          <li><a href="#trilhas" class="nav-item">Trilhas</a></li>
+        </ul>
+        <a [routerLink]="['/ordenacao', 'quick-sort']" class="btn-primary btn-sm">
+          Entrar na aula
+        </a>
+      </nav>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button
+        type="button"
+        class="mobile-menu-toggle"
+        (click)="toggleMobileMenu()"
+        [attr.aria-expanded]="isMobileMenuOpen()"
+        aria-controls="mobile-nav-menu"
+        aria-label="Abrir menu de navegação"
+      >
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown Nav -->
+    @if (isMobileMenuOpen()) {
+      <nav id="mobile-nav-menu" class="mobile-nav" aria-label="Navegação móvel">
+        <ul class="mobile-menu-list">
+          <li><a href="#notacao" class="mobile-nav-item" (click)="closeMobileMenu()">Notação</a></li>
+          <li><a href="#crescimento" class="mobile-nav-item" (click)="closeMobileMenu()">Crescimento</a></li>
+          <li><a href="#trilhas" class="mobile-nav-item" (click)="closeMobileMenu()">Trilhas</a></li>
+          <li class="mobile-cta-item">
+            <a [routerLink]="['/ordenacao', 'quick-sort']" class="btn-primary" (click)="closeMobileMenu()">
+              Entrar na aula
+            </a>
+          </li>
+        </ul>
+      </nav>
+    }
+  </header>
+
+  <main id="main-content">
+    <!-- 2. Hero Section -->
+    <section class="hero-section" aria-labelledby="hero-heading">
+      <div class="hero-grid">
+        <!-- Coluna da Esquerda: Apresentação -->
+        <div class="hero-content">
+          <p class="tagline">Notação assintótica · para quem está aprendendo</p>
+          <h1 id="hero-heading" class="hero-title">
+            Veja o algoritmo rodar<br>
+            e entenda <span class="highlight-how-much">quanto</span> ele custa.
+          </h1>
+          <p class="hero-description">
+            Cada estrutura de dados e cada ordenação executada passo a passo, com o desenho na lousa,
+            a narração de cada comparação e a linha do pseudocódigo em foco. E, ao lado, o custo:
+            <strong class="cost-tag tag-big-o">O</strong>,
+            <strong class="cost-tag tag-omega">Ω</strong> e
+            <strong class="cost-tag tag-theta">Θ</strong>.
+          </p>
+
+          <div class="hero-actions">
+            <a [routerLink]="['/ordenacao', 'quick-sort']" class="btn-primary btn-hero">
+              <img src="assets/hero-play.svg" alt="" class="btn-icon" aria-hidden="true" width="17" height="17">
+              <span>Começar a estudar</span>
+            </a>
+            <a href="#crescimento" class="btn-secondary btn-hero">
+              Ver as curvas de crescimento
+            </a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number">11</span>
+              <span class="stat-label">algoritmos de ordenação</span>
+            </div>
+            <div class="stat-divider" aria-hidden="true"></div>
+            <div class="stat-item">
+              <span class="stat-number">7</span>
+              <span class="stat-label">estruturas de dados</span>
+            </div>
+            <div class="stat-divider" aria-hidden="true"></div>
+            <div class="stat-item">
+              <span class="stat-number font-symbols">Ω Θ O</span>
+              <span class="stat-label">as três notações, sempre à vista</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coluna da Direita: Card Demonstrativo da Lousa (Quick Sort) -->
+        <div class="hero-preview">
+          <app-hero-preview />
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Seção Notação ("Três formas de dizer 'quanto custa'") -->
+    <section id="notacao" class="notation-section" aria-labelledby="notation-heading">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 id="notation-heading" class="section-title">Três formas de dizer "quanto custa"</h2>
+          <p class="section-subtitle">a mesma ideia, três limites diferentes</p>
+        </div>
+
+        <div class="notation-cards-grid">
+          <!-- Card O(n) -->
+          <article class="notation-card card-big-o">
+            <header class="notation-card-header">
+              <span class="notation-symbol symbol-o">O(n)</span>
+              <span class="notation-limit-label">limite superior</span>
+            </header>
+            <p class="notation-description">
+              No <strong>máximo</strong> tão custoso. Descreve o pior caso — o algoritmo nunca cresce mais rápido do que isso.
+            </p>
+            <footer class="notation-example">
+              <code>busca linear = O(n) · o alvo pode ser o último</code>
+            </footer>
+          </article>
+
+          <!-- Card Ω(n) -->
+          <article class="notation-card card-omega">
+            <header class="notation-card-header">
+              <span class="notation-symbol symbol-omega">Ω(n)</span>
+              <span class="notation-limit-label">limite inferior</span>
+            </header>
+            <p class="notation-description">
+              No <strong>mínimo</strong> esse esforço. Descreve o melhor caso — o algoritmo nunca é mais rápido do que isso.
+            </p>
+            <footer class="notation-example">
+              <code>busca linear = Ω(1) · o alvo pode ser o primeiro</code>
+            </footer>
+          </article>
+
+          <!-- Card Θ(n) -->
+          <article class="notation-card card-theta">
+            <header class="notation-card-header">
+              <span class="notation-symbol symbol-theta">Θ(n)</span>
+              <span class="notation-limit-label">limite justo</span>
+            </header>
+            <p class="notation-description">
+              Superior e inferior <strong>coincidem</strong>. O crescimento é exatamente essa ordem, em todos os casos.
+            </p>
+            <footer class="notation-example">
+              <code>merge sort = Θ(n log n) · sempre</code>
+            </footer>
+          </article>
+        </div>
+
+        <!-- Destaque Prático -->
+        <div class="notation-note">
+          <p>
+            <span class="note-label">na prática:</span>
+            Quick Sort é <strong class="text-omega">Ω(n log n)</strong> no melhor caso e
+            <strong class="text-big-o">O(n²)</strong> no pior — como não coincidem, não existe um Θ único para ele.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Seção Crescimento ("Como cada classe cresce") -->
+    <section id="crescimento" class="growth-section" aria-labelledby="growth-heading">
+      <div class="section-container">
+        <div class="growth-intro">
+          <p class="tagline">Por que a ordem importa</p>
+          <h2 id="growth-heading" class="section-title">Como cada classe cresce</h2>
+          <p class="growth-description">
+            Mesmo eixo, mesma entrada. A diferença entre <code>O(n)</code> e <code>O(n²)</code> não aparece com 10 elementos — aparece com 10 mil.
+          </p>
+        </div>
+
+        <app-growth-board />
+      </div>
+    </section>
+
+    <!-- 5. Seção Trilhas ("Comece por um clássico") -->
+    <section id="trilhas" class="tracks-section" aria-labelledby="tracks-heading">
+      <div class="section-container">
+        <div class="tracks-header">
+          <div class="tracks-title-group">
+            <p class="tagline">O quadro de avisos</p>
+            <h2 id="tracks-heading" class="section-title">Comece por um clássico</h2>
+          </div>
+          <a [routerLink]="['/ordenacao', 'quick-sort']" class="see-all-link">
+            ver as 18 trilhas →
+          </a>
+        </div>
+
+        <div class="tracks-grid">
+          @for (track of classicalTracks; track track.id) {
+            <a [routerLink]="track.route" class="track-card" [attr.aria-label]="'Abrir aula de ' + track.title">
+              <div class="track-card-top">
+                <span class="track-category-badge">{{ track.category }}</span>
+                <span
+                  class="track-complexity"
+                  [class.badge-theta]="track.complexityType === 'theta'"
+                  [class.badge-big-o]="track.complexityType === 'big-o'"
+                >
+                  {{ track.complexity }}
+                </span>
+              </div>
+              <h3 class="track-title">{{ track.title }}</h3>
+              <p class="track-desc">{{ track.description }}</p>
+              <footer class="track-footer">
+                <code>{{ track.summary }}</code>
+              </footer>
+            </a>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Seção Metodologia ("O que fica na lousa a cada passo") -->
+    <section class="methodology-section" aria-labelledby="methodology-heading">
+      <div class="section-container">
+        <h2 id="methodology-heading" class="methodology-title">O que fica na lousa a cada passo</h2>
+
+        <div class="features-grid">
+          <!-- Pilar 1 -->
+          <article class="feature-card">
+            <div class="feature-icon-wrapper" aria-hidden="true">
+              <img src="assets/feature-memory.svg" alt="" width="22" height="22" />
+            </div>
+            <h3 class="feature-title">O desenho da memória</h3>
+            <p class="feature-description">
+              Barras, nós e arestas redesenhados a cada evento, com cores para partição, ponteiros e pivô.
+            </p>
+          </article>
+
+          <!-- Pilar 2 -->
+          <article class="feature-card">
+            <div class="feature-icon-wrapper" aria-hidden="true">
+              <img src="assets/feature-narration.svg" alt="" width="22" height="22" />
+            </div>
+            <h3 class="feature-title">A narração do professor</h3>
+            <p class="feature-description">
+              Uma frase por evento, explicando a comparação ou a troca que acabou de acontecer.
+            </p>
+          </article>
+
+          <!-- Pilar 3 -->
+          <article class="feature-card">
+            <div class="feature-icon-wrapper" aria-hidden="true">
+              <img src="assets/feature-pseudocode.svg" alt="" width="22" height="22" />
+            </div>
+            <h3 class="feature-title">O pseudocódigo em foco</h3>
+            <p class="feature-description">
+              A linha do passo atual fica destacada e o painel rola sozinho para acompanhar.
+            </p>
+          </article>
+
+          <!-- Pilar 4 -->
+          <article class="feature-card">
+            <div class="feature-icon-wrapper" aria-hidden="true">
+              <img src="assets/feature-cost.svg" alt="" width="22" height="22" />
+            </div>
+            <h3 class="feature-title">O custo: Ω, Θ e O</h3>
+            <p class="feature-description">
+              Melhor, médio e pior caso, mais o espaço — com o símbolo certo quando os limites coincidem.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 7. Footer -->
+  <footer class="landing-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-col footer-col-brand">
+        <div class="footer-logo">
+          <span class="logo-title">Big <span class="accent-o">O</span></span>
+          <span class="logo-symbol symbol-omega" aria-hidden="true">Ω</span>
+          <span class="logo-symbol symbol-theta" aria-hidden="true">Θ</span>
+        </div>
+        <p class="footer-about">
+          Laboratório de algoritmos para estudantes de computação. Visualização passo a passo, feita para a sala de aula.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Trilhas</h4>
+        <ul class="footer-links">
+          <li><a [routerLink]="['/ordenacao', 'quick-sort']">Ordenação</a></li>
+          <li><a [routerLink]="['/data-structures', 'array']">Estruturas de dados</a></li>
+          <li><a href="#crescimento">Curvas de crescimento</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Sobre</h4>
+        <ul class="footer-links">
+          <li><a href="#notacao">O projeto</a></li>
+          <li><a href="#metodologia">Referências</a></li>
+          <li><a href="https://github.com" target="_blank" rel="noopener noreferrer">Contribuir</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</div>

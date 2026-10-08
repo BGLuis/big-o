@@ -32,7 +32,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'ordenacao/quick-sort',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent)
   }
 ];

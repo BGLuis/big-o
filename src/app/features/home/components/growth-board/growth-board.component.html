@@ -1,0 +1,69 @@
+<div class="growth-board">
+  <!-- Legendas de Cores das Classes -->
+  <div class="complexity-tags" aria-label="Legenda das ordens de crescimento">
+    <span class="complexity-tag tag-o1">
+      <span class="tag-color" aria-hidden="true"></span>
+      <code>O(1)</code>
+    </span>
+    <span class="complexity-tag tag-ologn">
+      <span class="tag-color" aria-hidden="true"></span>
+      <code>O(log n)</code>
+    </span>
+    <span class="complexity-tag tag-on">
+      <span class="tag-color" aria-hidden="true"></span>
+      <code>O(n)</code>
+    </span>
+    <span class="complexity-tag tag-onlogn">
+      <span class="tag-color" aria-hidden="true"></span>
+      <code>O(n log n)</code>
+    </span>
+    <span class="complexity-tag tag-on2">
+      <span class="tag-color" aria-hidden="true"></span>
+      <code>O(n²)</code>
+    </span>
+    <span class="complexity-tag tag-o2n">
+      <span class="tag-color" aria-hidden="true"></span>
+      <code>O(2ⁿ)</code>
+    </span>
+  </div>
+
+  <!-- Gráfico SVG Vetorial de Curvas de Crescimento -->
+  <div class="chart-wrapper">
+    <img
+      src="assets/growth-chart.svg"
+      alt="Gráfico de linhas comparando o crescimento de O(1), O(log n), O(n), O(n log n), O(n ao quadrado) e O(2 elevado a n) conforme o tamanho da entrada n aumenta. As classes quadrática e exponencial disparam para fora do gráfico já com n pequeno."
+      class="growth-chart-img"
+      width="1230"
+      height="449"
+    />
+  </div>
+
+  <!-- Tabela de Comparação de Crescimento -->
+  <div class="table-responsive">
+    <table class="growth-table" aria-label="Tabela de comparações de operações assintóticas para diferentes tamanhos de entrada">
+      <caption class="sr-only">Número de operações executadas por cada classe de complexidade para n igual a 10, 100, 1000 e 1000000</caption>
+      <thead>
+        <tr>
+          <th scope="col" class="th-class">classe</th>
+          <th scope="col" class="th-num">n = 10</th>
+          <th scope="col" class="th-num">n = 100</th>
+          <th scope="col" class="th-num">n = 1 000</th>
+          <th scope="col" class="th-num">n = 1 000 000</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of growthRows; track row.notation) {
+          <tr>
+            <th scope="row" class="td-class">
+              <span class="row-badge" [class]="row.colorClass">{{ row.notation }}</span>
+            </th>
+            <td class="td-num">{{ row.n10 }}</td>
+            <td class="td-num">{{ row.n100 }}</td>
+            <td class="td-num">{{ row.n1k }}</td>
+            <td class="td-num" [class.unfeasible]="row.n1m === 'não termina'">{{ row.n1m }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

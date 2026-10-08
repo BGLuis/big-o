@@ -13,6 +13,7 @@ body, html {
   background: var(--color-bg-main, #081425);
   color: var(--color-text-main, #d8e3fb);
   font-family: var(--font-family-main, system-ui, -apple-system, sans-serif);
+  scroll-behavior: smooth;
 }
 
 .app-shell {
@@ -26,5 +27,75 @@ body, html {
   flex: 1;
   overflow: hidden;
   position: relative;
+}
+
+/* Utilitários Compartilhados */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.btn-primary, .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  text-decoration: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:focus-visible {
+    outline: 2px solid #17603e;
+    outline-offset: 3px;
+  }
+}
+
+.btn-primary {
+  gap: 9px;
+  background-color: #17603e;
+  color: #ffffff;
+  font-weight: 700;
+  border: 1px solid #17603e;
+
+  &:hover {
+    background-color: #124d31;
+    border-color: #124d31;
+  }
+
+  &.btn-sm { height: 40px; padding: 0 22px; }
+  &.btn-hero { height: 46px; padding: 0 22px; }
+}
+
+.btn-secondary {
+  background-color: #ffffff;
+  color: #1c2621;
+  font-weight: 600;
+  border: 1px solid #6f7d74;
+  height: 46px;
+  padding: 0 22px;
+
+  &:hover {
+    background-color: #f3f6f3;
+    border-color: #1c2621;
+  }
+}
+
+.tagline {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #5a6660;
+  margin: 0;
 }
 
