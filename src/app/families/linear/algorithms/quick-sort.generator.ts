@@ -55,24 +55,35 @@ export function* generateQuickSortEvents(initialElements: readonly LinearElement
 
     for (let j = low; j < high; j++) {
       const current = elements[j];
+      const currentPointers = [
+        ...(i >= 0 ? [{ label: 'i', index: i, color: 'var(--o-lt)' }] : []),
+        { label: 'j', index: j, color: 'var(--coral-lt)' }
+      ];
 
       yield {
         type: 'compare',
         ids: [current.id, pivot.id],
         result: current.value <= pivot.value ? -1 : 1,
-        narration: `Comparando elemento atual ${current.value} (índice ${j}) com o pivô ${pivot.value}.`,
-        pseudoCodeLine: 13
+        narration: `Comparando A[${j}] = ${current.value} com o pivô ${pivot.value}.`,
+        pseudoCodeLine: 13,
+        pointers: currentPointers
       };
 
       if (current.value <= pivot.value) {
         i++;
+        const pointersAfter = [
+          { label: 'i', index: i, color: 'var(--o-lt)' },
+          { label: 'j', index: j, color: 'var(--coral-lt)' }
+        ];
+
         if (i !== j) {
           const swapTarget = elements[i];
           yield {
             type: 'swap',
             ids: [swapTarget.id, current.id],
-            narration: `Elemento ${current.value} <= ${pivot.value}: trocando ${swapTarget.value} (índice ${i}) com ${current.value} (índice ${j}).`,
-            pseudoCodeLine: 15
+            narration: `A[${j}] = ${current.value} é ≤ ao pivô ${pivot.value} — incrementa i para ${i} e troca A[i] com A[j].`,
+            pseudoCodeLine: 15,
+            pointers: pointersAfter
           };
 
           // Apply swap locally to track array state

@@ -1,6 +1,13 @@
+export interface PointerInfo {
+  readonly label: string;
+  readonly index: number;
+  readonly color?: string;
+}
+
 export interface BaseEvent {
   readonly narration: string;
   readonly pseudoCodeLine?: number;
+  readonly pointers?: readonly PointerInfo[];
 }
 
 export type CoreEvent =

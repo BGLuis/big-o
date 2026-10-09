@@ -99,26 +99,27 @@ import { ThemeService } from '../../core/services/theme.service';
   ],
   template: `
     <div class="visualizer-page">
-      <!-- Top Contextual Toolbar -->
-      <header class="visualizer-header">
+      <!-- Top Contextual Toolbar / Header Card -->
+      <header class="card visualizer-header">
         <div class="header-main-info">
+          <span class="kicker">{{ currentContent().kicker || 'Ordenação · divisão e conquista' }}</span>
           <div class="title-row">
-            <h1 class="algo-title">{{ currentContent().title }}</h1>
-            <span class="badge badge-complexity">{{ currentContent().timeComplexity.average }} Médio</span>
-            <span class="badge badge-family">{{ currentContent().family }}</span>
+            <h1 class="algo-title hand">{{ currentContent().title.split(' (')[0] }}</h1>
+            <span class="mono comp-badge-omega">{{ currentContent().timeComplexity.best }}</span>
+            <span class="mono comp-badge-o">{{ currentContent().timeComplexity.worst }}</span>
           </div>
           <p class="algo-description">{{ currentContent().shortDescription }}</p>
         </div>
 
         <div class="header-actions">
-          <!-- Algorithm / Data Structure Selector -->
-          <div class="control-group">
-            <label for="algo-select" class="sr-only">Selecione a Ordenação ou Estrutura</label>
+          <!-- Algorithm Selector -->
+          <div class="select-wrapper">
             <select
               id="algo-select"
               class="select-input"
               [value]="selectedAlgorithmId()"
-              (change)="onAlgorithmChange($event)">
+              (change)="onAlgorithmChange($event)"
+              aria-label="Selecione o algoritmo ou estrutura">
               <optgroup label="Ordenação">
                 @for (algo of sortingAlgorithms; track algo.id) {
                   <option [value]="algo.id">{{ algo.title }}</option>
@@ -130,6 +131,9 @@ import { ThemeService } from '../../core/services/theme.service';
                 }
               </optgroup>
             </select>
+            <svg class="select-chevron" viewBox="0 0 24 24" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
           </div>
 
           <!-- Randomize / Reset Data Button -->
@@ -138,21 +142,21 @@ import { ThemeService } from '../../core/services/theme.service';
             class="btn btn-secondary"
             (click)="generateRandomData()"
             aria-label="Gerar novos dados aleatórios">
-            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
             </svg>
-            <span>Novos Dados</span>
+            <span>Novos dados</span>
           </button>
 
           <!-- Theme Toggle -->
           <button
             type="button"
-            class="btn btn-icon-only"
+            class="ctrl"
             (click)="themeService.toggleTheme()"
             [attr.aria-label]="themeService.isDark() ? 'Alternar para tema claro' : 'Alternar para tema escuro'"
             [title]="themeService.isDark() ? 'Tema claro' : 'Tema escuro'">
             @if (themeService.isDark()) {
-              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <circle cx="12" cy="12" r="5"/>
                 <line x1="12" y1="1" x2="12" y2="3"/>
                 <line x1="12" y1="21" x2="12" y2="23"/>
@@ -164,8 +168,16 @@ import { ThemeService } from '../../core/services/theme.service';
                 <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
               </svg>
             } @else {
-              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
               </svg>
             }
           </button>
@@ -226,7 +238,7 @@ import { ThemeService } from '../../core/services/theme.service';
 
           <!-- Step Narration Banner -->
           <div class="narration-bar" role="status" aria-live="polite">
-            <span class="narration-prefix">Passo {{ currentStepIndex() }} de {{ totalSteps() }}:</span>
+            <span class="narration-step hand">passo {{ currentStepIndex() }} / {{ totalSteps() }}</span>
             <span class="narration-text">
               {{ currentEvent()?.narration || 'Aguardando início da visualização...' }}
             </span>
@@ -238,11 +250,11 @@ import { ThemeService } from '../../core/services/theme.service';
               <!-- Reset -->
               <button
                 type="button"
-                class="btn-control"
+                class="ctrl"
                 (click)="onReset()"
-                aria-label="Reiniciar visualização"
+                aria-label="Reiniciar"
                 title="Reiniciar">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M1 4v6h6M23 20v-6h-6"/>
                   <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
                 </svg>
@@ -251,21 +263,21 @@ import { ThemeService } from '../../core/services/theme.service';
               <!-- Step Back -->
               <button
                 type="button"
-                class="btn-control"
+                class="ctrl"
                 (click)="onStepBackward()"
                 [disabled]="!canStepBackward()"
-                aria-label="Retroceder um passo"
+                aria-label="Passo anterior"
                 title="Passo anterior">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
                   <polygon points="19 20 9 12 19 4 19 20"/>
-                  <line x1="5" y1="19" x2="5" y2="5"/>
+                  <line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2"/>
                 </svg>
               </button>
 
               <!-- Play / Pause -->
               <button
                 type="button"
-                class="btn-control btn-play"
+                class="ctrl play"
                 (click)="onTogglePlay()"
                 [attr.aria-label]="isPlaying() ? 'Pausar animação' : 'Reproduzir animação'"
                 [title]="isPlaying() ? 'Pausar' : 'Reproduzir'">
@@ -276,7 +288,7 @@ import { ThemeService } from '../../core/services/theme.service';
                   </svg>
                 } @else {
                   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <polygon points="5 3 19 12 5 21 5 3"/>
+                    <polygon points="6 4 20 12 6 20 6 4"/>
                   </svg>
                 }
               </button>
@@ -284,20 +296,20 @@ import { ThemeService } from '../../core/services/theme.service';
               <!-- Step Forward -->
               <button
                 type="button"
-                class="btn-control"
+                class="ctrl"
                 (click)="onStepForward()"
                 [disabled]="!canStepForward()"
-                aria-label="Avançar um passo"
+                aria-label="Próximo passo"
                 title="Próximo passo">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <polygon points="5 4 15 12 5 20 5 4"/>
-                  <line x1="19" y1="5" x2="19" y2="19"/>
+                <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
+                  <polygon points="5 4 19 12 5 20 5 4"/>
+                  <line x1="20" y1="5" x2="20" y2="19" stroke="currentColor" stroke-width="2"/>
                 </svg>
               </button>
             </div>
 
             <!-- Scrubber Slider -->
-            <div class="scrubber-container">
+            <div class="scrubber-wrapper">
               <label for="timeline-scrubber" class="sr-only">Linha do tempo de passos</label>
               <input
                 id="timeline-scrubber"
@@ -310,24 +322,27 @@ import { ThemeService } from '../../core/services/theme.service';
                 (input)="onScrub($event)"
                 aria-label="Progresso da visualização"
               />
-              <span class="scrubber-badge" aria-hidden="true">
+              <span class="scrubber-counter mono" aria-hidden="true">
                 {{ currentStepIndex() }} / {{ totalSteps() }}
               </span>
             </div>
 
             <!-- Speed Selector -->
-            <div class="speed-selector">
+            <div class="speed-wrapper">
               <label for="speed-select" class="sr-only">Velocidade de reprodução</label>
               <select
                 id="speed-select"
-                class="speed-select"
+                class="speed-select mono"
                 [value]="currentSpeed()"
                 (change)="onSpeedChange($event)">
-                <option value="0.5">0.5x</option>
-                <option value="1">1.0x</option>
-                <option value="2">2.0x</option>
-                <option value="4">4.0x</option>
+                <option value="0.5">0.5×</option>
+                <option value="1">1.0×</option>
+                <option value="2">2.0×</option>
+                <option value="4">4.0×</option>
               </select>
+              <svg class="speed-chevron" viewBox="0 0 24 24" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
             </div>
           </div>
         </section>
@@ -358,34 +373,41 @@ import { ThemeService } from '../../core/services/theme.service';
           <div class="tab-content">
             @if (activeTab() === 'explanation') {
               <div class="explanation-tab">
-                <h2 class="panel-section-title">Como funciona</h2>
-                <p class="explanation-body">{{ currentContent().fullExplanation }}</p>
-
-                <h3 class="panel-section-title">Complexidade</h3>
-                <div class="complexity-grid">
-                  <div class="complexity-box">
-                    <span class="comp-label">Melhor caso</span>
-                    <span class="comp-value">{{ currentContent().timeComplexity.best }}</span>
-                  </div>
-                  <div class="complexity-box">
-                    <span class="comp-label">Médio</span>
-                    <span class="comp-value">{{ currentContent().timeComplexity.average }}</span>
-                  </div>
-                  <div class="complexity-box">
-                    <span class="comp-label">Pior caso</span>
-                    <span class="comp-value">{{ currentContent().timeComplexity.worst }}</span>
-                  </div>
-                  <div class="complexity-box">
-                    <span class="comp-label">Espaço</span>
-                    <span class="comp-value">{{ currentContent().spaceComplexity }}</span>
-                  </div>
-                </div>
+                <p class="tab-subtitle">Visão conceitual e análise de complexidade da técnica utilizada.</p>
+                <div class="explanation-body">{{ currentContent().fullExplanation }}</div>
               </div>
             } @else {
               <div class="code-tab">
+                <p class="tab-subtitle">A linha destacada é o passo atual. O painel acompanha a execução automaticamente.</p>
                 <pre class="pseudocode-container" tabindex="0" aria-label="Código canônico do algoritmo"><code>@for (line of currentContent().pseudoCode; track $index) {<div class="code-line" [class.highlighted-line]="activeCodeLine() === ($index + 1)"><span class="line-number">{{ $index + 1 }}</span><span class="line-text">{{ line }}</span></div>}</code></pre>
               </div>
             }
+
+            <!-- Bottom Complexity Grid (matching Figma) -->
+            <div class="complexity-section">
+              <span class="kicker kicker-sm">Custo · Ω melhor · O pior</span>
+              <div class="complexity-grid">
+                <div class="complexity-box">
+                  <span class="comp-label">Melhor · Ω</span>
+                  <span class="comp-value mono comp-omega">{{ currentContent().timeComplexity.best }}</span>
+                </div>
+                <div class="complexity-box">
+                  <span class="comp-label">Médio</span>
+                  <span class="comp-value mono">{{ currentContent().timeComplexity.average }}</span>
+                </div>
+                <div class="complexity-box">
+                  <span class="comp-label">Pior · O</span>
+                  <span class="comp-value mono comp-o">{{ currentContent().timeComplexity.worst }}</span>
+                </div>
+                <div class="complexity-box">
+                  <span class="comp-label">Espaço</span>
+                  <span class="comp-value mono">{{ currentContent().spaceComplexity }}</span>
+                </div>
+              </div>
+              <p class="complexity-note">
+                {{ currentContent().pedagogicalNote || 'Como Ω e O não coincidem, o Quick Sort não tem um Θ único. O Merge Sort tem: Θ(n log n).' }}
+              </p>
+            </div>
           </div>
         </aside>
       </div>
@@ -407,13 +429,13 @@ export class VisualizerComponent implements OnDestroy {
   );
   public readonly dataStructures = ALL_ALGORITHM_CONTENTS.filter((c) => c.category === 'data-structure');
   public readonly selectedAlgorithmId = signal<string>('quick-sort');
-  public readonly activeTab = signal<'explanation' | 'code'>('explanation');
+  public readonly activeTab = signal<'explanation' | 'code'>('code');
 
-  private readonly initialValues = signal<number[]>([42, 17, 89, 33, 95, 24, 71, 12, 58, 6]);
+  private readonly initialValues = signal<number[]>([17, 12, 24, 33, 89, 95, 41, 71, 58, 6]);
   protected readonly engine = signal<PlaybackEngine<any, any> | null>(null);
 
   public readonly defaultLinearState = signal<LinearState>(
-    createInitialLinearState([42, 17, 89, 33, 95, 24, 71, 12, 58, 6])
+    createInitialLinearState([17, 12, 24, 33, 89, 95, 41, 71, 58, 6])
   );
   public readonly defaultTreeState = signal<TreeState>(createInitialTreeState());
   public readonly defaultLinkedListState = signal<LinkedListState>(createInitialLinkedListState());
@@ -661,7 +683,7 @@ export class VisualizerComponent implements OnDestroy {
     } else if (algoId === 'counting-sort') {
       this.initialValues.set([4, 2, 8, 3, 3, 1, 6, 5, 2, 7]);
     } else {
-      this.initialValues.set([42, 17, 89, 33, 95, 24, 71, 12, 58, 6]);
+      this.initialValues.set([17, 12, 24, 33, 89, 95, 41, 71, 58, 6]);
     }
   }
 

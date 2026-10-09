@@ -210,4 +210,42 @@ describe('VisualizerComponent', () => {
       expect(component.currentEvent()?.narration).toBeDefined();
     }
   });
+
+  it('should render editorial header with kicker and complexity badges', () => {
+    const el: HTMLElement = fixture.nativeElement;
+    const kicker = el.querySelector('.visualizer-header .kicker');
+    expect(kicker).toBeTruthy();
+    expect(kicker?.textContent).toContain('Ordenação · divisão e conquista');
+
+    const omegaBadge = el.querySelector('.comp-badge-omega');
+    const oBadge = el.querySelector('.comp-badge-o');
+    expect(omegaBadge).toBeTruthy();
+    expect(oBadge).toBeTruthy();
+    expect(omegaBadge?.textContent).toContain('Ω(n log n)');
+    expect(oBadge?.textContent).toContain('O(n²)');
+  });
+
+  it('should default to code tab and support switching to explanation tab', () => {
+    expect(component.activeTab()).toBe('code');
+
+    const el: HTMLElement = fixture.nativeElement;
+    const pseudocodeEl = el.querySelector('.pseudocode-container');
+    expect(pseudocodeEl).toBeTruthy();
+
+    component.activeTab.set('explanation');
+    fixture.detectChanges();
+
+    expect(component.activeTab()).toBe('explanation');
+    const explanationEl = el.querySelector('.explanation-body');
+    expect(explanationEl).toBeTruthy();
+  });
+
+  it('should render complexity grid and note in side panel', () => {
+    const el: HTMLElement = fixture.nativeElement;
+    const compGrid = el.querySelector('.complexity-grid');
+    const compNote = el.querySelector('.complexity-note');
+    expect(compGrid).toBeTruthy();
+    expect(compNote).toBeTruthy();
+    expect(compNote?.textContent).toContain('Como Ω e O não coincidem');
+  });
 });

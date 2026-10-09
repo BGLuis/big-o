@@ -78,7 +78,7 @@ import { ALL_ALGORITHM_CONTENTS } from '../../../content';
                 >
                   <span class="sub-link-indicator" aria-hidden="true"></span>
                   <span class="sub-link-name">{{ algo.title }}</span>
-                  <span class="sub-link-pill">{{ algo.timeComplexity.worst || algo.timeComplexity.average }}</span>
+                  <span class="sub-link-pill">{{ algo.timeComplexity.theta || algo.timeComplexity.worst || algo.timeComplexity.average }}</span>
                 </a>
               }
             </div>

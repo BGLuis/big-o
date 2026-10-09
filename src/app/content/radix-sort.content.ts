@@ -8,7 +8,8 @@ export const RADIX_SORT_CONTENT: AlgorithmContent = {
   timeComplexity: {
     best: 'O(n · d)',
     average: 'O(n · d)',
-    worst: 'O(n · d)'
+    worst: 'O(n · d)',
+    theta: 'Θ(n·d)'
   },
   spaceComplexity: 'O(n + k)',
   shortDescription:

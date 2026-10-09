@@ -8,7 +8,8 @@ export const COUNTING_SORT_CONTENT: AlgorithmContent = {
   timeComplexity: {
     best: 'O(n + k)',
     average: 'O(n + k)',
-    worst: 'O(n + k)'
+    worst: 'O(n + k)',
+    theta: 'Θ(n+k)'
   },
   spaceComplexity: 'O(k)',
   shortDescription:

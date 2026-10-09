@@ -8,7 +8,8 @@ export const HEAP_SORT_CONTENT: AlgorithmContent = {
   timeComplexity: {
     best: 'O(n log n)',
     average: 'O(n log n)',
-    worst: 'O(n log n)'
+    worst: 'O(n log n)',
+    theta: 'Θ(n log n)'
   },
   spaceComplexity: 'O(1)',
   shortDescription:

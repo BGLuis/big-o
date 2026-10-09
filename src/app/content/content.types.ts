@@ -2,6 +2,7 @@ export interface ComplexitySpec {
   readonly best: string;
   readonly average: string;
   readonly worst: string;
+  readonly theta?: string;
 }
 
 export type ContentCategory = 'sorting' | 'data-structure' | 'algorithm';
@@ -18,4 +19,6 @@ export interface AlgorithmContent {
   readonly shortDescription: string;
   readonly fullExplanation: string;
   readonly pseudoCode: readonly string[];
+  readonly kicker?: string;
+  readonly pedagogicalNote?: string;
 }

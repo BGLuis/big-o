@@ -21,6 +21,32 @@
   --color-border: #94a3b8; /* >= 3:1 against surface */
   --color-border-active: #4338ca;
 
+  /* Figma Lesson Design Tokens */
+  --wall: #ffffff;
+  --wall-tint: #f3f6f3;
+  --board: #26332c;
+  --board-deep: #1f2a24;
+  --panel: #ffffff;
+  --ink: #1c2621;
+  --ink-soft: #3f4c45;
+  --ink-dim: #5a6660;
+  --chalk: #f4f1e6;
+  --chalk-soft: #d7ded6;
+  --chalk-dim: #b7c2b9;
+  --pine: #17603e;
+  --pine-strong: #0f4a2f;
+  --o: #8a6a12;
+  --omega: #2160b0;
+  --theta: #1c7350;
+  --o-lt: #e8c14a;
+  --coral-lt: #f0a99d;
+  --edge: #6f7d74;
+  --rule: #d8e0da;
+  --frame-soft: #c3d0c7;
+  --hand: 'Caveat', 'Segoe Script', cursive;
+  --sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
   --font-family-main: 'IBM Plex Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
   --font-family-caveat: 'Caveat', cursive, sans-serif;
   --font-family-sans: 'IBM Plex Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
@@ -49,6 +75,19 @@
 
     --color-border: #64748b; /* >= 3:1 against #152031 and #081425 */
     --color-border-active: #818cf8;
+
+    --wall: #0f1713;
+    --wall-tint: #16241d;
+    --board: #1c2621;
+    --board-deep: #131a16;
+    --panel: #16221c;
+    --ink: #e5ece7;
+    --ink-soft: #c3d0c7;
+    --ink-dim: #8b9bb4;
+    --rule: #2a3830;
+    --frame-soft: #384d41;
+    --pine: #4edea3;
+    --edge: #526359;
   }
 }
 
@@ -73,4 +112,17 @@
 
   --color-border: #64748b;
   --color-border-active: #818cf8;
+
+  --wall: #0f1713;
+  --wall-tint: #16241d;
+  --board: #1c2621;
+  --board-deep: #131a16;
+  --panel: #16221c;
+  --ink: #e5ece7;
+  --ink-soft: #c3d0c7;
+  --ink-dim: #8b9bb4;
+  --rule: #2a3830;
+  --frame-soft: #384d41;
+  --pine: #4edea3;
+  --edge: #526359;
 }

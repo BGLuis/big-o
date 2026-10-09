@@ -6,13 +6,16 @@ export const QUICK_SORT_CONTENT: AlgorithmContent = {
   category: 'sorting',
   family: 'linear',
   timeComplexity: {
-    best: 'O(n log n)',
+    best: 'Ω(n log n)',
     average: 'O(n log n)',
     worst: 'O(n²)'
   },
   spaceComplexity: 'O(log n)',
   shortDescription:
-    'Estratégia de divisão e conquista que particiona o array ao redor de um elemento pivô e ordena as partes recursivamente.',
+    'Particiona o array ao redor de um pivô e ordena as partes recursivamente.',
+  kicker: 'Ordenação · divisão e conquista',
+  pedagogicalNote:
+    'Como Ω e O não coincidem, o Quick Sort não tem um Θ único. O Merge Sort tem: Θ(n log n).',
   fullExplanation:
     'O Quick Sort utiliza a estratégia de "Dividir para Conquistar". Ele escolhe um elemento como "pivô" e particiona o array ao redor dele, movendo os elementos menores para a esquerda e os maiores para a direita. Em seguida, ordena recursivamente as duas metades.',
   pseudoCode: [
