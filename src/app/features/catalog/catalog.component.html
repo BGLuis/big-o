@@ -1,0 +1,168 @@
+<div class="catalog-page">
+  <!-- Cabeçalho do Catálogo -->
+  <header class="catalog-header" role="banner">
+    <div class="header-titles">
+      <span class="tagline">Catálogo</span>
+      <h1 class="catalog-title">Trilhas de estudo</h1>
+      <p class="catalog-description">
+        18 tópicos para rodar passo a passo — 11 de ordenação, 7 de estruturas de dados.
+        Cada card traz o melhor caso <strong class="symbol-omega">Ω</strong>, o pior
+        <strong class="symbol-big-o">O</strong> e o espaço.
+      </p>
+    </div>
+
+    <!-- Barra de Controles: Busca e Filtros -->
+    <div class="controls-bar">
+      <div class="search-field">
+        <img
+          src="assets/icon-search.svg"
+          alt=""
+          width="16"
+          height="16"
+          class="search-icon"
+          aria-hidden="true"
+        />
+        <input
+          type="search"
+          [value]="searchQuery()"
+          (input)="onSearchInput($event)"
+          placeholder="Buscar por nome ou complexidade…"
+          aria-label="Buscar por nome ou complexidade"
+        />
+      </div>
+
+      <div class="filter-tabs" role="tablist" aria-label="Filtrar por categoria">
+        <button
+          type="button"
+          class="filter-tab"
+          [class.active]="selectedCategory() === 'all'"
+          (click)="setCategory('all')"
+          role="tab"
+          [attr.aria-selected]="selectedCategory() === 'all'"
+        >
+          Todos
+        </button>
+        <button
+          type="button"
+          class="filter-tab"
+          [class.active]="selectedCategory() === 'sorting'"
+          (click)="setCategory('sorting')"
+          role="tab"
+          [attr.aria-selected]="selectedCategory() === 'sorting'"
+        >
+          Ordenação
+        </button>
+        <button
+          type="button"
+          class="filter-tab"
+          [class.active]="selectedCategory() === 'data-structure'"
+          (click)="setCategory('data-structure')"
+          role="tab"
+          [attr.aria-selected]="selectedCategory() === 'data-structure'"
+        >
+          Estruturas
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main class="catalog-content">
+    <!-- Seção: Ordenação -->
+    @if (isSortingVisible() && filteredSortingTracks().length > 0) {
+      <section class="catalog-section" aria-labelledby="sorting-heading">
+        <div class="section-header">
+          <h2 id="sorting-heading" class="section-title">Ordenação</h2>
+          <span class="section-count">
+            {{ filteredSortingTracks().length }}
+            {{ filteredSortingTracks().length === 1 ? 'trilha' : 'trilhas' }}
+          </span>
+        </div>
+
+        <div class="tracks-grid">
+          @for (track of filteredSortingTracks(); track track.id) {
+            <a
+              [routerLink]="track.route"
+              class="track-card"
+              [attr.aria-label]="'Abrir aula de ' + track.title"
+            >
+              <div class="card-header">
+                <span class="family-badge">{{ track.familyTag }}</span>
+                <span
+                  class="complexity-pill"
+                  [class.tone-amber]="track.complexityTone === 'amber'"
+                  [class.tone-green]="track.complexityTone === 'green'"
+                >
+                  {{ track.complexityBadge }}
+                </span>
+              </div>
+
+              <h3 class="track-title">{{ track.title }}</h3>
+              <p class="track-description">{{ track.description }}</p>
+
+              <div class="card-footer">
+                <span class="metrics-summary">{{ track.summaryMetrics }}</span>
+                <span class="action-link" aria-hidden="true">estudar →</span>
+              </div>
+            </a>
+          }
+        </div>
+      </section>
+    }
+
+    <!-- Seção: Estruturas de Dados -->
+    @if (isDataStructuresVisible() && filteredDataStructureTracks().length > 0) {
+      <section class="catalog-section" aria-labelledby="structures-heading">
+        <div class="section-header">
+          <h2 id="structures-heading" class="section-title">Estruturas de Dados</h2>
+          <span class="section-count">
+            {{ filteredDataStructureTracks().length }}
+            {{ filteredDataStructureTracks().length === 1 ? 'trilha' : 'trilhas' }}
+          </span>
+        </div>
+
+        <div class="tracks-grid">
+          @for (track of filteredDataStructureTracks(); track track.id) {
+            <a
+              [routerLink]="track.route"
+              class="track-card"
+              [attr.aria-label]="'Abrir aula de ' + track.title"
+            >
+              <div class="card-header">
+                <span class="family-badge">{{ track.familyTag }}</span>
+                <span
+                  class="complexity-pill"
+                  [class.tone-amber]="track.complexityTone === 'amber'"
+                  [class.tone-green]="track.complexityTone === 'green'"
+                >
+                  {{ track.complexityBadge }}
+                </span>
+              </div>
+
+              <h3 class="track-title">{{ track.title }}</h3>
+              <p class="track-description">{{ track.description }}</p>
+
+              <div class="card-footer">
+                <span class="metrics-summary">{{ track.summaryMetrics }}</span>
+                <span class="action-link" aria-hidden="true">estudar →</span>
+              </div>
+            </a>
+          }
+        </div>
+      </section>
+    }
+
+    <!-- Estado Vazio -->
+    @if (totalVisibleCount() === 0) {
+      <div class="empty-state" role="status">
+        <p class="empty-title">Nenhuma trilha encontrada</p>
+        <p class="empty-description">
+          Não encontramos trilhas correspondentes a "{{ searchQuery() }}".
+        </p>
+        <button type="button" class="btn-secondary btn-sm" (click)="clearSearch()">
+          Limpar busca e filtros
+        </button>
+      </div>
+    }
+  </main>
+</div>

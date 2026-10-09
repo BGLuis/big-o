@@ -1,18 +1,24 @@
 import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { ALL_ALGORITHM_CONTENTS, AlgorithmContent } from '../../../content';
+import { ALL_ALGORITHM_CONTENTS } from '../../../content';
 
 @Component({
   selector: 'app-side-nav-bar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, RouterLinkActive],
   template: `
-    <nav class="side-nav" [class.collapsed]="collapsed()" aria-label="Navegação principal">
+    <nav class="side-nav" [class.collapsed]="collapsed()" aria-label="Navegação do catálogo">
+      <!-- Cabeçalho da Barra Lateral -->
       <div class="nav-header">
-        <div class="brand">
-          <div class="logo">Big O Visualizer</div>
-          <div class="subtitle">Laboratório Didático</div>
-        </div>
+        <a routerLink="/trilhas" class="brand" aria-label="Ir para o catálogo de trilhas">
+          <div class="logo">
+            Big<span class="logo-accent-o"> O</span>
+            <span class="logo-omega"> Ω</span>
+            <span class="logo-theta"> Θ</span>
+          </div>
+          <div class="subtitle">plano de aula</div>
+        </a>
+
         <button
           type="button"
           class="collapse-toggle"
@@ -22,12 +28,13 @@ import { ALL_ALGORITHM_CONTENTS, AlgorithmContent } from '../../../content';
           aria-controls="primary-nav-links"
         >
           <span aria-hidden="true">{{ collapsed() ? '»' : '«' }}</span>
-          <span class="toggle-label">{{ collapsed() ? 'Recolher' : 'Recolher' }}</span>
+          <span class="toggle-label">{{ collapsed() ? 'Expandir' : 'Recolher' }}</span>
         </button>
       </div>
 
+      <!-- Links de Navegação -->
       <div id="primary-nav-links" class="nav-links">
-        <!-- Sorting Dropdown Group -->
+        <!-- Grupo 1: Ordenação -->
         <div class="nav-group">
           <button
             type="button"
@@ -36,11 +43,16 @@ import { ALL_ALGORITHM_CONTENTS, AlgorithmContent } from '../../../content';
             (click)="toggleSorting()"
             [attr.aria-expanded]="sortingOpen()"
             aria-controls="sorting-sublist"
-            title="Ordenação">
-            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <polyline points="16 18 22 12 16 6"/>
-              <polyline points="8 6 2 12 8 18"/>
-            </svg>
+            title="Ordenação"
+          >
+            <img
+              src="assets/icon-sorting.svg"
+              alt=""
+              width="17"
+              height="17"
+              class="nav-icon"
+              aria-hidden="true"
+            />
             <span class="group-title">Ordenação</span>
             <svg
               class="chevron-icon"
@@ -49,8 +61,9 @@ import { ALL_ALGORITHM_CONTENTS, AlgorithmContent } from '../../../content';
               fill="none"
               stroke="currentColor"
               stroke-width="2"
-              aria-hidden="true">
-              <polyline points="6 9 12 15 18 9"/>
+              aria-hidden="true"
+            >
+              <polyline points="6 9 12 15 18 9" />
             </svg>
           </button>
 
@@ -61,17 +74,18 @@ import { ALL_ALGORITHM_CONTENTS, AlgorithmContent } from '../../../content';
                   [routerLink]="['/ordenacao', algo.id]"
                   routerLinkActive="active-sublink"
                   class="sub-link-item"
-                  role="listitem">
-                  <span class="sub-link-dot" aria-hidden="true"></span>
+                  role="listitem"
+                >
+                  <span class="sub-link-indicator" aria-hidden="true"></span>
                   <span class="sub-link-name">{{ algo.title }}</span>
-                  <span class="sub-link-pill">{{ algo.timeComplexity.average }}</span>
+                  <span class="sub-link-pill">{{ algo.timeComplexity.worst || algo.timeComplexity.average }}</span>
                 </a>
               }
             </div>
           }
         </div>
 
-        <!-- Data Structures Dropdown Group -->
+        <!-- Grupo 2: Estruturas de Dados -->
         <div class="nav-group">
           <button
             type="button"
@@ -80,12 +94,16 @@ import { ALL_ALGORITHM_CONTENTS, AlgorithmContent } from '../../../content';
             (click)="toggleDataStructures()"
             [attr.aria-expanded]="dataStructuresOpen()"
             aria-controls="data-structures-sublist"
-            title="Estruturas de Dados">
-            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <ellipse cx="12" cy="5" rx="9" ry="3"/>
-              <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
-              <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
-            </svg>
+            title="Estruturas de Dados"
+          >
+            <img
+              src="assets/icon-data-structures.svg"
+              alt=""
+              width="17"
+              height="17"
+              class="nav-icon"
+              aria-hidden="true"
+            />
             <span class="group-title">Estruturas de Dados</span>
             <svg
               class="chevron-icon"
@@ -94,8 +112,9 @@ import { ALL_ALGORITHM_CONTENTS, AlgorithmContent } from '../../../content';
               fill="none"
               stroke="currentColor"
               stroke-width="2"
-              aria-hidden="true">
-              <polyline points="6 9 12 15 18 9"/>
+              aria-hidden="true"
+            >
+              <polyline points="6 9 12 15 18 9" />
             </svg>
           </button>
 
@@ -106,10 +125,11 @@ import { ALL_ALGORITHM_CONTENTS, AlgorithmContent } from '../../../content';
                   [routerLink]="['/data-structures', ds.id]"
                   routerLinkActive="active-sublink"
                   class="sub-link-item"
-                  role="listitem">
-                  <span class="sub-link-dot" aria-hidden="true"></span>
+                  role="listitem"
+                >
+                  <span class="sub-link-indicator" aria-hidden="true"></span>
                   <span class="sub-link-name">{{ ds.title }}</span>
-                  <span class="sub-link-pill">{{ ds.timeComplexity.average }}</span>
+                  <span class="sub-link-pill">{{ ds.timeComplexity.worst || ds.timeComplexity.average }}</span>
                 </a>
               }
             </div>
@@ -117,9 +137,10 @@ import { ALL_ALGORITHM_CONTENTS, AlgorithmContent } from '../../../content';
         </div>
       </div>
 
+      <!-- Rodapé da Barra Lateral -->
       <div class="nav-footer">
         <div class="footer-info" [class.hidden-collapsed]="collapsed()">
-          <span class="version-label">Big O Sandbox v2</span>
+          <span class="version-label">Big O Sandbox · v2</span>
         </div>
       </div>
     </nav>
@@ -131,35 +152,40 @@ import { ALL_ALGORITHM_CONTENTS, AlgorithmContent } from '../../../content';
     }
 
     .side-nav {
-      width: 280px;
-      min-width: 280px;
+      width: 288px;
+      min-width: 288px;
       height: 100%;
-      background: var(--color-bg-surface, #152031);
-      border-right: 1px solid var(--color-border, #64748b);
+      background: #ffffff;
+      border-right: 1px solid #d8e0da;
       display: flex;
       flex-direction: column;
-      padding: 20px 0;
+      padding: 22px 0 16px;
       box-sizing: border-box;
       transition: width 0.2s ease, min-width 0.2s ease;
       overflow-y: auto;
       overflow-x: hidden;
+
+      &.collapsed {
+        width: 72px;
+        min-width: 72px;
+      }
     }
 
-    .side-nav.collapsed {
-      width: 80px;
-      min-width: 80px;
-    }
-
+    /* 1. Header */
     .nav-header {
-      padding: 0 16px 20px;
+      padding: 0 18px 18px;
       display: flex;
-      flex-direction: column;
-      gap: 12px;
-      border-bottom: 1px solid var(--color-border, #64748b);
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid #d8e0da;
+      box-sizing: border-box;
     }
 
     .brand {
-      padding: 0 4px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
     .side-nav.collapsed .brand {
@@ -167,89 +193,104 @@ import { ALL_ALGORITHM_CONTENTS, AlgorithmContent } from '../../../content';
     }
 
     .logo {
-      color: var(--color-primary, #818cf8);
-      font-size: 1.15rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
+      font-family: 'Caveat', cursive;
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 29.4px;
+      color: #1c2621;
+
+      .logo-accent-o {
+        color: #8a6a12;
+      }
+      .logo-omega {
+        color: #2160b0;
+      }
+      .logo-theta {
+        color: #1c7350;
+      }
     }
 
     .subtitle {
-      color: var(--color-text-muted, #94a3b8);
-      font-size: 0.8rem;
-      font-weight: 500;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      font-weight: 400;
+      color: #5a6660;
     }
 
     .collapse-toggle {
-      border: 1px solid var(--color-border, #64748b);
-      border-radius: 8px;
-      background: var(--color-bg-surface-alt, #1f2a3c);
-      color: var(--color-text-muted, #94a3b8);
-      font-size: 12px;
-      font-weight: 600;
-      padding: 6px 10px;
-      display: flex;
+      border: 1px solid #c3d0c7;
+      border-radius: 4px;
+      background: #f8fafc;
+      color: #5a6660;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 8px;
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 6px;
+      gap: 4px;
       cursor: pointer;
       transition: all 0.15s ease;
-    }
 
-    .collapse-toggle:hover {
-      background: var(--color-bg-main, #081425);
-      color: var(--color-text-main, #d8e3fb);
-    }
+      &:hover {
+        background: #f3f6f3;
+        color: #1c2621;
+        border-color: #17603e;
+      }
 
-    .collapse-toggle:focus-visible,
-    .nav-group-header:focus-visible,
-    .sub-link-item:focus-visible {
-      outline: 2px solid var(--color-primary);
-      outline-offset: 2px;
+      &:focus-visible {
+        outline: 2px solid #17603e;
+        outline-offset: 2px;
+      }
     }
 
     .side-nav.collapsed .toggle-label {
       display: none;
     }
 
+    /* 2. Lista de Grupos */
     .nav-links {
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      padding: 16px 10px;
+      gap: 16px;
+      padding: 16px 12px;
+      box-sizing: border-box;
     }
 
     .nav-group {
       display: flex;
       flex-direction: column;
-      border-radius: 8px;
-      overflow: hidden;
+      gap: 6px;
     }
 
     .nav-group-header {
       width: 100%;
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 10px 12px;
+      gap: 10px;
+      padding: 8px 10px;
       background: none;
       border: none;
-      border-radius: 8px;
-      color: var(--color-text-main, #d8e3fb);
-      font-size: 0.875rem;
-      font-weight: 600;
+      border-radius: 6px;
+      color: #1c2621;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
       cursor: pointer;
-      transition: background 0.15s ease, color 0.15s ease;
       text-align: left;
+      transition: background 0.15s ease;
 
       &:hover {
-        background: var(--color-bg-surface-alt, #1f2a3c);
+        background: #f3f6f3;
+      }
+
+      &:focus-visible {
+        outline: 2px solid #17603e;
+        outline-offset: 1px;
       }
 
       .nav-icon {
-        width: 18px;
-        height: 18px;
-        color: var(--color-primary, #818cf8);
         flex-shrink: 0;
       }
 
@@ -261,11 +302,10 @@ import { ALL_ALGORITHM_CONTENTS, AlgorithmContent } from '../../../content';
       }
 
       .chevron-icon {
-        width: 16px;
-        height: 16px;
-        color: var(--color-text-muted, #94a3b8);
+        width: 14px;
+        height: 14px;
+        color: #5a6660;
         transition: transform 0.2s ease;
-        flex-shrink: 0;
 
         &.rotated {
           transform: rotate(180deg);
@@ -273,44 +313,51 @@ import { ALL_ALGORITHM_CONTENTS, AlgorithmContent } from '../../../content';
       }
     }
 
-    .side-nav.collapsed .nav-group-header {
-      justify-content: center;
-      padding: 10px 0;
-
-      .group-title,
-      .chevron-icon {
-        display: none;
-      }
+    .side-nav.collapsed .group-title,
+    .side-nav.collapsed .chevron-icon {
+      display: none;
     }
 
-    /* Sub Links Dropdown List */
+    /* 3. Sub-links */
     .sub-links-list {
       display: flex;
       flex-direction: column;
-      gap: 3px;
-      padding: 4px 0 6px 14px;
-      margin-left: 10px;
-      border-left: 2px solid var(--color-border, #64748b);
+      gap: 2px;
+      padding-left: 10px;
+      margin-left: 8px;
+      border-left: 1px solid #d8e0da;
     }
 
     .sub-link-item {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 9px;
       padding: 7px 10px;
-      border-radius: 6px;
+      border-radius: 7px;
       text-decoration: none;
-      color: var(--color-text-muted, #94a3b8);
-      font-size: 0.8rem;
+      color: #3f4c45;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 12.5px;
       font-weight: 500;
       transition: all 0.15s ease;
 
-      .sub-link-dot {
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background: var(--color-border, #64748b);
+      &:hover {
+        background: #f3f6f3;
+        color: #1c2621;
+      }
+
+      &:focus-visible {
+        outline: 2px solid #17603e;
+        outline-offset: 1px;
+      }
+
+      .sub-link-indicator {
+        width: 12px;
+        height: 12px;
+        border: 1px solid #8cd7ba;
+        border-radius: 4px;
         flex-shrink: 0;
+        transition: all 0.15s ease;
       }
 
       .sub-link-name {
@@ -321,49 +368,46 @@ import { ALL_ALGORITHM_CONTENTS, AlgorithmContent } from '../../../content';
       }
 
       .sub-link-pill {
-        font-family: var(--font-family-mono, monospace);
-        font-size: 0.7rem;
-        padding: 1px 6px;
-        border-radius: 4px;
-        background: var(--color-bg-surface-alt, #1f2a3c);
-        color: var(--color-text-dim, #8b9bb4);
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 10.5px;
+        font-weight: 500;
+        color: #5a6660;
         flex-shrink: 0;
       }
 
-      &:hover {
-        background: var(--color-bg-surface-alt, #1f2a3c);
-        color: var(--color-text-main, #d8e3fb);
-
-        .sub-link-dot {
-          background: var(--color-primary, #818cf8);
-        }
-      }
-
+      /* Item Ativo (Figma: #F3F6F3 bg, #17603E green text & indicator) */
       &.active-sublink {
-        background: var(--color-bg-active-link, rgba(129, 140, 248, 0.15));
-        color: var(--color-primary, #818cf8);
+        background: #f3f6f3;
+        color: #17603e;
         font-weight: 600;
 
-        .sub-link-dot {
-          background: var(--color-primary, #818cf8);
-          box-shadow: 0 0 6px var(--color-primary);
+        .sub-link-indicator {
+          background: #17603e;
+          border-color: #17603e;
+        }
+
+        .sub-link-name {
+          color: #17603e;
         }
 
         .sub-link-pill {
-          background: var(--color-bg-surface);
-          color: var(--color-primary, #818cf8);
+          color: #17603e;
+          font-weight: 600;
         }
       }
     }
 
+    /* 4. Rodapé */
     .nav-footer {
-      padding: 12px 16px 0;
-      border-top: 1px solid var(--color-border, #64748b);
+      padding: 14px 18px 0;
+      border-top: 1px solid #d8e0da;
+      box-sizing: border-box;
 
       .version-label {
-        font-size: 0.75rem;
-        color: var(--color-text-dim, #8b9bb4);
-        font-weight: 600;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 12px;
+        color: #5a6660;
+        font-weight: 400;
       }
 
       .hidden-collapsed {
@@ -379,7 +423,9 @@ export class SideNavBarComponent {
   public readonly sortingAlgorithms = ALL_ALGORITHM_CONTENTS.filter(
     (c) => c.category === 'sorting' || c.category === 'algorithm'
   );
-  public readonly dataStructures = ALL_ALGORITHM_CONTENTS.filter((c) => c.category === 'data-structure');
+  public readonly dataStructures = ALL_ALGORITHM_CONTENTS.filter(
+    (c) => c.category === 'data-structure'
+  );
 
   public readonly sortingOpen = signal<boolean>(true);
   public readonly dataStructuresOpen = signal<boolean>(false);

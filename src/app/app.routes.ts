@@ -31,6 +31,16 @@ export const routes: Routes = [
     data: { category: 'data-structure' }
   },
   {
+    path: 'trilhas',
+    loadComponent: () => import('./features/catalog/catalog.component').then((m) => m.CatalogComponent),
+    title: 'Trilhas de Estudo · Big O'
+  },
+  {
+    path: 'catalogo',
+    redirectTo: 'trilhas',
+    pathMatch: 'full'
+  },
+  {
     path: '',
     pathMatch: 'full',
     loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent)
