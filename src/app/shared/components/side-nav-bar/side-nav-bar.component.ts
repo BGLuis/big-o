@@ -148,7 +148,13 @@ import { ALL_ALGORITHM_CONTENTS } from '../../../content';
   styles: [`
     :host {
       display: block;
-      height: 100%;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      height: 100dvh;
+      align-self: flex-start;
+      flex-shrink: 0;
+      z-index: 50;
     }
 
     .side-nav {

@@ -1,12 +1,18 @@
 :host {
   display: block;
-  height: 100%;
+  min-height: 100%;
 }
 
 .app-shell {
-  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
 }
 
 .app-main {
+  flex: 1;
   min-width: 0;
+  position: relative;
 }
+
