@@ -1,59 +1,68 @@
-# BigOViz
+<p align="center">
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/header/graph.svg?title=Big+O+Viz&subtitle=Plataforma+interativa+para+visualizacao+de+algoritmos+e+estruturas+de+dados&align=left&font=geist-mono&mode=dark" /><img alt="Big O Viz" src="https://shieldcn.dev/header/graph.svg?title=Big+O+Viz&subtitle=Plataforma+interativa+para+visualizacao+de+algoritmos+e+estruturas+de+dados&align=left&font=geist-mono&mode=light" /></picture>
+</p>
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.4.
+<p align="center"><b>Português (BR)</b> · <a href="README.en.md">English</a></p>
 
-## Development server
+<p align="center">
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/stars/BGLuis/big-o.svg?variant=secondary&size=sm&mode=dark" /><img alt="GitHub Stars" src="https://shieldcn.dev/github/stars/BGLuis/big-o.svg?variant=secondary&size=sm&mode=light" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/forks/BGLuis/big-o.svg?variant=secondary&size=sm&mode=dark" /><img alt="GitHub Forks" src="https://shieldcn.dev/github/forks/BGLuis/big-o.svg?variant=secondary&size=sm&mode=light" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/watchers/BGLuis/big-o.svg?variant=secondary&size=sm&mode=dark" /><img alt="Watchers" src="https://shieldcn.dev/github/watchers/BGLuis/big-o.svg?variant=secondary&size=sm&mode=light" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/contributors/BGLuis/big-o.svg?theme=emerald&size=sm&mode=dark" /><img alt="Contributors" src="https://shieldcn.dev/github/contributors/BGLuis/big-o.svg?theme=emerald&size=sm&mode=light" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/license/BGLuis/big-o.svg?variant=ghost&size=sm&mode=dark" /><img alt="License" src="https://shieldcn.dev/github/license/BGLuis/big-o.svg?variant=ghost&size=sm&mode=light" /></picture>
+</p>
 
-To start a local development server, run:
+<p align="center">
+  <img alt="TypeScript" src="https://shieldcn.dev/badge/Language-TypeScript-3178C6.svg?logo=typescript&variant=branded&size=sm" />
+  <img alt="Angular" src="https://shieldcn.dev/badge/Framework-Angular-DD0031.svg?logo=angular&variant=branded&size=sm" />
+  <img alt="Vitest" src="https://shieldcn.dev/badge/Stack-Vitest-6E9F18.svg?logo=vitest&variant=branded&size=sm" />
+  <img alt="npm" src="https://shieldcn.dev/badge/Package_mgr-npm-CB3837.svg?logo=npm&variant=branded&size=sm" />
+</p>
 
-```bash
-ng serve
-```
+# 📖 Sobre
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+O **Big O Viz** é uma plataforma educacional e interativa em formato sandbox, desenvolvida para auxiliar estudantes de programação a compreenderem algoritmos clássicos e estruturas de dados através de animações e execuções passo a passo.
 
-## Code scaffolding
+A aplicação conta com renderizadores dedicados para estruturas lineares, encadeadas, hierárquicas, pilhas, filas, tabelas hash e grafos, além de visualizações de algoritmos de ordenação com controle de reprodução temporal (play, pausa, avanço e retrocesso de passos).
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+# 📋 Motivo
 
-```bash
-ng generate component component-name
-```
+O motivo da criação surgiu após uma conversa com a professora Ariane (Professora da PUC Minas), na qual resolvi criar uma maneira de ajudar estudantes a visualizar estruturas de dados.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+# 💻 Como iniciar
 
-```bash
-ng generate --help
-```
+### Requisitos
 
-## Building
+- [Node.js](https://nodejs.org/)
+- [npm](https://www.npmjs.com/) 11.13.0
 
-To build the project run:
+### Instalação
 
-```bash
-ng build
-```
+1. Clone o repositório:
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+   ```sh
+   git clone https://github.com/BGLuis/big-o.git
+   ```
 
-## Running unit tests
+2. Entre no diretório do projeto:
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+   ```sh
+   cd big-o
+   ```
 
-```bash
-ng test
-```
+3. Instale as dependências e inicie o servidor de desenvolvimento:
 
-## Running end-to-end tests
+   ```sh
+   npm install
+   npm start
+   ```
 
-For end-to-end (e2e) testing, run:
+# 🤝 Contribuidores
 
-```bash
-ng e2e
-```
+<a href="https://github.com/BGLuis/big-o/graphs/contributors">
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/contributors/BGLuis/big-o.svg?title=false&preset=transparent&border=false&mode=dark" /><img alt="Contribuidores" src="https://shieldcn.dev/contributors/BGLuis/big-o.svg?title=false&preset=transparent&border=false&mode=light" /></picture>
+</a>
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+# 📄 Licença
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Distribuído sob a licença [MIT](LICENSE).
