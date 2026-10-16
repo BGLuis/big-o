@@ -5,7 +5,7 @@
       <span class="tagline">Catálogo</span>
       <h1 class="catalog-title">Trilhas de estudo</h1>
       <p class="catalog-description">
-        18 tópicos para rodar passo a passo — 11 de ordenação, 7 de estruturas de dados.
+        {{ totalTracksCount() }} tópicos para rodar passo a passo — {{ sortingTracksCount() }} de ordenação, {{ dataStructuresTracksCount() }} de estruturas de dados.
         Cada card traz o melhor caso <strong class="symbol-omega">Ω</strong>, o pior
         <strong class="symbol-big-o">O</strong> e o espaço.
       </p>

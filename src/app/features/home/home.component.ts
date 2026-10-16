@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HeroPreviewComponent } from './components/hero-preview/hero-preview.component';
 import { GrowthBoardComponent } from './components/growth-board/growth-board.component';
+import { ALL_ALGORITHM_CONTENTS } from '../../content';
 
 export interface ClassicalTrack {
   readonly id: string;
@@ -24,6 +25,16 @@ export interface ClassicalTrack {
 })
 export class HomeComponent {
   protected readonly isMobileMenuOpen = signal(false);
+
+  protected readonly sortingCount = computed(() =>
+    ALL_ALGORITHM_CONTENTS.filter((c) => c.category === 'sorting' || c.category === 'algorithm').length
+  );
+  protected readonly dataStructuresCount = computed(() =>
+    ALL_ALGORITHM_CONTENTS.filter((c) => c.category === 'data-structure').length
+  );
+  protected readonly totalTracksCount = computed(() =>
+    this.sortingCount() + this.dataStructuresCount()
+  );
 
   protected readonly classicalTracks: readonly ClassicalTrack[] = [
     {

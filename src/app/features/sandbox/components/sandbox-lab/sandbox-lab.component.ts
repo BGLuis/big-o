@@ -30,6 +30,14 @@ interface StructureCategory {
   readonly items: readonly StructureCategoryItem[];
 }
 
+interface TreeLegendItem {
+  readonly label: string;
+  readonly bg: string;
+  readonly border: string;
+  readonly glow?: boolean;
+  readonly opacity?: number;
+}
+
 @Component({
   selector: 'app-sandbox-lab',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -61,7 +69,7 @@ interface StructureCategory {
         <div class="categories-row">
           @for (cat of categories; track cat.title) {
             <div class="category-group" role="region" [attr.aria-label]="cat.title">
-              <span class="cat-label">{{ cat.title }}</span>
+              <span class="cat-label mono">{{ cat.title }}</span>
               <div class="pills-row" role="tablist" [attr.aria-label]="cat.title">
                 @for (item of cat.items; track item.type) {
                   <button
@@ -207,6 +215,28 @@ interface StructureCategory {
               }
             }
           </div>
+
+          <!-- LEGENDA DOS NÓS NA LOUSA (Figma Node 30:2) -->
+          @if (isTreeStructure()) {
+            <div class="chalkboard-legend-bar" role="region" aria-label="Legenda dos nós na lousa">
+              <span class="legend-title mono">Legenda dos nós:</span>
+              <div class="legend-chips">
+                @for (item of treeLegendItems(); track item.label) {
+                  <span class="legend-chip">
+                    <span
+                      class="legend-dot"
+                      [class.glow]="item.glow"
+                      [style.background]="item.bg"
+                      [style.border-color]="item.border"
+                      [style.opacity]="item.opacity ?? 1"
+                      aria-hidden="true"
+                    ></span>
+                    <span class="chip-text">{{ item.label }}</span>
+                  </span>
+                }
+              </div>
+            </div>
+          }
 
           <!-- BARRA DE NARRAÇÃO PASSO A PASSO -->
           <div class="narration-bar" role="status" aria-live="polite">
@@ -383,7 +413,7 @@ interface StructureCategory {
                       title="Rever passos desta operação"
                       aria-label="Rever passos da operação {{ record.label }}"
                     >
-                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                         <polygon points="6 4 20 12 6 20 6 4" />
                       </svg>
                       <span>Rever</span>
@@ -395,7 +425,7 @@ interface StructureCategory {
                       title="Restaurar a estrutura para o estado exato após esta operação"
                       aria-label="Restaurar estrutura para este ponto após {{ record.label }}"
                     >
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <polyline points="1 4 1 10 7 10" />
                         <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
                       </svg>
@@ -417,15 +447,15 @@ interface StructureCategory {
               aria-label="Copiar receita de comandos executados para a área de transferência"
             >
               @if (copied()) {
-                <span class="copied-feedback">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <span class="copy-item copied">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                   <span>Copiado!</span>
                 </span>
               } @else {
-                <span class="copy-default">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <span class="copy-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                   </svg>
@@ -465,13 +495,16 @@ interface StructureCategory {
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
     }
 
-    button, input[type="range"] {
-      &:focus-visible { outline: 2px solid var(--pine); outline-offset: 2px; }
-      &:disabled { opacity: 0.45; cursor: not-allowed; }
-    }
+    :focus-visible { outline: 2px solid var(--pine); outline-offset: 2px; }
+    :disabled { opacity: 0.45; cursor: not-allowed; }
 
-    .tip-text, .empty-text, .empty-hint, .history-subtitle, .history-title, .selector-title { margin: 0; }
-    .cat-label, .pill-complexity, .item-badge, .item-steps, .scrubber-counter { font-family: var(--mono); }
+    h2, h3, p { margin: 0; }
+    .categories-row, .pills-row, .telemetry-chips, .playback-buttons, .legend-chips, .chalkboard-legend-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
 
     /* 1. SELETOR DE ESTRUTURA */
     .category-selector-card {
@@ -507,35 +540,29 @@ interface StructureCategory {
       strong { color: var(--pine); }
     }
 
-    .categories-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      align-items: flex-start;
-    }
-
-    .category-group {
+    .category-group, .history-scroll-list, .history-item {
       display: flex;
       flex-direction: column;
       gap: 6px;
+    }
+
+    .category-group, .history-scroll-list {
       flex: 1;
+    }
+
+    .category-group {
       min-width: 260px;
     }
 
-    .cat-label {
+    .cat-label, .legend-title {
       font-size: 11px;
       font-weight: 700;
-      color: var(--ink-dim);
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
     }
 
-    .pills-row, .telemetry-chips, .playback-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 6px;
-    }
+    .cat-label { color: var(--ink-dim); }
+    .legend-title { color: var(--chalk-dim, #b7c2b9); }
 
     .structure-pill {
       display: inline-flex;
@@ -549,7 +576,7 @@ interface StructureCategory {
       font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: 0.15s ease;
 
       &:hover:not(.is-active) {
         border-color: var(--pine);
@@ -590,11 +617,14 @@ interface StructureCategory {
       }
     }
 
-    .canvas-card {
+    .canvas-card, .history-panel {
       display: flex;
       flex-direction: column;
-      overflow: hidden;
       min-height: 480px;
+    }
+
+    .canvas-card {
+      overflow: hidden;
       justify-content: space-between;
     }
 
@@ -656,6 +686,10 @@ interface StructureCategory {
       margin-top: 1px;
     }
 
+    .history-icon-svg {
+      color: var(--pine);
+    }
+
     .canvas-viewport {
       min-height: 380px;
       flex: 1;
@@ -666,6 +700,32 @@ interface StructureCategory {
       padding: 16px;
       position: relative;
       overflow: hidden;
+    }
+
+    .chalkboard-legend-bar {
+      padding: 6px 16px;
+      background: var(--board-deep, #1f2a24);
+      border-top: 1px dashed rgba(244, 241, 230, 0.15);
+    }
+
+    .legend-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: var(--chalk-soft, #d7ded6);
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1.5px solid;
+      display: inline-block;
+
+      &.glow {
+        box-shadow: 0 0 5px rgba(138, 217, 171, 0.8);
+      }
     }
 
     .narration-bar, .playback-bar {
@@ -710,7 +770,7 @@ interface StructureCategory {
       border: 1.5px solid var(--edge);
       color: var(--pine);
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: 0.15s ease;
 
       svg { width: 18px; height: 18px; }
       &:hover:not(:disabled) { background: var(--wall-tint); }
@@ -794,19 +854,10 @@ interface StructureCategory {
     }
 
     /* RIGHT COLUMN: HISTORY PANEL */
-    .history-panel {
-      display: flex;
-      flex-direction: column;
-      min-height: 480px;
-    }
-
-    .history-header, .history-footer {
-      padding: 12px 16px;
-      display: flex;
-    }
-
     .history-header {
+      padding: 12px 16px;
       border-bottom: 1.5px solid var(--rule);
+      display: flex;
       flex-direction: column;
       gap: 4px;
     }
@@ -820,8 +871,6 @@ interface StructureCategory {
       gap: 7px;
     }
 
-    .history-icon-svg { color: var(--pine); }
-
     .history-subtitle {
       font-size: 11.5px;
       color: var(--ink-dim);
@@ -829,12 +878,8 @@ interface StructureCategory {
     }
 
     .history-scroll-list {
-      flex: 1;
       overflow-y: auto;
       padding: 10px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
       max-height: 420px;
     }
 
@@ -849,8 +894,8 @@ interface StructureCategory {
       color: var(--ink-dim);
 
       svg { width: 32px; height: 32px; }
-      .empty-text { font-weight: 600; color: var(--ink); }
-      .empty-hint { max-width: 240px; }
+      p:first-of-type { font-weight: 600; color: var(--ink); }
+      p:last-of-type { max-width: 240px; }
     }
 
     .history-item {
@@ -858,10 +903,7 @@ interface StructureCategory {
       border-radius: 10px;
       border: 1.5px solid var(--frame-soft);
       background: var(--panel);
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      transition: all 0.15s ease;
+      transition: 0.15s ease;
 
       &.is-active {
         border-color: var(--pine);
@@ -869,7 +911,7 @@ interface StructureCategory {
       }
     }
 
-    .item-meta, .item-actions, .copy-default, .copied-feedback {
+    .item-meta, .item-actions, .copy-item {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -901,9 +943,7 @@ interface StructureCategory {
       border: 1px solid var(--frame-soft);
       background: var(--panel);
       color: var(--ink-soft);
-      transition: all 0.15s ease;
-
-      svg { width: 12px; height: 12px; }
+      transition: 0.15s ease;
 
       &:hover {
         background: var(--wall-tint);
@@ -918,6 +958,8 @@ interface StructureCategory {
     }
 
     .history-footer {
+      padding: 12px 16px;
+      display: flex;
       border-top: 1.5px solid var(--rule);
       gap: 8px;
       align-items: center;
@@ -931,7 +973,7 @@ interface StructureCategory {
       font-size: 12px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: 0.15s ease;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -942,14 +984,13 @@ interface StructureCategory {
     .btn-copy-recipe {
       border: 1.5px solid var(--edge);
       color: var(--ink);
-      svg { width: 14px; height: 14px; }
 
       &:hover:not(:disabled) {
         background: var(--wall-tint);
       }
     }
 
-    .copied-feedback {
+    .copy-item.copied {
       color: var(--pine);
     }
 
@@ -1048,6 +1089,33 @@ export class SandboxLabComponent {
       if (match) return match.label;
     }
     return currentType;
+  });
+
+  public readonly isTreeStructure = computed<boolean>(() => {
+    const type = this.session.structureType();
+    return type === 'bst' || type === 'avl-tree' || type === 'red-black-tree';
+  });
+
+  public readonly treeLegendItems = computed<readonly TreeLegendItem[]>(() => {
+    const type = this.session.structureType();
+    const items: TreeLegendItem[] = [
+      { label: 'padrão', bg: 'var(--board-deep, #1f2a24)', border: 'var(--chalk-soft, #d7ded6)' },
+      { label: 'comparando', bg: 'var(--o-lt, #e8c14a)', border: 'var(--chalk, #f4f1e6)' },
+      { label: 'destacado', bg: 'var(--coral-lt, #f0a99d)', border: '#ffffff' },
+      { label: 'inserido', bg: '#8ad9ab', border: '#ffffff' },
+      { label: 'encontrado', bg: '#8ad9ab', border: '#ffffff', glow: true },
+      { label: 'removido', bg: '#ef4444', border: '#fca5a5', opacity: 0.6 }
+    ];
+    if (type === 'avl-tree' || type === 'bst') {
+      items.push({ label: 'alvo de balanceamento', bg: '#8b5cf6', border: '#c4b5fd' });
+    }
+    if (type === 'red-black-tree') {
+      items.push(
+        { label: 'rubro', bg: '#dc2626', border: '#f87171' },
+        { label: 'preto', bg: '#0f172a', border: 'var(--edge, #6f7d74)' }
+      );
+    }
+    return items;
   });
 
   public readonly contextualTip = computed<string>(() => {

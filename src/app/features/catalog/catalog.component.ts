@@ -18,6 +18,12 @@ export class CatalogComponent {
   protected readonly allSortingTracks = SORTING_TRACKS;
   protected readonly allDataStructureTracks = DATA_STRUCTURE_TRACKS;
 
+  protected readonly sortingTracksCount = computed(() => this.allSortingTracks.length);
+  protected readonly dataStructuresTracksCount = computed(() => this.allDataStructureTracks.length);
+  protected readonly totalTracksCount = computed(
+    () => this.allSortingTracks.length + this.allDataStructureTracks.length
+  );
+
   private normalizeText(text: string): string {
     return text
       .toLowerCase()

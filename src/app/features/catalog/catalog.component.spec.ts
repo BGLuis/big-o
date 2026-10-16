@@ -25,6 +25,9 @@ describe('CatalogComponent', () => {
     const cards = el.querySelectorAll<HTMLAnchorElement>('.track-card');
     expect(cards.length).toBe(21);
 
+    const desc = el.querySelector('.catalog-description');
+    expect(desc?.textContent).toContain('21 tópicos para rodar passo a passo — 11 de ordenação, 10 de estruturas de dados');
+
     const sortingHeading = el.querySelector('#sorting-heading');
     expect(sortingHeading?.textContent?.trim()).toBe('Ordenação');
 

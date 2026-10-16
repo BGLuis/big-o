@@ -109,10 +109,11 @@ describe('HomeComponent', () => {
     expect(mobileNav).toBeTruthy();
   });
 
-  it('deve possuir o link "ver as 18 trilhas →" apontando para /trilhas', () => {
+  it('deve possuir o link para todas as trilhas apontando para /trilhas com a contagem dinâmica correta', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const seeAllLink = compiled.querySelector<HTMLAnchorElement>('.see-all-link');
     expect(seeAllLink).toBeTruthy();
     expect(seeAllLink?.getAttribute('href')).toBe('/trilhas');
+    expect(seeAllLink?.textContent?.trim()).toBe('ver as 21 trilhas →');
   });
 });

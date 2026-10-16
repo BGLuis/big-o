@@ -102,3 +102,7 @@ body, html {
   margin: 0;
 }
 
+.mono {
+  font-family: var(--mono, 'IBM Plex Mono', monospace);
+}
+

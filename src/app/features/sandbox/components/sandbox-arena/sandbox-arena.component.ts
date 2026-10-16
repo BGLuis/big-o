@@ -226,7 +226,7 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
       </section>
 
       <!-- 3. Quadros Visuais Lado a Lado (.arena-boards-grid) -->
-      <section class="arena-boards-grid" aria-label="Visualização lado a lado dos competidores">
+      <section class="arena-boards-grid" [class.category-trees]="category() === 'trees'" aria-label="Visualização lado a lado dos competidores">
         <!-- Quadro Esquerdo (Competidor A) -->
         <article class="board-panel board-left" aria-labelledby="board-left-title">
           <header class="board-header">
@@ -675,6 +675,10 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
       &.board-right {
         border-top: 4px solid var(--omega, #2160b0);
       }
+    }
+
+    .arena-boards-grid.category-trees .board-panel.board-right {
+      border-top-color: #4edea3;
     }
 
     .board-header {

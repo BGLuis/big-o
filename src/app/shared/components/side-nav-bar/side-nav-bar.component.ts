@@ -59,6 +59,7 @@ import { ALL_ALGORITHM_CONTENTS } from '../../../content';
             </svg>
             @if (!collapsed()) {
               <span class="sandbox-nav-text">Sandbox & Arena</span>
+              <span class="sandbox-nav-badge">NOVO</span>
             }
           </div>
         </a>
@@ -349,6 +350,19 @@ import { ALL_ALGORITHM_CONTENTS } from '../../../content';
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    .sandbox-nav-badge {
+      font-family: var(--mono, 'IBM Plex Mono', monospace);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      background: var(--pine, #17603e);
+      color: #ffffff;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+      flex-shrink: 0;
+      line-height: 1.2;
     }
 
     .side-nav.collapsed .sandbox-nav-link {

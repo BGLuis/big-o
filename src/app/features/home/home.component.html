@@ -89,12 +89,12 @@
 
           <div class="hero-stats">
             <div class="stat-item">
-              <span class="stat-number">11</span>
+              <span class="stat-number">{{ sortingCount() }}</span>
               <span class="stat-label">algoritmos de ordenação</span>
             </div>
             <div class="stat-divider" aria-hidden="true"></div>
             <div class="stat-item">
-              <span class="stat-number">7</span>
+              <span class="stat-number">{{ dataStructuresCount() }}</span>
               <span class="stat-label">estruturas de dados</span>
             </div>
             <div class="stat-divider" aria-hidden="true"></div>
@@ -199,7 +199,7 @@
             <h2 id="tracks-heading" class="section-title">Comece por um clássico</h2>
           </div>
           <a [routerLink]="['/trilhas']" class="see-all-link">
-            ver as 18 trilhas →
+            ver as {{ totalTracksCount() }} trilhas →
           </a>
         </div>
 
