@@ -14,7 +14,11 @@ import { TelemetrySnapshot } from '../../sandbox.types';
       <!-- HUD Title & Competitors Header -->
       <div class="hud-header">
         <div class="hud-title-badge">
-          <span class="hud-icon" aria-hidden="true">📊</span>
+          <svg class="hud-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="20" x2="18" y2="10" />
+            <line x1="12" y1="20" x2="12" y2="4" />
+            <line x1="6" y1="20" x2="6" y2="14" />
+          </svg>
           <h3 class="hud-title">Placar de Eficiência em Tempo Real</h3>
         </div>
         <div class="hud-competitors-header">
@@ -28,7 +32,10 @@ import { TelemetrySnapshot } from '../../sandbox.types';
         <!-- 1. Comparações Realizadas -->
         <article class="metric-card" aria-labelledby="metric-comparisons-title">
           <div class="metric-header">
-            <span class="metric-icon" aria-hidden="true">🔍</span>
+            <svg class="metric-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
             <span id="metric-comparisons-title" class="metric-title">Comparações Realizadas</span>
             @if (comparisonsWinner() === 'left') {
               <span class="winner-tag tag-left">✓ Menos comparações ({{ leftTitle() }})</span>
@@ -70,7 +77,12 @@ import { TelemetrySnapshot } from '../../sandbox.types';
         <!-- 2. Trocas / Rotações / Mutações -->
         <article class="metric-card" aria-labelledby="metric-swaps-title">
           <div class="metric-header">
-            <span class="metric-icon" aria-hidden="true">🔄</span>
+            <svg class="metric-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="16 3 21 3 21 8" />
+              <line x1="4" y1="20" x2="21" y2="3" />
+              <polyline points="21 16 21 21 16 21" />
+              <line x1="15" y1="15" x2="21" y2="21" />
+            </svg>
             <span id="metric-swaps-title" class="metric-title">Trocas / Rotações / Mutações</span>
             @if (swapsWinner() === 'left') {
               <span class="winner-tag tag-left">✓ Menos mutações ({{ leftTitle() }})</span>
@@ -112,7 +124,12 @@ import { TelemetrySnapshot } from '../../sandbox.types';
         <!-- 3. Métrica Estrutural -->
         <article class="metric-card" aria-labelledby="metric-structural-title">
           <div class="metric-header">
-            <span class="metric-icon" aria-hidden="true">📐</span>
+            <svg class="metric-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21.3 8.7 8.7 21.3c-.4.4-1 .4-1.4 0l-4.6-4.6c-.4-.4-.4-1 0-1.4L15.3 2.7c.4-.4 1-.4 1.4 0l4.6 4.6c.4.4.4 1 0 1.4z" />
+              <line x1="9" y1="9" x2="11" y2="11" />
+              <line x1="12" y1="6" x2="14" y2="8" />
+              <line x1="6" y1="12" x2="8" y2="14" />
+            </svg>
             <span id="metric-structural-title" class="metric-title">{{ leftTelemetry().structuralLabel }}</span>
             @if (structuralWinner() === 'left') {
               <span class="winner-tag tag-left">✓ Mais balanceado ({{ leftTitle() }})</span>
@@ -150,7 +167,10 @@ import { TelemetrySnapshot } from '../../sandbox.types';
         <!-- 4. Progresso de Passos -->
         <article class="metric-card metric-card-steps" aria-labelledby="metric-steps-title">
           <div class="metric-header">
-            <span class="metric-icon" aria-hidden="true">⏱️</span>
+            <svg class="metric-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
             <span id="metric-steps-title" class="metric-title">Progresso de Passos</span>
           </div>
 
@@ -163,7 +183,7 @@ import { TelemetrySnapshot } from '../../sandbox.types';
               </div>
               <span class="val-sub">{{ leftTitle() }}</span>
               @if (leftFinishedFirst()) {
-                <span class="finished-first-badge" role="status">⚡ Finalizou primeiro!</span>
+                <span class="finished-first-badge" role="status">Concluiu primeiro!</span>
               }
             </div>
 
@@ -182,7 +202,7 @@ import { TelemetrySnapshot } from '../../sandbox.types';
               </div>
               <span class="val-sub">{{ rightTitle() }}</span>
               @if (rightFinishedFirst()) {
-                <span class="finished-first-badge" role="status">⚡ Finalizou primeiro!</span>
+                <span class="finished-first-badge" role="status">Concluiu primeiro!</span>
               }
             </div>
           </div>
@@ -197,12 +217,12 @@ import { TelemetrySnapshot } from '../../sandbox.types';
     }
 
     .telemetry-hud {
-      background: var(--board-deep, #1f2a24);
-      border: 1.5px solid var(--rule, #2a3830);
-      border-radius: 14px;
+      background: var(--panel, #ffffff);
+      border: 1.5px solid var(--frame-soft, #c3d0c7);
+      border-radius: 16px 24px 16px 24px / 22px 16px 24px 16px;
       padding: 16px 20px;
-      color: var(--chalk, #f4f1e6);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      color: var(--ink, #1c2621);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
@@ -216,7 +236,7 @@ import { TelemetrySnapshot } from '../../sandbox.types';
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
-      border-bottom: 1px dashed var(--rule, rgba(244, 241, 230, 0.15));
+      border-bottom: 1.5px solid var(--rule, #d8e0da);
       padding-bottom: 12px;
     }
 
@@ -226,17 +246,20 @@ import { TelemetrySnapshot } from '../../sandbox.types';
       gap: 8px;
     }
 
-    .hud-icon {
-      font-size: 1.2rem;
+    .hud-icon-svg {
+      width: 18px;
+      height: 18px;
+      color: var(--pine, #17603e);
+      flex-shrink: 0;
     }
 
     .hud-title {
       margin: 0;
       font-family: var(--sans, system-ui, sans-serif);
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       font-weight: 700;
       letter-spacing: -0.01em;
-      color: var(--chalk, #f4f1e6);
+      color: var(--ink, #1c2621);
     }
 
     .hud-competitors-header {
@@ -251,25 +274,27 @@ import { TelemetrySnapshot } from '../../sandbox.types';
       padding: 4px 10px;
       border-radius: 6px;
       font-weight: 600;
-      background: rgba(244, 241, 230, 0.08);
-      border: 1px solid var(--frame-soft, rgba(244, 241, 230, 0.2));
-      color: var(--chalk-soft, #d7ded6);
+      background: var(--wall-tint, #f3f6f3);
+      border: 1px solid var(--frame-soft, #c3d0c7);
+      color: var(--ink-soft, #3f4c45);
 
       &.comp-left {
-        color: var(--o-lt, #e8c14a);
-        border-color: rgba(232, 193, 74, 0.4);
+        color: var(--o, #8a6a12);
+        background: rgba(138, 106, 18, 0.1);
+        border-color: rgba(138, 106, 18, 0.3);
       }
 
       &.comp-right {
-        color: #818cf8;
-        border-color: rgba(129, 140, 248, 0.4);
+        color: var(--omega, #2160b0);
+        background: rgba(33, 96, 176, 0.1);
+        border-color: rgba(33, 96, 176, 0.3);
       }
     }
 
     .vs-text {
       font-size: 0.75rem;
       font-weight: 800;
-      color: var(--chalk-dim, #b7c2b9);
+      color: var(--ink-dim, #5a6660);
       letter-spacing: 0.05em;
     }
 
@@ -285,9 +310,9 @@ import { TelemetrySnapshot } from '../../sandbox.types';
     }
 
     .metric-card {
-      background: var(--board, #26332c);
-      border: 1px solid var(--frame-soft, #384d41);
-      border-radius: 10px;
+      background: var(--wall-tint, #f3f6f3);
+      border: 1.5px solid var(--frame-soft, #c3d0c7);
+      border-radius: 12px;
       padding: 12px 14px;
       display: flex;
       flex-direction: column;
@@ -307,15 +332,18 @@ import { TelemetrySnapshot } from '../../sandbox.types';
       flex-wrap: wrap;
     }
 
-    .metric-icon {
-      font-size: 1rem;
+    .metric-icon-svg {
+      width: 15px;
+      height: 15px;
+      color: var(--ink-dim, #5a6660);
+      flex-shrink: 0;
     }
 
     .metric-title {
       font-family: var(--sans, system-ui, sans-serif);
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       font-weight: 600;
-      color: var(--chalk-soft, #d7ded6);
+      color: var(--ink, #1c2621);
       flex: 1;
     }
 
@@ -328,15 +356,15 @@ import { TelemetrySnapshot } from '../../sandbox.types';
 
       &.tag-left,
       &.tag-right {
-        background: rgba(28, 115, 80, 0.25);
-        border: 1px solid var(--theta, #1c7350);
-        color: #4edea3;
+        background: rgba(23, 96, 62, 0.12);
+        border: 1px solid var(--pine, #17603e);
+        color: var(--pine, #17603e);
       }
 
       &.tag-tie {
-        background: rgba(148, 163, 184, 0.15);
-        border: 1px solid #64748b;
-        color: #94a3b8;
+        background: rgba(111, 125, 116, 0.12);
+        border: 1px solid var(--edge, #6f7d74);
+        color: var(--ink-dim, #5a6660);
       }
     }
 
@@ -356,10 +384,10 @@ import { TelemetrySnapshot } from '../../sandbox.types';
     .val-box {
       display: flex;
       flex-direction: column;
-      padding: 6px 8px;
-      border-radius: 6px;
-      background: rgba(15, 23, 42, 0.4);
-      border: 1px solid rgba(244, 241, 230, 0.1);
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: var(--panel, #ffffff);
+      border: 1.5px solid var(--frame-soft, #c3d0c7);
       transition: all 0.2s ease;
 
       &.val-left {
@@ -371,12 +399,11 @@ import { TelemetrySnapshot } from '../../sandbox.types';
       }
 
       &.is-winner {
-        border-color: var(--theta, #1c7350);
-        background: rgba(28, 115, 80, 0.18);
-        box-shadow: 0 0 10px rgba(78, 222, 163, 0.2);
+        border-color: var(--pine, #17603e);
+        background: rgba(23, 96, 62, 0.08);
 
         .val-number {
-          color: #4edea3;
+          color: var(--pine, #17603e);
         }
       }
     }
@@ -385,13 +412,13 @@ import { TelemetrySnapshot } from '../../sandbox.types';
       font-family: var(--mono, monospace);
       font-size: 1.15rem;
       font-weight: 700;
-      color: var(--chalk, #f4f1e6);
+      color: var(--ink, #1c2621);
       line-height: 1.2;
     }
 
     .val-sub {
-      font-size: 0.7rem;
-      color: var(--chalk-dim, #b7c2b9);
+      font-size: 0.72rem;
+      color: var(--ink-dim, #5a6660);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -407,11 +434,11 @@ import { TelemetrySnapshot } from '../../sandbox.types';
     .proportional-bar-track {
       width: 100%;
       height: 12px;
-      background: rgba(0, 0, 0, 0.4);
+      background: var(--rule, #d8e0da);
       border-radius: 9999px;
       overflow: hidden;
       display: flex;
-      border: 1px solid var(--frame-soft, #384d41);
+      border: 1px solid var(--frame-soft, #c3d0c7);
     }
 
     .proportional-bar {
@@ -423,12 +450,11 @@ import { TelemetrySnapshot } from '../../sandbox.types';
       }
 
       &.bar-right {
-        background: #818cf8;
+        background: var(--omega, #2160b0);
       }
 
       &.is-better {
-        background: var(--theta, #1c7350) !important;
-        box-shadow: inset 0 0 6px rgba(78, 222, 163, 0.6);
+        background: var(--pine, #17603e) !important;
       }
     }
 
@@ -445,24 +471,24 @@ import { TelemetrySnapshot } from '../../sandbox.types';
     .structural-comparison-text {
       font-family: var(--mono, monospace);
       font-size: 0.8rem;
-      color: var(--chalk-soft, #d7ded6);
+      color: var(--ink-soft, #3f4c45);
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
     .struct-divider {
-      color: var(--chalk-dim, #b7c2b9);
+      color: var(--ink-dim, #5a6660);
     }
 
     .aux-ops-badge {
       font-family: var(--mono, monospace);
       font-size: 0.72rem;
-      color: #94a3b8;
-      background: rgba(0, 0, 0, 0.3);
+      color: var(--ink-dim, #5a6660);
+      background: var(--panel, #ffffff);
       padding: 2px 6px;
       border-radius: 4px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--frame-soft, #c3d0c7);
     }
 
     /* Steps Progress & Badge */
@@ -488,7 +514,7 @@ import { TelemetrySnapshot } from '../../sandbox.types';
     .steps-pct {
       font-family: var(--mono, monospace);
       font-size: 0.75rem;
-      color: var(--chalk-dim, #b7c2b9);
+      color: var(--ink-dim, #5a6660);
     }
 
     .steps-visual-divider {
@@ -507,7 +533,7 @@ import { TelemetrySnapshot } from '../../sandbox.types';
     .step-line {
       height: 6px;
       border-radius: 9999px;
-      background: #5c6d61;
+      background: var(--rule, #d8e0da);
       transition: width 0.25s ease-out;
 
       &.step-line-left {
@@ -515,7 +541,7 @@ import { TelemetrySnapshot } from '../../sandbox.types';
       }
 
       &.step-line-right {
-        background: #818cf8;
+        background: var(--omega, #2160b0);
       }
     }
 
@@ -523,15 +549,13 @@ import { TelemetrySnapshot } from '../../sandbox.types';
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      background: var(--theta, #1c7350);
-      color: #ffffff;
-      font-family: var(--sans, system-ui, sans-serif);
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 9999px;
-      box-shadow: 0 0 10px rgba(78, 222, 163, 0.5);
-      animation: pulseGlow 1.8s infinite ease-in-out;
+      color: var(--pine, #17603e);
+      background: rgba(23, 96, 62, 0.1);
+      border: 1px solid var(--pine, #17603e);
+      padding: 2px 6px;
+      border-radius: 4px;
       margin-top: 4px;
       width: fit-content;
     }

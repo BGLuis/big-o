@@ -52,7 +52,10 @@ import { SandboxSessionService } from './services/sandbox-session.service';
               aria-controls="panel-mode-lab"
               (click)="setMode('lab')"
             >
-              <span class="tab-icon" aria-hidden="true">🧪</span>
+              <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M10 2v7.31M14 2v7.31M8.5 2h7M14 9.3a6.5 6.5 0 1 1-4 0"/>
+                <path d="M5.52 16h12.96"/>
+              </svg>
               <span class="tab-label">Laboratório de Estruturas</span>
             </button>
 
@@ -67,7 +70,12 @@ import { SandboxSessionService } from './services/sandbox-session.service';
               aria-controls="panel-mode-arena"
               (click)="setMode('arena')"
             >
-              <span class="tab-icon" aria-hidden="true">⚔️</span>
+              <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="6" y1="18" x2="18" y2="6"/>
+                <polyline points="10 6 18 6 18 14"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+                <polyline points="14 18 6 18 6 10"/>
+              </svg>
               <span class="tab-label">Arena Comparativa (Lado a Lado)</span>
             </button>
           </div>
@@ -209,8 +217,8 @@ import { SandboxSessionService } from './services/sandbox-session.service';
       font-size: 11px;
       padding: 2px 8px;
       border-radius: 4px;
-      background: var(--chalk-soft, #f3f6f3);
-      color: var(--chalk-board, #17603e);
+      background: var(--wall-tint, #f3f6f3);
+      color: var(--pine, #17603e);
       border: 1px solid var(--frame-soft, #c3d0c7);
       font-weight: 600;
       text-transform: uppercase;
@@ -234,9 +242,9 @@ import { SandboxSessionService } from './services/sandbox-session.service';
     /* Segmented Control / Tablist */
     .mode-switch-wrapper {
       display: inline-flex;
-      background: var(--chalk-soft, #f3f6f3);
+      background: var(--wall-tint, #f3f6f3);
       border: 1.5px solid var(--frame-soft, #c3d0c7);
-      border-radius: 8px;
+      border-radius: 12px 16px 12px 16px / 14px 12px 16px 14px;
       padding: 3px;
       gap: 4px;
     }
@@ -248,7 +256,7 @@ import { SandboxSessionService } from './services/sandbox-session.service';
       padding: 8px 14px;
       background: transparent;
       border: none;
-      border-radius: 6px;
+      border-radius: 9px;
       font-family: var(--sans, 'IBM Plex Sans', sans-serif);
       font-size: 13px;
       font-weight: 600;
@@ -263,19 +271,21 @@ import { SandboxSessionService } from './services/sandbox-session.service';
 
       &.is-active {
         background: var(--panel, #ffffff);
-        color: var(--chalk-board, #17603e);
+        color: var(--pine, #17603e);
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
         border: 1px solid var(--frame-soft, #c3d0c7);
       }
 
       &:focus-visible {
-        outline: 2px solid var(--chalk-board, #17603e);
+        outline: 2px solid var(--pine, #17603e);
         outline-offset: 2px;
       }
     }
 
     .tab-icon {
-      font-size: 14px;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
     }
 
     /* Botão de Tema */
@@ -283,22 +293,22 @@ import { SandboxSessionService } from './services/sandbox-session.service';
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 38px;
-      height: 38px;
-      border-radius: 8px;
-      border: 1.5px solid var(--frame-soft, #c3d0c7);
+      width: 42px;
+      height: 42px;
+      border-radius: 11px 15px 12px 14px / 14px 12px 15px 11px;
+      border: 1.5px solid var(--edge, #6f7d74);
       background: var(--panel, #ffffff);
-      color: var(--ink, #1c2621);
+      color: var(--pine, #17603e);
       cursor: pointer;
       transition: all 0.15s ease;
 
       &:hover {
-        background: var(--chalk-soft, #f3f6f3);
-        border-color: var(--chalk-board, #17603e);
+        background: var(--wall-tint, #f3f6f3);
+        border-color: var(--pine, #17603e);
       }
 
       &:focus-visible {
-        outline: 2px solid var(--chalk-board, #17603e);
+        outline: 2px solid var(--pine, #17603e);
         outline-offset: 2px;
       }
 

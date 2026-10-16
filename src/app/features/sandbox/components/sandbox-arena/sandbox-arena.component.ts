@@ -61,8 +61,13 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
           [attr.aria-selected]="category() === 'sorting'"
           (click)="setCategory('sorting')"
         >
-          <span class="cat-btn-icon" aria-hidden="true">⚔️</span>
-          <span>Duelo de Ordenação (ex: Heap Sort vs Quick Sort)</span>
+          <svg class="cat-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="6" y1="18" x2="18" y2="6" />
+            <polyline points="10 6 18 6 18 14" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+            <polyline points="14 18 6 18 6 10" />
+          </svg>
+          <span>Duelo de Ordenação</span>
         </button>
         <button
           type="button"
@@ -72,8 +77,14 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
           [attr.aria-selected]="category() === 'trees'"
           (click)="setCategory('trees')"
         >
-          <span class="cat-btn-icon" aria-hidden="true">🌳</span>
-          <span>Duelo de Árvores (ex: BST vs AVL vs Rubro-Negra)</span>
+          <svg class="cat-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="5" r="3" />
+            <circle cx="6" cy="19" r="3" />
+            <circle cx="18" cy="19" r="3" />
+            <line x1="12" y1="8" x2="6" y2="16" />
+            <line x1="12" y1="8" x2="18" y2="16" />
+          </svg>
+          <span>Duelo de Árvores</span>
         </button>
       </nav>
 
@@ -103,7 +114,12 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
               aria-label="Inverter lados dos competidores"
               title="Inverter competidores"
             >
-              <span aria-hidden="true">⇄</span>
+              <svg class="swap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="16 3 21 3 21 8" />
+                <line x1="4" y1="20" x2="21" y2="3" />
+                <polyline points="8 21 3 21 3 16" />
+                <line x1="20" y1="4" x2="3" y2="21" />
+              </svg>
               <span class="swap-text">Inverter Lados</span>
             </button>
           </div>
@@ -249,7 +265,9 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
           </div>
 
           <footer class="board-narration" aria-live="polite" aria-atomic="true">
-            <span class="narration-speaker" aria-hidden="true">🗣️</span>
+            <svg class="narration-speaker" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
             <span class="narration-text">{{ leftNarration() }}</span>
           </footer>
         </article>
@@ -292,7 +310,9 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
           </div>
 
           <footer class="board-narration" aria-live="polite" aria-atomic="true">
-            <span class="narration-speaker" aria-hidden="true">🗣️</span>
+            <svg class="narration-speaker" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
             <span class="narration-text">{{ rightNarration() }}</span>
           </footer>
         </article>
@@ -309,7 +329,10 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
               aria-label="Resetar Duelo"
               title="Resetar Duelo"
             >
-              ⏮
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M1 4v6h6M23 20v-6h-6" />
+                <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15" />
+              </svg>
             </button>
             <button
               type="button"
@@ -319,7 +342,10 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
               aria-label="Passo Anterior (Ambos)"
               title="Passo Anterior"
             >
-              ◀
+              <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
+                <polygon points="19 20 9 12 19 4 19 20" />
+                <line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2" />
+              </svg>
             </button>
             <button
               type="button"
@@ -328,7 +354,16 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
               [attr.aria-label]="isPlaying() ? 'Pausar Duelo' : 'Play Simultâneo'"
               [title]="isPlaying() ? 'Pausar' : 'Play Simultâneo'"
             >
-              {{ isPlaying() ? '⏸' : '▶' }}
+              @if (isPlaying()) {
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <rect x="6" y="4" width="4" height="16" rx="1" />
+                  <rect x="14" y="4" width="4" height="16" rx="1" />
+                </svg>
+              } @else {
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <polygon points="6 4 20 12 6 20 6 4" />
+                </svg>
+              }
             </button>
             <button
               type="button"
@@ -338,7 +373,10 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
               aria-label="Próximo Passo (Ambos)"
               title="Próximo Passo"
             >
-              ▶
+              <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
+                <polygon points="5 4 19 12 5 20 5 4" />
+                <line x1="20" y1="5" x2="20" y2="19" stroke="currentColor" stroke-width="2" />
+              </svg>
             </button>
           </div>
 
@@ -396,19 +434,18 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
       flex-direction: column;
       gap: 16px;
       width: 100%;
-      box-sizing: border-box;
     }
 
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border-width: 0;
+    /* Common Interactive States */
+    button, select, input {
+      &:focus-visible {
+        outline: 2px solid var(--pine, #17603e);
+        outline-offset: 2px;
+      }
+      &:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
     }
 
     /* 1. Category Tabs */
@@ -423,15 +460,14 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
       align-items: center;
       gap: 8px;
       padding: 10px 18px;
-      border-radius: 10px;
-      font-family: var(--sans, system-ui, sans-serif);
+      border-radius: 12px 16px 12px 16px / 14px 12px 16px 14px;
       font-size: 0.92rem;
       font-weight: 600;
       cursor: pointer;
-      border: 1.5px solid var(--rule, #2a3830);
+      border: 1.5px solid var(--frame-soft, #c3d0c7);
       background: var(--panel, #ffffff);
       color: var(--ink-soft, #3f4c45);
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
 
       &:hover {
         background: var(--wall-tint, #f3f6f3);
@@ -440,33 +476,29 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
       }
 
       &.is-active {
-        background: var(--board, #26332c);
-        color: var(--chalk, #f4f1e6);
-        border-color: var(--pine, #4edea3);
-        box-shadow: 0 4px 12px rgba(23, 96, 62, 0.25);
-      }
-
-      &:focus-visible {
-        outline: 2px solid var(--pine, #17603e);
-        outline-offset: 2px;
+        background: var(--pine, #17603e);
+        color: #ffffff;
+        border-color: var(--pine, #17603e);
+        box-shadow: 0 2px 8px rgba(23, 96, 62, 0.2);
       }
     }
 
-    .cat-btn-icon {
-      font-size: 1.1rem;
+    .cat-btn-icon, .swap-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
     }
 
     /* 2. Config Card */
     .arena-config-card {
       background: var(--panel, #ffffff);
-      border: 1px solid var(--rule, #d8e0da);
-      border-radius: 12px;
+      border: 1.5px solid var(--frame-soft, #c3d0c7);
+      border-radius: 16px 24px 16px 24px / 22px 16px 24px 16px;
       padding: 16px 20px;
       display: flex;
       flex-direction: column;
       gap: 14px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      box-sizing: border-box;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
     }
 
     .competitors-row {
@@ -480,7 +512,10 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
       }
     }
 
-    .competitor-select-group {
+    .competitor-select-group,
+    .preset-field-group,
+    .custom-data-field-group,
+    .tree-subfield {
       display: flex;
       flex-direction: column;
       gap: 6px;
@@ -492,27 +527,28 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
       color: var(--ink-dim, #5a6660);
       text-transform: uppercase;
       letter-spacing: 0.04em;
+      font-family: var(--mono, monospace);
     }
 
-    .select-control {
+    .select-control, .text-control {
       height: 40px;
       padding: 0 12px;
-      border-radius: 8px;
-      border: 1.5px solid var(--frame-soft, #c3d0c7);
-      background: var(--wall, #ffffff);
+      border-radius: 10px;
+      border: 1.5px solid var(--edge, #6f7d74);
+      background: var(--panel, #ffffff);
       color: var(--ink, #1c2621);
-      font-family: var(--sans, system-ui, sans-serif);
       font-size: 0.9rem;
-      font-weight: 500;
-      cursor: pointer;
+      font-weight: 600;
       outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      transition: border-color 0.15s ease;
 
       &:focus-visible {
-        border-color: var(--pine, #17603e);
-        box-shadow: 0 0 0 3px rgba(23, 96, 62, 0.15);
+        outline: 2px solid var(--pine, #17603e);
+        outline-offset: 1px;
       }
     }
+
+    .select-control { cursor: pointer; }
 
     .swap-action-wrapper {
       display: flex;
@@ -520,31 +556,29 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
       justify-content: center;
     }
 
-    .btn-swap {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    .btn-swap, .btn-action {
       height: 40px;
       padding: 0 14px;
-      border-radius: 8px;
-      border: 1.5px solid var(--frame-soft, #c3d0c7);
-      background: var(--wall-tint, #f3f6f3);
-      color: var(--ink-soft, #3f4c45);
-      font-family: var(--sans, system-ui, sans-serif);
+      border-radius: 10px;
       font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn-swap {
+      border: 1.5px solid var(--edge, #6f7d74);
+      background: var(--panel, #ffffff);
+      color: var(--ink-soft, #3f4c45);
 
       &:hover {
-        background: var(--board, #26332c);
-        color: var(--chalk, #f4f1e6);
-        border-color: var(--board, #26332c);
-      }
-
-      &:focus-visible {
-        outline: 2px solid var(--pine, #17603e);
-        outline-offset: 2px;
+        background: var(--wall-tint, #f3f6f3);
+        color: var(--pine, #17603e);
+        border-color: var(--pine, #17603e);
       }
     }
 
@@ -559,13 +593,6 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
       }
     }
 
-    .preset-field-group,
-    .custom-data-field-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
     .input-actions-bar {
       display: flex;
       gap: 8px;
@@ -576,44 +603,18 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
     .text-control {
       flex: 1;
       min-width: 180px;
-      height: 40px;
-      padding: 0 12px;
-      border-radius: 8px;
-      border: 1.5px solid var(--frame-soft, #c3d0c7);
-      background: var(--wall, #ffffff);
-      color: var(--ink, #1c2621);
       font-family: var(--mono, monospace);
       font-size: 0.88rem;
-      outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-
-      &:focus-visible {
-        border-color: var(--pine, #17603e);
-        box-shadow: 0 0 0 3px rgba(23, 96, 62, 0.15);
-      }
     }
 
     .btn-action {
-      height: 40px;
-      padding: 0 14px;
-      border-radius: 8px;
-      font-family: var(--sans, system-ui, sans-serif);
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
       border: 1.5px solid transparent;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-
-      &:focus-visible {
-        outline: 2px solid var(--pine, #17603e);
-        outline-offset: 2px;
-      }
 
       &.btn-apply,
       &.btn-tree-apply {
         background: var(--pine, #17603e);
         color: #ffffff;
+        border-color: var(--pine, #17603e);
 
         &:hover {
           background: var(--pine-strong, #0f4a2f);
@@ -621,12 +622,12 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
       }
 
       &.btn-random {
-        background: var(--wall-tint, #f3f6f3);
-        border-color: var(--frame-soft, #c3d0c7);
+        background: var(--panel, #ffffff);
+        border-color: var(--edge, #6f7d74);
         color: var(--ink-soft, #3f4c45);
 
         &:hover {
-          background: #e5ece7;
+          background: var(--wall-tint, #f3f6f3);
           color: var(--ink, #1c2621);
         }
       }
@@ -645,12 +646,6 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
       }
     }
 
-    .tree-subfield {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
     /* 3. Boards Grid */
     .arena-boards-grid {
       display: grid;
@@ -665,13 +660,12 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
     .board-panel {
       background: var(--board, #26332c);
       border: 1.5px solid var(--rule, #2a3830);
-      border-radius: 14px;
+      border-radius: 16px 24px 16px 24px / 22px 16px 24px 16px;
       padding: 18px 20px 14px;
       display: flex;
       flex-direction: column;
       gap: 14px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-      box-sizing: border-box;
       min-height: 380px;
 
       &.board-left {
@@ -679,7 +673,7 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
       }
 
       &.board-right {
-        border-top: 4px solid #818cf8;
+        border-top: 4px solid var(--omega, #2160b0);
       }
     }
 
@@ -693,24 +687,20 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
       padding-bottom: 10px;
     }
 
-    .board-title-group {
+    .board-title-group,
+    .board-complexity-badges,
+    .board-status-group {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
     }
 
     .board-title {
       margin: 0;
-      font-family: var(--sans, system-ui, sans-serif);
       font-size: 1.15rem;
       font-weight: 700;
       color: var(--chalk, #f4f1e6);
-    }
-
-    .board-complexity-badges {
-      display: flex;
-      gap: 6px;
     }
 
     .comp-badge {
@@ -732,19 +722,12 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
       }
     }
 
-    .board-status-group {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
     .board-step-counter {
       font-size: 0.82rem;
       color: var(--chalk-dim, #b7c2b9);
     }
 
     .badge-completed {
-      font-family: var(--sans, system-ui, sans-serif);
       font-size: 0.72rem;
       font-weight: 700;
       padding: 2px 8px;
@@ -774,17 +757,17 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
       background: var(--board-deep, #1f2a24);
       border: 1px solid rgba(244, 241, 230, 0.12);
       border-radius: 8px;
-      font-family: var(--sans, system-ui, sans-serif);
       font-size: 0.85rem;
       color: var(--chalk-soft, #d7ded6);
       line-height: 1.35;
       min-height: 38px;
-      box-sizing: border-box;
     }
 
     .narration-speaker {
       flex-shrink: 0;
-      font-size: 0.95rem;
+      width: 16px;
+      height: 16px;
+      color: var(--o-lt, #e8c14a);
     }
 
     .narration-text {
@@ -794,11 +777,10 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
     /* 4. Master Controls */
     .master-controls-card {
       background: var(--panel, #ffffff);
-      border: 1px solid var(--rule, #d8e0da);
-      border-radius: 12px;
-      padding: 14px 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      box-sizing: border-box;
+      border: 1.5px solid var(--frame-soft, #c3d0c7);
+      border-radius: 16px 24px 16px 24px / 22px 16px 24px 16px;
+      padding: 12px 18px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
     }
 
     .controls-toolbar {
@@ -815,42 +797,33 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
     }
 
     .btn-ctrl {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-      border: 1.5px solid var(--frame-soft, #c3d0c7);
-      background: var(--wall-tint, #f3f6f3);
-      color: var(--ink, #1c2621);
-      font-size: 1rem;
+      width: 42px;
+      height: 42px;
+      border-radius: 11px 15px 12px 14px / 14px 12px 15px 11px;
+      border: 1.5px solid var(--edge, #6f7d74);
+      background: var(--panel, #ffffff);
+      color: var(--pine, #17603e);
       display: inline-flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       transition: all 0.15s ease;
 
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+
       &:hover:not(:disabled) {
-        background: var(--board, #26332c);
-        color: var(--chalk, #f4f1e6);
-        border-color: var(--board, #26332c);
-      }
-
-      &:disabled {
-        opacity: 0.4;
-        cursor: not-allowed;
-      }
-
-      &:focus-visible {
-        outline: 2px solid var(--pine, #17603e);
-        outline-offset: 2px;
+        background: var(--wall-tint, #f3f6f3);
       }
 
       &.btn-play {
         background: var(--pine, #17603e);
         color: #ffffff;
         border-color: var(--pine, #17603e);
-        font-size: 1.1rem;
 
-        &:hover {
+        &:hover:not(:disabled) {
           background: var(--pine-strong, #0f4a2f);
         }
       }
@@ -870,45 +843,32 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
       }
     }
 
+    %scrubber-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--pine, #17603e);
+      border: 2px solid var(--panel, #ffffff);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+    }
+
     .master-scrubber {
       flex: 1;
       height: 8px;
       border-radius: 4px;
       appearance: none;
-      background: linear-gradient(
-        to right,
-        var(--pine, #17603e) 0%,
-        var(--pine, #17603e) var(--scrubber-fill, 0%),
-        var(--rule, #d8e0da) var(--scrubber-fill, 0%),
-        var(--rule, #d8e0da) 100%
-      );
+      background: linear-gradient(to right, var(--pine, #17603e) var(--scrubber-fill, 0%), var(--rule, #d8e0da) 0);
       cursor: pointer;
       outline: none;
 
       &::-webkit-slider-thumb {
         appearance: none;
-        width: 18px;
-        height: 18px;
-        border-radius: 50%;
-        background: var(--pine, #17603e);
-        border: 2px solid var(--panel, #ffffff);
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-        cursor: pointer;
+        @extend %scrubber-thumb;
       }
 
       &::-moz-range-thumb {
-        width: 18px;
-        height: 18px;
-        border-radius: 50%;
-        background: var(--pine, #17603e);
-        border: 2px solid var(--panel, #ffffff);
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-        cursor: pointer;
-      }
-
-      &:focus-visible {
-        outline: 2px solid var(--pine, #17603e);
-        outline-offset: 2px;
+        @extend %scrubber-thumb;
       }
     }
 
@@ -937,7 +897,7 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
       font-weight: 600;
       color: var(--ink-soft, #3f4c45);
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: 0.15s ease;
 
       &:last-child {
         border-right: none;
@@ -950,11 +910,6 @@ import { LinearEvent, HierarchicalEvent } from '../../../../engine/events';
       &.is-active {
         background: var(--pine, #17603e);
         color: #ffffff;
-      }
-
-      &:focus-visible {
-        outline: 2px solid var(--pine, #17603e);
-        outline-offset: -2px;
       }
     }
   `]

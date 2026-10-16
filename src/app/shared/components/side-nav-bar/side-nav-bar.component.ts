@@ -61,9 +61,6 @@ import { ALL_ALGORITHM_CONTENTS } from '../../../content';
               <span class="sandbox-nav-text">Sandbox & Arena</span>
             }
           </div>
-          @if (!collapsed()) {
-            <span class="sandbox-nav-badge">NOVO</span>
-          }
         </a>
 
         <!-- Grupo 1: Ordenação -->
@@ -331,11 +328,6 @@ import { ALL_ALGORITHM_CONTENTS } from '../../../content';
         .sandbox-nav-icon {
           color: #17603e;
         }
-
-        .sandbox-nav-badge {
-          background: #17603e;
-          color: #ffffff;
-        }
       }
     }
 
@@ -357,18 +349,6 @@ import { ALL_ALGORITHM_CONTENTS } from '../../../content';
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-    }
-
-    .sandbox-nav-badge {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 6px;
-      background: #8a6a12;
-      color: #ffffff;
-      border-radius: 4px;
-      letter-spacing: 0.05em;
-      flex-shrink: 0;
     }
 
     .side-nav.collapsed .sandbox-nav-link {
