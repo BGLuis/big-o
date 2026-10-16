@@ -77,6 +77,9 @@ import { generateTimsortEvents } from '../../families/linear/algorithms/timsort.
 import { generateIntrosortEvents } from '../../families/linear/algorithms/introsort.generator';
 import { generateArrayOperationsEvents } from '../../families/linear/algorithms/array-ops.generator';
 import { generateBSTEvents } from '../../families/hierarchical/algorithms/bst-insert.generator';
+import { generateAVLEvents } from '../../families/hierarchical/algorithms/avl-tree.generator';
+import { generateTreeTraversalEvents } from '../../families/hierarchical/algorithms/tree-traversal.generator';
+import { generateRedBlackEvents } from '../../families/hierarchical/algorithms/red-black-tree.generator';
 import { generateLinkedListEvents } from '../../families/linked-list/algorithms/linked-list.generator';
 import { generateStackEvents } from '../../families/stack/algorithms/stack.generator';
 import { generateQueueEvents } from '../../families/queue/algorithms/queue.generator';
@@ -589,7 +592,11 @@ export class VisualizerComponent implements OnDestroy {
     const algoId = this.selectedAlgorithmId();
     const values: number[] = [];
 
-    if (family === 'hierarchical') {
+    if (algoId === 'avl-tree') {
+      values.push(30, 20, 10, 40, 50, 25);
+    } else if (algoId === 'red-black-tree') {
+      values.push(20, 10, 30, 5, 15, 25);
+    } else if (family === 'hierarchical') {
       const pool = new Set<number>();
       while (pool.size < 7) {
         pool.add(Math.floor(Math.random() * 85) + 10);
@@ -672,7 +679,11 @@ export class VisualizerComponent implements OnDestroy {
 
   private setDefaultValuesForAlgo(algoId: string): void {
     const content = getAlgorithmContent(algoId);
-    if (content?.family === 'hierarchical') {
+    if (algoId === 'avl-tree') {
+      this.initialValues.set([30, 20, 10, 40, 50, 25]);
+    } else if (algoId === 'red-black-tree') {
+      this.initialValues.set([20, 10, 30, 5, 15, 25]);
+    } else if (algoId === 'tree-traversal' || content?.family === 'hierarchical') {
       this.initialValues.set([50, 30, 70, 20, 40, 60, 80]);
     } else if (algoId === 'linked-list') {
       this.initialValues.set([12, 45, 28, 73, 56]);
@@ -702,7 +713,16 @@ export class VisualizerComponent implements OnDestroy {
     if (content.family === 'hierarchical') {
       const initialState = createInitialTreeState();
       this.defaultTreeState.set(initialState);
-      const events = Array.from(generateBSTEvents(values));
+      let events: HierarchicalEvent[] = [];
+      if (algoId === 'avl-tree') {
+        events = Array.from(generateAVLEvents(values));
+      } else if (algoId === 'tree-traversal') {
+        events = Array.from(generateTreeTraversalEvents(values));
+      } else if (algoId === 'red-black-tree') {
+        events = Array.from(generateRedBlackEvents(values));
+      } else {
+        events = Array.from(generateBSTEvents(values));
+      }
       newEngine = new PlaybackEngine<TreeState, HierarchicalEvent>({
         initialState,
         events,

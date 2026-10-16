@@ -188,13 +188,29 @@ describe('VisualizerComponent', () => {
     }
   });
 
-  it('should successfully switch and step through all 7 data structures', () => {
+  it('should switch to BST hierarchical family using canonical id "bst"', () => {
+    fixture.componentRef.setInput('id', 'bst');
+    fixture.detectChanges();
+
+    expect(component.selectedAlgorithmId()).toBe('bst');
+    expect(component.currentContent().family).toBe('hierarchical');
+    expect(component.totalSteps()).toBeGreaterThan(5);
+
+    component.onStepForward();
+    expect(component.currentStepIndex()).toBe(1);
+    expect(component.currentTreeState().nodes).toBeDefined();
+  });
+
+  it('should successfully switch and step through all data structures and tree algorithms', () => {
     const dataStructureIds = [
       'array',
       'linked-list',
       'stack',
       'queue',
-      'bst-insert',
+      'bst',
+      'avl-tree',
+      'tree-traversal',
+      'red-black-tree',
       'graph',
       'hash-map'
     ];

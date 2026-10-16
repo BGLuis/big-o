@@ -15,6 +15,9 @@ import { LINKED_LIST_CONTENT } from './linked-list.content';
 import { STACK_CONTENT } from './stack.content';
 import { QUEUE_CONTENT } from './queue.content';
 import { BST_CONTENT } from './bst.content';
+import { AVL_TREE_CONTENT } from './avl-tree.content';
+import { TREE_TRAVERSAL_CONTENT } from './tree-traversal.content';
+import { RED_BLACK_TREE_CONTENT } from './red-black-tree.content';
 import { GRAPH_CONTENT } from './graph.content';
 import { HASH_MAP_CONTENT } from './hash-map.content';
 
@@ -35,6 +38,9 @@ export * from './linked-list.content';
 export * from './stack.content';
 export * from './queue.content';
 export * from './bst.content';
+export * from './avl-tree.content';
+export * from './tree-traversal.content';
+export * from './red-black-tree.content';
 export * from './graph.content';
 export * from './hash-map.content';
 
@@ -52,12 +58,15 @@ export const ALL_ALGORITHM_CONTENTS: readonly AlgorithmContent[] = [
   TIMSORT_CONTENT,
   INTROSORT_CONTENT,
 
-  // Estruturas de Dados Fundamentais
+  // Estruturas de Dados Fundamentais e Árvores
   ARRAY_CONTENT,
   LINKED_LIST_CONTENT,
   STACK_CONTENT,
   QUEUE_CONTENT,
   BST_CONTENT,
+  AVL_TREE_CONTENT,
+  TREE_TRAVERSAL_CONTENT,
+  RED_BLACK_TREE_CONTENT,
   GRAPH_CONTENT,
   HASH_MAP_CONTENT
 ];
@@ -80,6 +89,10 @@ export const ALGORITHM_CONTENT_MAP: Readonly<Record<string, AlgorithmContent>> =
   [STACK_CONTENT.id]: STACK_CONTENT,
   [QUEUE_CONTENT.id]: QUEUE_CONTENT,
   [BST_CONTENT.id]: BST_CONTENT,
+  'bst-insert': BST_CONTENT, // Alias de retrocompatibilidade
+  [AVL_TREE_CONTENT.id]: AVL_TREE_CONTENT,
+  [TREE_TRAVERSAL_CONTENT.id]: TREE_TRAVERSAL_CONTENT,
+  [RED_BLACK_TREE_CONTENT.id]: RED_BLACK_TREE_CONTENT,
   [GRAPH_CONTENT.id]: GRAPH_CONTENT,
   [HASH_MAP_CONTENT.id]: HASH_MAP_CONTENT
 };

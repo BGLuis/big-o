@@ -7,6 +7,9 @@ export interface LayoutNode {
   readonly y: number;
   readonly radius: number;
   readonly state: TreeNode['state'];
+  readonly height?: number;
+  readonly balanceFactor?: number;
+  readonly color?: 'red' | 'black';
 }
 
 export interface LayoutEdge {
@@ -73,7 +76,10 @@ export function computeTreeLayout(state: TreeState, width: number, height: numbe
       x,
       y,
       radius,
-      state: node.state
+      state: node.state,
+      height: node.height,
+      balanceFactor: node.balanceFactor,
+      color: node.color
     });
 
     if (node.leftId && state.nodes[node.leftId]) {

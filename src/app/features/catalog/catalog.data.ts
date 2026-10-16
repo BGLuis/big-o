@@ -192,9 +192,45 @@ export const DATA_STRUCTURE_TRACKS: readonly CatalogTrackItem[] = [
     familyTag: 'hierárquica',
     complexityBadge: 'O(n)',
     complexityTone: 'amber',
-    description: 'Nós à esquerda menores, à direita maiores que a raiz — busca e inserção eficientes.',
+    description: 'Nós à esquerda menores, à direita maiores — inserção, busca e remoção nos 3 casos clássicos.',
     summaryMetrics: 'médio O(log n) · pior O(n)',
     route: ['/data-structures', 'bst']
+  },
+  {
+    id: 'avl-tree',
+    title: 'Árvore AVL (Balanceamento)',
+    category: 'data-structure',
+    categoryLabel: 'Estruturas de Dados',
+    familyTag: 'hierárquica',
+    complexityBadge: 'Θ(log n)',
+    complexityTone: 'green',
+    description: 'Auto-balanceada onde |BF| ≤ 1: demonstração das 4 rotações canônicas (LL, RR, LR, RL).',
+    summaryMetrics: 'garantido Θ(log n) · esp. O(n)',
+    route: ['/data-structures', 'avl-tree']
+  },
+  {
+    id: 'tree-traversal',
+    title: 'Travessias em Árvore',
+    category: 'data-structure',
+    categoryLabel: 'Estruturas de Dados',
+    familyTag: 'hierárquica',
+    complexityBadge: 'Θ(n)',
+    complexityTone: 'green',
+    description: 'Percursos em profundidade: Em-Ordem (ordenado), Pré-Ordem (cópia) e Pós-Ordem (desalocação).',
+    summaryMetrics: 'tempo Θ(n) · pilha O(h)',
+    route: ['/data-structures', 'tree-traversal']
+  },
+  {
+    id: 'red-black-tree',
+    title: 'Árvore Rubro-Negra',
+    category: 'data-structure',
+    categoryLabel: 'Estruturas de Dados',
+    familyTag: 'hierárquica',
+    complexityBadge: 'O(log n)',
+    complexityTone: 'green',
+    description: 'Nós vermelhos e pretos com altura preta balanceada e rebalanceamento com poucas rotações.',
+    summaryMetrics: 'garantido O(log n) · esp. O(n)',
+    route: ['/data-structures', 'red-black-tree']
   },
   {
     id: 'graph',

@@ -18,12 +18,12 @@ describe('CatalogComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create and render all 18 tracks initially', () => {
+  it('should create and render all 21 tracks initially', () => {
     expect(component).toBeTruthy();
     const el: HTMLElement = fixture.nativeElement;
 
     const cards = el.querySelectorAll<HTMLAnchorElement>('.track-card');
-    expect(cards.length).toBe(18);
+    expect(cards.length).toBe(21);
 
     const sortingHeading = el.querySelector('#sorting-heading');
     expect(sortingHeading?.textContent?.trim()).toBe('Ordenação');
@@ -86,7 +86,7 @@ describe('CatalogComponent', () => {
     fixture.detectChanges();
 
     cards = el.querySelectorAll<HTMLAnchorElement>('.track-card');
-    expect(cards.length).toBe(7);
+    expect(cards.length).toBe(10);
     expect(el.querySelector('#sorting-heading')).toBeNull();
     expect(el.querySelector('#structures-heading')).toBeTruthy();
 
@@ -95,7 +95,7 @@ describe('CatalogComponent', () => {
     fixture.detectChanges();
 
     cards = el.querySelectorAll<HTMLAnchorElement>('.track-card');
-    expect(cards.length).toBe(18);
+    expect(cards.length).toBe(21);
   });
 
   it('should show empty state when no results match and restore on clear', () => {
@@ -118,7 +118,7 @@ describe('CatalogComponent', () => {
     fixture.detectChanges();
 
     expect(el.querySelector('.empty-state')).toBeNull();
-    expect(el.querySelectorAll('.track-card').length).toBe(18);
+    expect(el.querySelectorAll('.track-card').length).toBe(21);
   });
 
   it('should render valid router links on cards', () => {
@@ -128,6 +128,10 @@ describe('CatalogComponent', () => {
     const hrefs = Array.from(cards).map((c) => c.getAttribute('href') ?? '');
     expect(hrefs.some((h) => h.includes('/ordenacao/quick-sort'))).toBe(true);
     expect(hrefs.some((h) => h.includes('/data-structures/array'))).toBe(true);
+    expect(hrefs.some((h) => h.includes('/data-structures/bst'))).toBe(true);
+    expect(hrefs.some((h) => h.includes('/data-structures/avl-tree'))).toBe(true);
+    expect(hrefs.some((h) => h.includes('/data-structures/tree-traversal'))).toBe(true);
+    expect(hrefs.some((h) => h.includes('/data-structures/red-black-tree'))).toBe(true);
     expect(hrefs.some((h) => h.includes('/data-structures/hash-map'))).toBe(true);
   });
 });

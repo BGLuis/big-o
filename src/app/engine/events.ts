@@ -50,7 +50,11 @@ export type HierarchicalEvent =
   | (BaseEvent & { readonly type: 'create-node'; readonly id: string; readonly value: number })
   | (BaseEvent & { readonly type: 'link'; readonly parentId: string; readonly childId: string; readonly side: 'left' | 'right' })
   | (BaseEvent & { readonly type: 'unlink'; readonly parentId: string; readonly side: 'left' | 'right' })
-  | (BaseEvent & { readonly type: 'rotate'; readonly pivotId: string; readonly direction: 'left' | 'right' });
+  | (BaseEvent & { readonly type: 'remove-node'; readonly id: string })
+  | (BaseEvent & { readonly type: 'update-node-value'; readonly id: string; readonly value: number })
+  | (BaseEvent & { readonly type: 'rotate'; readonly pivotId: string; readonly direction: 'left' | 'right' })
+  | (BaseEvent & { readonly type: 'set-node-meta'; readonly id: string; readonly balanceFactor?: number; readonly height?: number; readonly color?: 'red' | 'black' })
+  | (BaseEvent & { readonly type: 'traversal-output'; readonly values: readonly number[] });
 
 export type StackEvent =
   | CoreEvent

@@ -3,7 +3,7 @@ import { ALL_ALGORITHM_CONTENTS, getAlgorithmContent } from './index';
 
 describe('Algorithm Content Layer', () => {
   it('should have complete educational metadata for all registered algorithms and data structures', () => {
-    expect(ALL_ALGORITHM_CONTENTS.length).toBe(18); // 11 sorting + 7 data structures
+    expect(ALL_ALGORITHM_CONTENTS.length).toBe(21); // 11 sorting + 10 data structures
 
     for (const content of ALL_ALGORITHM_CONTENTS) {
       expect(content.id.trim()).not.toBe('');
@@ -41,8 +41,20 @@ describe('Algorithm Content Layer', () => {
     }
   });
 
-  it('should return correct content for all 7 data structures', () => {
-    const dsIds = ['array', 'linked-list', 'stack', 'queue', 'bst-insert', 'graph', 'hash-map'];
+  it('should return correct content for all data structures and tree algorithms', () => {
+    const dsIds = [
+      'array',
+      'linked-list',
+      'stack',
+      'queue',
+      'bst',
+      'bst-insert',
+      'avl-tree',
+      'tree-traversal',
+      'red-black-tree',
+      'graph',
+      'hash-map'
+    ];
 
     for (const id of dsIds) {
       const ds = getAlgorithmContent(id);
@@ -54,7 +66,11 @@ describe('Algorithm Content Layer', () => {
     expect(getAlgorithmContent('linked-list')?.family).toBe('graph');
     expect(getAlgorithmContent('stack')?.family).toBe('stack');
     expect(getAlgorithmContent('queue')?.family).toBe('queue');
+    expect(getAlgorithmContent('bst')?.family).toBe('hierarchical');
     expect(getAlgorithmContent('bst-insert')?.family).toBe('hierarchical');
+    expect(getAlgorithmContent('avl-tree')?.family).toBe('hierarchical');
+    expect(getAlgorithmContent('tree-traversal')?.family).toBe('hierarchical');
+    expect(getAlgorithmContent('red-black-tree')?.family).toBe('hierarchical');
     expect(getAlgorithmContent('graph')?.family).toBe('graph');
     expect(getAlgorithmContent('hash-map')?.family).toBe('hash-map');
   });
