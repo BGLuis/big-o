@@ -37,5 +37,10 @@ export const RADIX_SORT_CONTENT: AlgorithmContent = {
     '  acumular contagens e distribuir em saida[] de forma estável',
     '  copiar saida de volta para A',
     'fim procedimento'
+  ],
+  legend: [
+    { label: 'balde ordenado', colorClass: 'box-completed' },
+    { label: 'dígito ativo', colorClass: 'box-comparing' },
+    { label: 'não processado', colorClass: 'box-normal' }
   ]
 };

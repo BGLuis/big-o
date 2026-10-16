@@ -34,5 +34,10 @@ export const INTROSORT_CONTENT: AlgorithmContent = {
     '    introSortRecursivo(A, pivo + 1, high, profundidadeLimite - 1)',
     '  fim se',
     'fim procedimento'
+  ],
+  legend: [
+    { label: 'partição finalizada', colorClass: 'box-completed' },
+    { label: 'troca / heap / pivô', colorClass: 'box-comparing' },
+    { label: 'não visitado', colorClass: 'box-normal' }
   ]
 };

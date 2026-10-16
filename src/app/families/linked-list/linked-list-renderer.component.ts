@@ -36,7 +36,7 @@ import { computeLinkedListLayout, LinkedListLayoutResult } from './linked-list-l
             markerWidth="6"
             markerHeight="6"
             orient="auto-start-reverse">
-            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--color-primary, #818cf8)" />
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--o-lt, #f4d38c)" />
           </marker>
           <marker
             id="list-head-arrow"
@@ -46,7 +46,7 @@ import { computeLinkedListLayout, LinkedListLayoutResult } from './linked-list-l
             markerWidth="6"
             markerHeight="6"
             orient="auto-start-reverse">
-            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--color-accent, #38bdf8)" />
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--o, #fcd34d)" />
           </marker>
         </defs>
 
@@ -177,6 +177,9 @@ import { computeLinkedListLayout, LinkedListLayoutResult } from './linked-list-l
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      background: var(--board, #26332c);
+      border-radius: var(--radius-md, 8px);
+      border: 1px solid var(--grid, #334038);
     }
 
     .list-svg {
@@ -187,20 +190,20 @@ import { computeLinkedListLayout, LinkedListLayoutResult } from './linked-list-l
     }
 
     .list-arrow {
-      stroke: var(--color-primary, #818cf8);
+      stroke: var(--o-lt, #f4d38c);
       stroke-width: 2.5;
       stroke-linecap: round;
       transition: all 0.25s ease;
     }
 
     .head-arrow {
-      stroke: var(--color-accent, #38bdf8);
+      stroke: var(--o, #fcd34d);
       stroke-width: 2;
       stroke-linecap: round;
     }
 
     .head-label {
-      fill: var(--color-accent, #38bdf8);
+      fill: var(--o, #fcd34d);
       font-family: var(--font-family-mono, monospace);
       font-size: 0.75rem;
       font-weight: 700;
@@ -212,25 +215,25 @@ import { computeLinkedListLayout, LinkedListLayoutResult } from './linked-list-l
       cursor: default;
 
       .data-box {
-        fill: var(--color-bg-surface, #152031);
-        stroke: var(--color-border, #64748b);
+        fill: var(--board-deep, #16221c);
+        stroke: var(--grid, #334038);
         stroke-width: 2;
         transition: all 0.2s ease;
       }
 
       .pointer-box {
-        fill: var(--color-bg-surface-alt, #1f2a3c);
-        stroke: var(--color-border, #64748b);
+        fill: var(--board, #26332c);
+        stroke: var(--grid, #334038);
         stroke-width: 2;
         transition: all 0.2s ease;
       }
 
       .pointer-bullet {
-        fill: var(--color-primary, #818cf8);
+        fill: var(--o-lt, #f4d38c);
       }
 
       .data-text {
-        fill: var(--color-text-main, #d8e3fb);
+        fill: var(--chalk, #eceae2);
         font-family: var(--font-family-mono, monospace);
         font-size: 0.9rem;
         font-weight: 700;
@@ -241,42 +244,42 @@ import { computeLinkedListLayout, LinkedListLayoutResult } from './linked-list-l
       &.node-active {
         .data-box,
         .pointer-box {
-          border-color: var(--color-warning, #f59e0b);
-          stroke: var(--color-warning, #f59e0b);
-          filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.6));
+          border-color: var(--coral-lt, #e8867a);
+          stroke: var(--coral-lt, #e8867a);
+          filter: drop-shadow(0 0 6px rgba(204, 85, 68, 0.5));
         }
 
         .data-text {
-          fill: var(--color-warning, #f59e0b);
+          fill: var(--coral-lt, #e8867a);
         }
       }
 
       &.node-highlighted {
         .data-box,
         .pointer-box {
-          stroke: var(--color-accent, #38bdf8);
-          filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.7));
+          stroke: var(--o-lt, #f4d38c);
+          filter: drop-shadow(0 0 8px rgba(233, 180, 76, 0.6));
         }
       }
 
       &.node-inserted {
         .data-box,
         .pointer-box {
-          stroke: var(--color-success, #10b981);
-          filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.6));
+          stroke: var(--theta, #44aa77);
+          filter: drop-shadow(0 0 8px rgba(68, 170, 119, 0.6));
         }
       }
     }
 
     .null-box {
-      fill: var(--color-bg-surface-alt, #1f2a3c);
-      stroke: var(--color-border, #64748b);
+      fill: var(--board-deep, #16221c);
+      stroke: var(--chalk-faint, #4e584f);
       stroke-width: 2;
       stroke-dasharray: 4 2;
     }
 
     .null-text {
-      fill: var(--color-text-dim, #8b9bb4);
+      fill: var(--chalk-dim, #a4ab9e);
       font-family: var(--font-family-mono, monospace);
       font-size: 0.75rem;
       font-weight: 700;

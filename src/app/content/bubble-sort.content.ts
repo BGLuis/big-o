@@ -29,5 +29,10 @@ export const BUBBLE_SORT_CONTENT: AlgorithmContent = {
     '    n = n - 1',
     '  até que não trocou',
     'fim procedimento'
+  ],
+  legend: [
+    { label: 'ordenado', colorClass: 'box-completed' },
+    { label: 'par em comparação', colorClass: 'box-comparing' },
+    { label: 'não visitado', colorClass: 'box-normal' }
   ]
 };

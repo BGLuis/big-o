@@ -37,5 +37,10 @@ export const MERGE_SORT_CONTENT: AlgorithmContent = {
     '  fim enquanto',
     '  copiar restante e transferir bufferAuxiliar de volta para A',
     'fim procedimento'
+  ],
+  legend: [
+    { label: 'intercalado', colorClass: 'box-completed' },
+    { label: 'sublista ativa', colorClass: 'box-comparing' },
+    { label: 'não visitado', colorClass: 'box-normal' }
   ]
 };

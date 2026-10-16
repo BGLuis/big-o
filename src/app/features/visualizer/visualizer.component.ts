@@ -144,7 +144,10 @@ import { ThemeService } from '../../core/services/theme.service';
             type="button"
             class="btn btn-secondary"
             (click)="generateRandomData()"
-            aria-label="Gerar novos dados aleatórios">
+            [disabled]="isDeterministic()"
+            [attr.aria-disabled]="isDeterministic()"
+            [title]="isDeterministic() ? 'Esta visualização utiliza um traçado canônico e determinístico' : 'Gerar novos dados aleatórios'"
+            [attr.aria-label]="isDeterministic() ? 'Visualização determinística com dados canônicos' : 'Gerar novos dados aleatórios'">
             <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
             </svg>
@@ -212,18 +215,17 @@ import { ThemeService } from '../../core/services/theme.service';
                   [currentEvent]="currentHierarchicalEvent()"
                 />
               }
+              @case ('linked-list') {
+                <app-linked-list-renderer
+                  [state]="currentLinkedListState()"
+                  [currentEvent]="currentLinearEvent()"
+                />
+              }
               @case ('graph') {
-                @if (selectedAlgorithmId() === 'linked-list') {
-                  <app-linked-list-renderer
-                    [state]="currentLinkedListState()"
-                    [currentEvent]="currentLinearEvent()"
-                  />
-                } @else {
-                  <app-graph-renderer
-                    [state]="currentGraphState()"
-                    [currentEvent]="currentGraphEvent()"
-                  />
-                }
+                <app-graph-renderer
+                  [state]="currentGraphState()"
+                  [currentEvent]="currentGraphEvent()"
+                />
               }
               @case ('stack') {
                 <app-stack-renderer
@@ -247,6 +249,7 @@ import { ThemeService } from '../../core/services/theme.service';
                 <app-linear-renderer
                   [state]="currentLinearState()"
                   [currentEvent]="currentLinearEvent()"
+                  [legend]="currentContent().legend"
                 />
               }
             }
@@ -446,6 +449,9 @@ export class VisualizerComponent implements OnDestroy {
   public readonly dataStructures = ALL_ALGORITHM_CONTENTS.filter((c) => c.category === 'data-structure');
   public readonly selectedAlgorithmId = signal<string>('quick-sort');
   public readonly activeTab = signal<'explanation' | 'code'>('code');
+  public readonly isDeterministic = computed<boolean>(() =>
+    ['graph', 'hash-map'].includes(this.selectedAlgorithmId())
+  );
 
   private readonly initialValues = signal<number[]>([17, 12, 24, 33, 89, 95, 41, 71, 58, 6]);
   protected readonly engine = signal<PlaybackEngine<any, any> | null>(null);
@@ -601,6 +607,9 @@ export class VisualizerComponent implements OnDestroy {
   }
 
   public generateRandomData(): void {
+    if (this.isDeterministic()) {
+      return;
+    }
     const family = this.currentContent().family;
     const algoId = this.selectedAlgorithmId();
     const values: number[] = [];
@@ -770,7 +779,7 @@ export class VisualizerComponent implements OnDestroy {
         checkpointInterval: 8,
         onStep: () => this.cdr.markForCheck()
       });
-    } else if (algoId === 'linked-list') {
+    } else if (content.family === 'linked-list' || algoId === 'linked-list') {
       const initialState = createInitialLinkedListState();
       this.defaultLinkedListState.set(initialState);
       const events = Array.from(generateLinkedListEvents(values));

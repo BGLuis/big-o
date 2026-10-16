@@ -33,5 +33,10 @@ export const TIMSORT_CONTENT: AlgorithmContent = {
     '    tamanho = 2 * tamanho',
     '  fim enquanto',
     'fim procedimento'
+  ],
+  legend: [
+    { label: 'run intercalada', colorClass: 'box-completed' },
+    { label: 'comparação de run', colorClass: 'box-comparing' },
+    { label: 'não ordenado', colorClass: 'box-normal' }
   ]
 };

@@ -19,9 +19,6 @@ import { HashMapEvent } from '../../engine/events';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="hash-map-renderer-container">
-      <div class="sr-only" aria-live="polite" aria-atomic="true">
-        {{ currentEvent()?.narration }}
-      </div>
 
       <svg
         class="hash-svg"
@@ -39,7 +36,7 @@ import { HashMapEvent } from '../../engine/events';
             markerWidth="6"
             markerHeight="6"
             orient="auto-start-reverse">
-            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--color-primary, #818cf8)" />
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--o-lt, #f4d38c)" />
           </marker>
         </defs>
 
@@ -144,6 +141,9 @@ import { HashMapEvent } from '../../engine/events';
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      background: var(--board, #26332c);
+      border-radius: var(--radius-md, 8px);
+      border: 1px solid var(--grid, #334038);
     }
 
     .sr-only {
@@ -166,26 +166,26 @@ import { HashMapEvent } from '../../engine/events';
     }
 
     .calc-rect {
-      fill: var(--color-bg-surface-alt, #1f2a3c);
-      stroke: var(--color-primary, #818cf8);
+      fill: var(--board-deep, #16221c);
+      stroke: var(--o-lt, #f4d38c);
       stroke-width: 2;
     }
 
     .calc-text {
-      fill: var(--color-accent, #38bdf8);
+      fill: var(--o, #fcd34d);
       font-family: var(--font-family-mono, monospace);
       font-size: 13px;
       font-weight: 700;
     }
 
     .collision-rect {
-      fill: rgba(236, 72, 153, 0.2);
-      stroke: #ec4899;
+      fill: rgba(204, 85, 68, 0.25);
+      stroke: var(--coral-lt, #e8867a);
       stroke-width: 1.5;
     }
 
     .collision-text {
-      fill: #f472b6;
+      fill: var(--coral-lt, #e8867a);
       font-family: var(--font-family-mono, monospace);
       font-size: 11px;
       font-weight: 700;
@@ -195,63 +195,65 @@ import { HashMapEvent } from '../../engine/events';
       transition: transform 0.2s ease;
 
       .bucket-slot-rect {
-        fill: var(--color-bg-surface-alt, #1f2a3c);
-        stroke: var(--color-border, #64748b);
+        fill: var(--board-deep, #16221c);
+        stroke: var(--grid, #334038);
         stroke-width: 1.5;
         transition: stroke 0.2s ease, fill 0.2s ease;
       }
 
       .bucket-slot-text {
-        fill: var(--color-text-muted, #94a3b8);
+        fill: var(--chalk-dim, #a4ab9e);
         font-family: var(--font-family-mono, monospace);
         font-size: 13px;
         font-weight: 700;
       }
 
       &.is-active .bucket-slot-rect {
-        fill: rgba(129, 140, 248, 0.2);
-        stroke: var(--color-primary, #818cf8);
+        fill: rgba(233, 180, 76, 0.2);
+        stroke: var(--o-lt, #f4d38c);
         stroke-width: 2.5;
       }
 
       &.is-active .bucket-slot-text {
-        fill: var(--color-primary, #818cf8);
+        fill: var(--o-lt, #f4d38c);
       }
     }
 
     .bucket-empty-text {
-      fill: var(--color-text-dim, #8b9bb4);
+      fill: var(--chalk-faint, #4e584f);
       font-family: var(--font-family-mono, monospace);
       font-size: 12px;
       font-style: italic;
     }
 
     .chain-arrow {
-      stroke: var(--color-primary, #818cf8);
+      stroke: var(--o-lt, #f4d38c);
       stroke-width: 2;
     }
 
     .entry-card-group {
       .entry-card-rect {
-        fill: var(--color-primary, #6366f1);
-        stroke: var(--color-border-active, #818cf8);
+        fill: var(--board-deep, #16221c);
+        stroke: var(--chalk, #eceae2);
         stroke-width: 1.5;
         transition: fill 0.2s ease;
       }
 
       .entry-card-text {
-        fill: #ffffff;
+        fill: var(--chalk, #eceae2);
         font-family: var(--font-family-mono, monospace);
         font-size: 12px;
         font-weight: 600;
       }
 
       &.is-inserting .entry-card-rect {
-        fill: var(--color-accent-warning, #ffb95f);
+        fill: rgba(233, 180, 76, 0.25);
+        stroke: var(--o-lt, #f4d38c);
       }
 
       &.is-matched .entry-card-rect {
-        fill: var(--color-accent-success, #4edea3);
+        fill: rgba(68, 170, 119, 0.25);
+        stroke: var(--theta, #44aa77);
       }
     }
   `]

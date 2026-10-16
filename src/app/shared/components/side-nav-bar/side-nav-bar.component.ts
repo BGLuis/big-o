@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ALL_ALGORITHM_CONTENTS } from '../../../content';
 
 @Component({
   selector: 'app-side-nav-bar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, NgOptimizedImage],
   template: `
     <nav class="side-nav" [class.collapsed]="collapsed()" aria-label="Navegação do catálogo">
       <!-- Cabeçalho da Barra Lateral -->
@@ -77,7 +78,7 @@ import { ALL_ALGORITHM_CONTENTS } from '../../../content';
             title="Ordenação"
           >
             <img
-              src="assets/icon-sorting.svg"
+              ngSrc="assets/icon-sorting.svg"
               alt=""
               width="17"
               height="17"
@@ -128,7 +129,7 @@ import { ALL_ALGORITHM_CONTENTS } from '../../../content';
             title="Estruturas de Dados"
           >
             <img
-              src="assets/icon-data-structures.svg"
+              ngSrc="assets/icon-data-structures.svg"
               alt=""
               width="17"
               height="17"
@@ -528,6 +529,24 @@ import { ALL_ALGORITHM_CONTENTS } from '../../../content';
       }
 
       .hidden-collapsed {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      :host {
+        position: relative;
+        height: 100%;
+        width: 100%;
+      }
+
+      .side-nav {
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+      }
+
+      .collapse-toggle {
         display: none;
       }
     }

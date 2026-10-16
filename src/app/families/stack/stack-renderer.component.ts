@@ -19,9 +19,6 @@ import { StackEvent } from '../../engine/events';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="stack-renderer-container">
-      <div class="sr-only" aria-live="polite" aria-atomic="true">
-        {{ currentEvent()?.narration }}
-      </div>
 
       <svg
         class="stack-svg"
@@ -39,7 +36,7 @@ import { StackEvent } from '../../engine/events';
             markerWidth="6"
             markerHeight="6"
             orient="auto-start-reverse">
-            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--color-primary, #818cf8)" />
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--o-lt, #e8c14a)" />
           </marker>
         </defs>
 
@@ -48,7 +45,7 @@ import { StackEvent } from '../../engine/events';
           class="stack-tube"
           [attr.d]="tubePath()"
           fill="none"
-          stroke="var(--color-border, #64748b)"
+          stroke="var(--edge, #6f7d74)"
           stroke-width="3"
         />
 
@@ -105,7 +102,7 @@ import { StackEvent } from '../../engine/events';
               y1="0"
               x2="10"
               y2="0"
-              stroke="var(--color-accent, #38bdf8)"
+              stroke="var(--o-lt, #e8c14a)"
               stroke-width="2.5"
               marker-end="url(#stack-top-arrow)"
             />
@@ -130,18 +127,11 @@ import { StackEvent } from '../../engine/events';
       align-items: center;
       justify-content: center;
       overflow: hidden;
-    }
-
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border-width: 0;
+      background: var(--board, #26332c);
+      border-radius: 14px 18px 14px 18px / 16px 14px 18px 14px;
+      padding: 16px;
+      box-sizing: border-box;
+      color: var(--chalk, #f4f1e6);
     }
 
     .stack-svg {
@@ -156,8 +146,8 @@ import { StackEvent } from '../../engine/events';
     }
 
     .empty-label {
-      fill: var(--color-text-dim, #8b9bb4);
-      font-family: var(--font-family-mono, monospace);
+      fill: var(--chalk-dim, #b7c2b9);
+      font-family: var(--mono, 'IBM Plex Mono', monospace);
       font-size: 13px;
     }
 
@@ -165,35 +155,50 @@ import { StackEvent } from '../../engine/events';
       transition: transform 0.25s ease-out;
 
       .stack-item-rect {
-        fill: var(--color-primary, #6366f1);
-        stroke: var(--color-border-active, #818cf8);
+        fill: var(--board-deep, #1f2a24);
+        stroke: var(--chalk-soft, #d7ded6);
         stroke-width: 1.5;
         transition: fill 0.2s ease;
       }
 
       .stack-item-text {
-        fill: #ffffff;
-        font-family: var(--font-family-mono, monospace);
+        fill: var(--chalk, #f4f1e6);
+        font-family: var(--mono, 'IBM Plex Mono', monospace);
         font-size: 14px;
         font-weight: 700;
       }
 
       .stack-item-idx {
-        fill: var(--color-text-dim, #8b9bb4);
-        font-family: var(--font-family-mono, monospace);
+        fill: var(--chalk-dim, #b7c2b9);
+        font-family: var(--mono, 'IBM Plex Mono', monospace);
         font-size: 11px;
       }
 
       &.is-pushed .stack-item-rect {
-        fill: var(--color-accent-success, #4edea3);
+        fill: #8ad9ab;
+        stroke: #ffffff;
+      }
+
+      &.is-pushed .stack-item-text {
+        fill: #1c2621;
       }
 
       &.is-peeked .stack-item-rect {
-        fill: var(--color-accent-warning, #ffb95f);
+        fill: var(--o-lt, #e8c14a);
+        stroke: #ffffff;
+      }
+
+      &.is-peeked .stack-item-text {
+        fill: #1c2621;
       }
 
       &.is-active .stack-item-rect {
-        fill: #ec4899;
+        fill: var(--coral-lt, #f0a99d);
+        stroke: #ffffff;
+      }
+
+      &.is-active .stack-item-text {
+        fill: #1c2621;
       }
     }
 
@@ -201,8 +206,8 @@ import { StackEvent } from '../../engine/events';
       transition: transform 0.25s ease-out;
 
       .top-pointer-text {
-        fill: var(--color-accent, #38bdf8);
-        font-family: var(--font-family-mono, monospace);
+        fill: var(--o-lt, #e8c14a);
+        font-family: var(--mono, 'IBM Plex Mono', monospace);
         font-size: 12px;
         font-weight: 700;
       }

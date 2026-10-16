@@ -104,12 +104,12 @@ describe('VisualizerComponent', () => {
     expect(component.currentTreeState().nodes).toBeDefined();
   });
 
-  it('should switch to Linked List graph family and step through events', () => {
+  it('should switch to Linked List family and step through events', () => {
     fixture.componentRef.setInput('id', 'linked-list');
     fixture.detectChanges();
 
     expect(component.selectedAlgorithmId()).toBe('linked-list');
-    expect(component.currentContent().family).toBe('graph');
+    expect(component.currentContent().family).toBe('linked-list');
     expect(component.totalSteps()).toBeGreaterThan(5);
 
     component.onStepForward();
@@ -139,7 +139,7 @@ describe('VisualizerComponent', () => {
   it('should switch back from Linked List to Bubble Sort and execute sorting steps', () => {
     fixture.componentRef.setInput('id', 'linked-list');
     fixture.detectChanges();
-    expect(component.currentContent().family).toBe('graph');
+    expect(component.currentContent().family).toBe('linked-list');
 
     fixture.componentRef.setInput('id', 'bubble-sort');
     fixture.detectChanges();
@@ -151,6 +151,20 @@ describe('VisualizerComponent', () => {
 
     component.onStepForward();
     expect(component.currentStepIndex()).toBe(1);
+  });
+
+  it('should correctly flag deterministic visualizations (graph and hash-map)', () => {
+    fixture.componentRef.setInput('id', 'quick-sort');
+    fixture.detectChanges();
+    expect(component.isDeterministic()).toBe(false);
+
+    fixture.componentRef.setInput('id', 'graph');
+    fixture.detectChanges();
+    expect(component.isDeterministic()).toBe(true);
+
+    fixture.componentRef.setInput('id', 'hash-map');
+    fixture.detectChanges();
+    expect(component.isDeterministic()).toBe(true);
   });
 
   it('should render optgroups for Ordenação and Estruturas de Dados in the selector', () => {

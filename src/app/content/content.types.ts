@@ -7,7 +7,12 @@ export interface ComplexitySpec {
 
 export type ContentCategory = 'sorting' | 'data-structure' | 'algorithm';
 
-export type AlgorithmFamily = 'linear' | 'hierarchical' | 'graph' | 'stack' | 'queue' | 'hash-map';
+export type AlgorithmFamily = 'linear' | 'hierarchical' | 'graph' | 'stack' | 'queue' | 'hash-map' | 'linked-list';
+
+export interface LegendItem {
+  readonly label: string;
+  readonly colorClass: 'box-completed' | 'box-comparing' | 'box-pivot' | 'box-normal' | 'box-accent' | string;
+}
 
 export interface AlgorithmContent {
   readonly id: string;
@@ -21,4 +26,5 @@ export interface AlgorithmContent {
   readonly pseudoCode: readonly string[];
   readonly kicker?: string;
   readonly pedagogicalNote?: string;
+  readonly legend?: readonly LegendItem[];
 }

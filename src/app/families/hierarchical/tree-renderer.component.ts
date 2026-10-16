@@ -124,6 +124,11 @@ import { computeTreeLayout, TreeLayoutResult } from './tree-layout';
       justify-content: center;
       overflow: hidden;
       position: relative;
+      background: var(--board, #26332c);
+      border-radius: 14px 18px 14px 18px / 16px 14px 18px 14px;
+      padding: 16px;
+      box-sizing: border-box;
+      color: var(--chalk, #f4f1e6);
     }
 
     .tree-svg {
@@ -134,7 +139,7 @@ import { computeTreeLayout, TreeLayoutResult } from './tree-layout';
     }
 
     .tree-edge {
-      stroke: var(--color-border, #64748b);
+      stroke: var(--edge, #6f7d74);
       stroke-width: 2.5;
       stroke-linecap: round;
       transition: all 0.25s ease;
@@ -145,15 +150,15 @@ import { computeTreeLayout, TreeLayoutResult } from './tree-layout';
       cursor: default;
 
       .node-circle {
-        fill: var(--color-bg-surface, #152031);
-        stroke: var(--color-primary, #818cf8);
+        fill: var(--board-deep, #1f2a24);
+        stroke: var(--chalk-soft, #d7ded6);
         stroke-width: 2.5;
         transition: fill 0.2s ease, stroke 0.2s ease, transform 0.2s ease, filter 0.2s ease;
       }
 
       .node-label {
-        fill: var(--color-text-main, #d8e3fb);
-        font-family: var(--font-family-mono, monospace);
+        fill: var(--chalk, #f4f1e6);
+        font-family: var(--mono, 'IBM Plex Mono', monospace);
         font-size: 0.85rem;
         font-weight: 700;
         pointer-events: none;
@@ -161,31 +166,43 @@ import { computeTreeLayout, TreeLayoutResult } from './tree-layout';
       }
 
       &.node-comparing .node-circle {
-        fill: var(--color-warning, #f59e0b);
-        stroke: #ffffff;
-        filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.6));
+        fill: var(--o-lt, #e8c14a);
+        stroke: var(--chalk, #f4f1e6);
+        filter: drop-shadow(0 0 6px rgba(232, 193, 74, 0.6));
       }
 
       &.node-comparing .node-label {
-        fill: #000000;
+        fill: #1c2621;
       }
 
       &.node-highlighted .node-circle {
-        fill: var(--color-accent, #38bdf8);
+        fill: var(--coral-lt, #f0a99d);
         stroke: #ffffff;
-        filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.7));
+        filter: drop-shadow(0 0 8px rgba(240, 169, 157, 0.7));
+      }
+
+      &.node-highlighted .node-label {
+        fill: #1c2621;
       }
 
       &.node-inserted .node-circle {
-        fill: var(--color-success, #10b981);
+        fill: #8ad9ab;
         stroke: #ffffff;
-        filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.6));
+        filter: drop-shadow(0 0 8px rgba(138, 217, 171, 0.6));
+      }
+
+      &.node-inserted .node-label {
+        fill: #1c2621;
       }
 
       &.node-matched .node-circle {
-        fill: #10b981;
-        stroke: #a7f3d0;
-        filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.8));
+        fill: #8ad9ab;
+        stroke: #ffffff;
+        filter: drop-shadow(0 0 10px rgba(138, 217, 171, 0.8));
+      }
+
+      &.node-matched .node-label {
+        fill: #1c2621;
       }
 
       &.node-deleted .node-circle {
@@ -196,9 +213,9 @@ import { computeTreeLayout, TreeLayoutResult } from './tree-layout';
       }
 
       &.node-balance-target .node-circle {
-        fill: #8b5cf6;
-        stroke: #ede9fe;
-        filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.8));
+        fill: #c084fc;
+        stroke: #f3e8ff;
+        filter: drop-shadow(0 0 8px rgba(192, 132, 252, 0.8));
       }
 
       &.node-red .node-circle {
@@ -213,23 +230,23 @@ import { computeTreeLayout, TreeLayoutResult } from './tree-layout';
 
       &.node-black .node-circle {
         fill: #0f172a;
-        stroke: #94a3b8;
+        stroke: var(--edge, #6f7d74);
       }
 
       &.node-black .node-label {
-        fill: #f1f5f9;
+        fill: var(--chalk, #f4f1e6);
       }
     }
 
     .bf-badge-bg {
-      fill: rgba(15, 23, 42, 0.85);
-      stroke: var(--color-accent, #38bdf8);
+      fill: rgba(31, 42, 36, 0.9);
+      stroke: var(--o-lt, #e8c14a);
       stroke-width: 1;
     }
 
     .bf-badge-text {
-      fill: #38bdf8;
-      font-family: var(--font-family-mono, monospace);
+      fill: var(--o-lt, #e8c14a);
+      font-family: var(--mono, 'IBM Plex Mono', monospace);
       font-size: 0.65rem;
       font-weight: 700;
     }
@@ -243,8 +260,8 @@ import { computeTreeLayout, TreeLayoutResult } from './tree-layout';
       align-items: center;
       gap: 8px;
       padding: 6px 14px;
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid var(--color-border, #334155);
+      background: rgba(31, 42, 36, 0.85);
+      border: 1px solid var(--frame-soft, #c3d0c7);
       border-radius: 9999px;
       backdrop-filter: blur(8px);
       z-index: 5;
@@ -255,7 +272,7 @@ import { computeTreeLayout, TreeLayoutResult } from './tree-layout';
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      color: #94a3b8;
+      color: var(--chalk-dim, #b7c2b9);
       font-weight: 700;
       white-space: nowrap;
     }
@@ -269,10 +286,10 @@ import { computeTreeLayout, TreeLayoutResult } from './tree-layout';
     .buffer-chip {
       padding: 2px 8px;
       border-radius: 9999px;
-      background: #1e293b;
-      color: #38bdf8;
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      font-family: var(--font-family-mono, monospace);
+      background: var(--board-deep, #1f2a24);
+      color: var(--o-lt, #e8c14a);
+      border: 1px solid var(--edge, #6f7d74);
+      font-family: var(--mono, 'IBM Plex Mono', monospace);
       font-size: 0.8rem;
       font-weight: 700;
       white-space: nowrap;

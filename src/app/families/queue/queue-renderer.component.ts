@@ -19,9 +19,6 @@ import { QueueEvent } from '../../engine/events';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="queue-renderer-container">
-      <div class="sr-only" aria-live="polite" aria-atomic="true">
-        {{ currentEvent()?.narration }}
-      </div>
 
       <svg
         class="queue-svg"
@@ -39,7 +36,7 @@ import { QueueEvent } from '../../engine/events';
             markerWidth="6"
             markerHeight="6"
             orient="auto-start-reverse">
-            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--color-accent, #38bdf8)" />
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--o-lt, #f4d38c)" />
           </marker>
         </defs>
 
@@ -48,7 +45,7 @@ import { QueueEvent } from '../../engine/events';
           class="queue-track"
           [attr.d]="trackPath()"
           fill="none"
-          stroke="var(--color-border, #64748b)"
+          stroke="var(--grid, #334038)"
           stroke-width="3"
         />
 
@@ -115,7 +112,7 @@ import { QueueEvent } from '../../engine/events';
               y1="-8"
               x2="0"
               y2="10"
-              stroke="var(--color-accent, #38bdf8)"
+              stroke="var(--o-lt, #f4d38c)"
               stroke-width="2.5"
               marker-end="url(#queue-arrow-marker)"
             />
@@ -133,7 +130,7 @@ import { QueueEvent } from '../../engine/events';
               y1="24"
               x2="0"
               y2="6"
-              stroke="var(--color-secondary, #c0c1ff)"
+              stroke="var(--o-lt, #f4d38c)"
               stroke-width="2.5"
               marker-end="url(#queue-arrow-marker)"
             />
@@ -158,6 +155,9 @@ import { QueueEvent } from '../../engine/events';
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      background: var(--board, #26332c);
+      border-radius: var(--radius-md, 8px);
+      border: 1px solid var(--grid, #334038);
     }
 
     .sr-only {
@@ -184,13 +184,13 @@ import { QueueEvent } from '../../engine/events';
     }
 
     .empty-label {
-      fill: var(--color-text-dim, #8b9bb4);
+      fill: var(--chalk-dim, #a4ab9e);
       font-family: var(--font-family-mono, monospace);
       font-size: 13px;
     }
 
     .port-label {
-      fill: var(--color-text-muted, #94a3b8);
+      fill: var(--chalk-dim, #a4ab9e);
       font-family: var(--font-family-mono, monospace);
       font-size: 11px;
       font-weight: 700;
@@ -201,35 +201,38 @@ import { QueueEvent } from '../../engine/events';
       transition: transform 0.25s ease-out;
 
       .queue-item-rect {
-        fill: var(--color-primary, #6366f1);
-        stroke: var(--color-border-active, #818cf8);
+        fill: var(--board-deep, #16221c);
+        stroke: var(--chalk, #eceae2);
         stroke-width: 1.5;
-        transition: fill 0.2s ease;
+        transition: fill 0.2s ease, stroke 0.2s ease;
       }
 
       .queue-item-text {
-        fill: #ffffff;
+        fill: var(--chalk, #eceae2);
         font-family: var(--font-family-mono, monospace);
         font-size: 14px;
         font-weight: 700;
       }
 
       .queue-item-idx {
-        fill: var(--color-text-dim, #8b9bb4);
+        fill: var(--chalk-dim, #a4ab9e);
         font-family: var(--font-family-mono, monospace);
         font-size: 10px;
       }
 
       &.is-enqueued .queue-item-rect {
-        fill: var(--color-accent-success, #4edea3);
+        fill: rgba(68, 170, 119, 0.25);
+        stroke: var(--theta, #44aa77);
       }
 
       &.is-peeked .queue-item-rect {
-        fill: var(--color-accent-warning, #ffb95f);
+        fill: rgba(233, 180, 76, 0.25);
+        stroke: var(--o-lt, #f4d38c);
       }
 
       &.is-active .queue-item-rect {
-        fill: #ec4899;
+        fill: rgba(204, 85, 68, 0.25);
+        stroke: var(--coral-lt, #e8867a);
       }
     }
 
@@ -237,7 +240,7 @@ import { QueueEvent } from '../../engine/events';
       transition: transform 0.25s ease-out;
 
       .pointer-text {
-        fill: var(--color-accent, #38bdf8);
+        fill: var(--o-lt, #f4d38c);
         font-family: var(--font-family-mono, monospace);
         font-size: 11px;
         font-weight: 700;

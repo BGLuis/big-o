@@ -5,6 +5,8 @@ export class AnimationClock {
   private prefersReducedMotion: boolean = false;
   private mediaQueryList: MediaQueryList | null = null;
   private mediaQueryHandler: ((e: MediaQueryListEvent) => void) | null = null;
+  private pendingStepTimer: ReturnType<typeof setTimeout> | null = null;
+  private pendingStepResolve: (() => void) | null = null;
 
   constructor() {
     if (typeof window !== 'undefined' && window.matchMedia) {
@@ -66,7 +68,20 @@ export class AnimationClock {
     }
   }
 
+  public cancelPendingStep(): void {
+    if (this.pendingStepTimer !== null) {
+      clearTimeout(this.pendingStepTimer);
+      this.pendingStepTimer = null;
+    }
+    if (this.pendingStepResolve !== null) {
+      const resolve = this.pendingStepResolve;
+      this.pendingStepResolve = null;
+      resolve();
+    }
+  }
+
   public cancelAll(): void {
+    this.cancelPendingStep();
     for (const anim of this.activeAnimations) {
       try {
         anim.cancel();
@@ -82,7 +97,14 @@ export class AnimationClock {
     if (duration === 0) {
       return this.waitForNextFrame();
     }
-    await new Promise<void>((resolve) => setTimeout(resolve, duration));
+    return new Promise<void>((resolve) => {
+      this.pendingStepResolve = resolve;
+      this.pendingStepTimer = setTimeout(() => {
+        this.pendingStepTimer = null;
+        this.pendingStepResolve = null;
+        resolve();
+      }, duration);
+    });
   }
 
   public async waitForNextFrame(): Promise<void> {
@@ -97,6 +119,7 @@ export class AnimationClock {
 
   public destroy(): void {
     this.cancelAll();
+    this.cancelPendingStep();
     if (this.mediaQueryList && this.mediaQueryHandler) {
       this.mediaQueryList.removeEventListener('change', this.mediaQueryHandler);
     }

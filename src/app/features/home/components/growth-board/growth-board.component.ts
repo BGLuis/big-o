@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 
 export interface GrowthComparisonRow {
   readonly notation: string;
@@ -12,6 +13,7 @@ export interface GrowthComparisonRow {
 @Component({
   selector: 'app-growth-board',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgOptimizedImage],
   templateUrl: './growth-board.component.html',
   styleUrl: './growth-board.component.scss'
 })

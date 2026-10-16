@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { CategoryFilter, CatalogTrackItem } from './catalog.types';
 import { DATA_STRUCTURE_TRACKS, SORTING_TRACKS } from './catalog.data';
@@ -6,7 +7,7 @@ import { DATA_STRUCTURE_TRACKS, SORTING_TRACKS } from './catalog.data';
 @Component({
   selector: 'app-catalog',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink],
+  imports: [RouterLink, NgOptimizedImage],
   templateUrl: './catalog.component.html',
   styleUrl: './catalog.component.scss'
 })

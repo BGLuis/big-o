@@ -199,4 +199,40 @@ describe('PlaybackEngine', () => {
     expect(engine.isPlaying()).toBe(false);
     await playPromise;
   });
+
+  it('should eliminate async reentrancy when rapidly toggling play and pause without duplicate loops', async () => {
+    const events = createEvents(20);
+    const engine = new PlaybackEngine({
+      initialState: { count: 0, history: [] },
+      events,
+      reducer
+    });
+
+    engine.clock.setBaseDuration(40);
+    engine.setSpeed(1);
+
+    // Rapidly toggle play -> pause -> play
+    const play1 = engine.play();
+    await new Promise((resolve) => setTimeout(resolve, 15));
+    engine.pause();
+    const play2 = engine.play();
+
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    // Pause again and verify determinism
+    engine.pause();
+    await play1;
+    await play2;
+
+    const finalStep = engine.currentStepIndex();
+    // In ~115ms total with 40ms per step, at most 3-4 steps should have occurred, never double cadence (which would be 6-8+)
+    expect(finalStep).toBeGreaterThanOrEqual(1);
+    expect(finalStep).toBeLessThanOrEqual(5);
+    expect(engine.currentState().count).toBe(finalStep);
+
+    // After pause, wait a little longer to ensure no zombie timers advance another step
+    const pausedStep = engine.currentStepIndex();
+    await new Promise((resolve) => setTimeout(resolve, 60));
+    expect(engine.currentStepIndex()).toBe(pausedStep);
+  });
 });

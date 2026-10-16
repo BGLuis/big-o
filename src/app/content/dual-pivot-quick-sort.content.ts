@@ -37,5 +37,11 @@ export const DUAL_PIVOT_QUICK_SORT_CONTENT: AlgorithmContent = {
     '    dualPivotQuickSort(A, gt + 2, high)',
     '  fim se',
     'fim procedimento'
+  ],
+  legend: [
+    { label: 'partição processada', colorClass: 'box-completed' },
+    { label: 'ponteiro ativo', colorClass: 'box-comparing' },
+    { label: 'pivôs (P1, P2)', colorClass: 'box-pivot' },
+    { label: 'não visitado', colorClass: 'box-normal' }
   ]
 };

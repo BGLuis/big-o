@@ -28,5 +28,11 @@ export const INSERTION_SORT_CONTENT: AlgorithmContent = {
     '    A[j + 1] = chave',
     '  fim para',
     'fim procedimento'
+  ],
+  legend: [
+    { label: 'parte ordenada', colorClass: 'box-completed' },
+    { label: 'chave a inserir', colorClass: 'box-pivot' },
+    { label: 'em deslocamento', colorClass: 'box-comparing' },
+    { label: 'não ordenado', colorClass: 'box-normal' }
   ]
 };

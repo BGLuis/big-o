@@ -30,5 +30,11 @@ export const SELECTION_SORT_CONTENT: AlgorithmContent = {
     '    fim se',
     '  fim para',
     'fim procedimento'
+  ],
+  legend: [
+    { label: 'ordenado', colorClass: 'box-completed' },
+    { label: 'menor encontrado', colorClass: 'box-pivot' },
+    { label: 'em análise', colorClass: 'box-comparing' },
+    { label: 'não visitado', colorClass: 'box-normal' }
   ]
 };

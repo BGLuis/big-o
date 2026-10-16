@@ -4,7 +4,7 @@ export const LINKED_LIST_CONTENT: AlgorithmContent = {
   id: 'linked-list',
   title: 'Lista Encadeada Simples',
   category: 'data-structure',
-  family: 'graph',
+  family: 'linked-list',
   timeComplexity: {
     best: 'O(1)',
     average: 'O(n)',

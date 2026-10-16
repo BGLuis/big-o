@@ -34,5 +34,10 @@ export const COUNTING_SORT_CONTENT: AlgorithmContent = {
     '    fim enquanto',
     '  fim para',
     'fim procedimento'
+  ],
+  legend: [
+    { label: 'posicionado', colorClass: 'box-completed' },
+    { label: 'contagem ativa', colorClass: 'box-comparing' },
+    { label: 'buffer', colorClass: 'box-normal' }
   ]
 };

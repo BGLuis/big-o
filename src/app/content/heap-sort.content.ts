@@ -41,5 +41,10 @@ export const HEAP_SORT_CONTENT: AlgorithmContent = {
     '    descerNoHeap(A, tamanhoHeap, maior)',
     '  fim se',
     'fim procedimento'
+  ],
+  legend: [
+    { label: 'ordenado', colorClass: 'box-completed' },
+    { label: 'raiz / troca', colorClass: 'box-comparing' },
+    { label: 'heap', colorClass: 'box-normal' }
   ]
 };

@@ -39,5 +39,11 @@ export const QUICK_SORT_CONTENT: AlgorithmContent = {
     '  trocar(A[i + 1], A[fim])',
     '  retorne i + 1',
     'fim função'
+  ],
+  legend: [
+    { label: 'partição ≤ pivô', colorClass: 'box-completed' },
+    { label: 'elemento em j', colorClass: 'box-comparing' },
+    { label: 'pivô', colorClass: 'box-pivot' },
+    { label: 'não visitado', colorClass: 'box-normal' }
   ]
 };

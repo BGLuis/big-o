@@ -36,5 +36,10 @@ export const ARRAY_CONTENT: AlgorithmContent = {
     '  fim para',
     '  A[indice] = novoValor',
     'fim função'
+  ],
+  legend: [
+    { label: 'acesso / leitura', colorClass: 'box-completed' },
+    { label: 'índice em foco', colorClass: 'box-comparing' },
+    { label: 'não acessado', colorClass: 'box-normal' }
   ]
 };

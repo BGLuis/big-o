@@ -1,11 +1,50 @@
 @if (isLandingPage()) {
   <router-outlet />
 } @else {
-  <div class="app-shell">
-    <app-side-nav-bar
-      [collapsed]="isSidebarCollapsed()"
-      (collapseToggled)="toggleSidebar()"
-    />
+  <div class="app-shell" [class.mobile-drawer-open]="isMobileDrawerOpen()">
+    <!-- Mobile Top Bar (<= 768px) -->
+    <header class="mobile-topbar">
+      <button
+        type="button"
+        class="mobile-menu-btn"
+        (click)="toggleMobileDrawer()"
+        [attr.aria-expanded]="isMobileDrawerOpen()"
+        aria-label="Abrir menu de navegação"
+        aria-controls="mobile-nav-drawer"
+      >
+        <svg class="hamburger-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          @if (isMobileDrawerOpen()) {
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          } @else {
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          }
+        </svg>
+      </button>
+      <a routerLink="/trilhas" class="mobile-brand" aria-label="Ir para o catálogo de trilhas">
+        <span class="mobile-logo">Big<span class="mobile-logo-o"> O</span> <span class="mobile-logo-omega">Ω</span> <span class="mobile-logo-theta">Θ</span></span>
+      </a>
+    </header>
+
+    <!-- Drawer Backdrop -->
+    @if (isMobileDrawerOpen()) {
+      <div
+        class="drawer-backdrop"
+        (click)="closeMobileDrawer()"
+        tabindex="-1"
+        aria-hidden="true"
+      ></div>
+    }
+
+    <aside id="mobile-nav-drawer" class="drawer-container">
+      <app-side-nav-bar
+        [collapsed]="isSidebarCollapsed()"
+        (collapseToggled)="toggleSidebar()"
+      />
+    </aside>
+
     <main class="app-main">
       <router-outlet />
     </main>

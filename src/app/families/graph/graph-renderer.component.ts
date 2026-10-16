@@ -19,9 +19,6 @@ import { GraphEvent } from '../../engine/events';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="graph-renderer-container">
-      <div class="sr-only" aria-live="polite" aria-atomic="true">
-        {{ currentEvent()?.narration }}
-      </div>
 
       <svg
         class="graph-svg"
@@ -32,8 +29,8 @@ import { GraphEvent } from '../../engine/events';
         
         <defs>
           <radialGradient id="vertex-visiting-glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#ec4899" stop-opacity="0.8" />
-            <stop offset="100%" stop-color="#ec4899" stop-opacity="0" />
+            <stop offset="0%" stop-color="#cc5544" stop-opacity="0.8" />
+            <stop offset="100%" stop-color="#cc5544" stop-opacity="0" />
           </radialGradient>
         </defs>
 
@@ -121,6 +118,9 @@ import { GraphEvent } from '../../engine/events';
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      background: var(--board, #26332c);
+      border-radius: var(--radius-md, 8px);
+      border: 1px solid var(--grid, #334038);
     }
 
     .sr-only {
@@ -143,13 +143,13 @@ import { GraphEvent } from '../../engine/events';
     }
 
     .graph-edge {
-      stroke: var(--color-border, #64748b);
+      stroke: var(--edge, #8b9bb4);
       stroke-width: 2.5;
       stroke-linecap: round;
       transition: stroke 0.25s ease, stroke-width 0.25s ease;
 
       &.is-traversed {
-        stroke: var(--color-accent-success, #4edea3);
+        stroke: var(--theta, #44aa77);
         stroke-width: 3.5;
       }
     }
@@ -158,66 +158,66 @@ import { GraphEvent } from '../../engine/events';
       transition: transform 0.25s ease-out;
 
       .vertex-circle {
-        fill: var(--color-bg-surface-alt, #1f2a3c);
-        stroke: var(--color-border-active, #818cf8);
+        fill: var(--board-deep, #16221c);
+        stroke: var(--chalk, #eceae2);
         stroke-width: 2.5;
         transition: fill 0.2s ease, stroke 0.2s ease;
       }
 
       .vertex-label {
-        fill: #ffffff;
+        fill: var(--chalk, #eceae2);
         font-family: var(--font-family-mono, monospace);
         font-size: 14px;
         font-weight: 700;
       }
 
       &.is-in-queue .vertex-circle {
-        fill: rgba(255, 185, 95, 0.25);
-        stroke: var(--color-accent-warning, #ffb95f);
+        fill: rgba(233, 180, 76, 0.25);
+        stroke: var(--o-lt, #f4d38c);
         stroke-width: 3;
       }
 
       &.is-visiting .vertex-circle {
-        fill: #ec4899;
-        stroke: #f472b6;
+        fill: var(--coral, #cc5544);
+        stroke: var(--coral-lt, #e8867a);
         stroke-width: 3.5;
       }
 
       &.is-visited .vertex-circle {
-        fill: var(--color-accent-success, #4edea3);
-        stroke: #22c55e;
+        fill: rgba(68, 170, 119, 0.35);
+        stroke: var(--theta, #44aa77);
       }
     }
 
     .hud-label {
-      fill: var(--color-text-muted, #94a3b8);
+      fill: var(--chalk-dim, #a4ab9e);
       font-family: var(--font-family-mono, monospace);
       font-size: 11px;
       font-weight: 700;
     }
 
     .hud-empty {
-      fill: var(--color-text-dim, #8b9bb4);
+      fill: var(--chalk-faint, #4e584f);
       font-family: var(--font-family-mono, monospace);
       font-size: 11px;
       font-style: italic;
     }
 
     .queue-pill-rect {
-      fill: rgba(255, 185, 95, 0.3);
-      stroke: var(--color-accent-warning, #ffb95f);
+      fill: rgba(233, 180, 76, 0.25);
+      stroke: var(--o-lt, #f4d38c);
       stroke-width: 1.5;
     }
 
     .queue-pill-text {
-      fill: var(--color-text-main, #d8e3fb);
+      fill: var(--chalk, #eceae2);
       font-family: var(--font-family-mono, monospace);
       font-size: 11px;
       font-weight: 700;
     }
 
     .hud-visited-text {
-      fill: var(--color-accent-success, #4edea3);
+      fill: var(--theta, #44aa77);
       font-family: var(--font-family-mono, monospace);
       font-size: 12px;
       font-weight: 700;

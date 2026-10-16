@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HeroPreviewComponent } from './components/hero-preview/hero-preview.component';
 import { GrowthBoardComponent } from './components/growth-board/growth-board.component';
@@ -17,7 +18,7 @@ export interface ClassicalTrack {
 @Component({
   selector: 'app-home',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, HeroPreviewComponent, GrowthBoardComponent],
+  imports: [RouterLink, HeroPreviewComponent, GrowthBoardComponent, NgOptimizedImage],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

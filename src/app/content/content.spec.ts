@@ -63,7 +63,7 @@ describe('Algorithm Content Layer', () => {
     }
 
     expect(getAlgorithmContent('array')?.family).toBe('linear');
-    expect(getAlgorithmContent('linked-list')?.family).toBe('graph');
+    expect(getAlgorithmContent('linked-list')?.family).toBe('linked-list');
     expect(getAlgorithmContent('stack')?.family).toBe('stack');
     expect(getAlgorithmContent('queue')?.family).toBe('queue');
     expect(getAlgorithmContent('bst')?.family).toBe('hierarchical');

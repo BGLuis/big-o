@@ -23,6 +23,7 @@ export class PlaybackEngine<TState, TEvent extends BaseEvent> {
 
   private readonly checkpoints = new Map<number, TState>();
   private playLoopRunning = false;
+  private playSessionId = 0;
 
   public readonly status = signal<PlaybackStatus>('idle');
   public readonly currentStepIndex = signal<number>(0);
@@ -98,6 +99,7 @@ export class PlaybackEngine<TState, TEvent extends BaseEvent> {
   }
 
   public goToStep(targetStep: number): void {
+    this.playSessionId++;
     const clampedTarget = Math.max(0, Math.min(targetStep, this.events.length));
     this.clock.cancelAll();
 
@@ -141,23 +143,31 @@ export class PlaybackEngine<TState, TEvent extends BaseEvent> {
 
     this.status.set('playing');
     this.playLoopRunning = true;
+    const sessionId = ++this.playSessionId;
 
-    while (this.playLoopRunning && this.status() === 'playing') {
+    while (this.playLoopRunning && this.status() === 'playing' && this.playSessionId === sessionId) {
       const moved = this.stepForward();
       if (!moved) {
         break;
       }
       await this.clock.waitForStep();
+      if (this.playSessionId !== sessionId || !this.playLoopRunning || this.status() !== 'playing') {
+        break;
+      }
     }
 
-    this.playLoopRunning = false;
-    if (this.currentStepIndex() >= this.events.length) {
-      this.status.set('completed');
+    if (this.playSessionId === sessionId) {
+      this.playLoopRunning = false;
+      if (this.currentStepIndex() >= this.events.length) {
+        this.status.set('completed');
+      }
     }
   }
 
   public pause(): void {
+    this.playSessionId++;
     this.playLoopRunning = false;
+    this.clock.cancelPendingStep();
     if (this.status() === 'playing') {
       this.status.set('paused');
     }
@@ -189,6 +199,7 @@ export class PlaybackEngine<TState, TEvent extends BaseEvent> {
   }
 
   public destroy(): void {
+    this.playSessionId++;
     this.pause();
     this.clock.destroy();
   }

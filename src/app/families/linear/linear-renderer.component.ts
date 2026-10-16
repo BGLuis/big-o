@@ -6,17 +6,13 @@ import {
 } from '@angular/core';
 import { LinearState, LinearElement, LinearAuxElement } from './linear-state';
 import { LinearEvent, PointerInfo } from '../../engine/events';
+import { LegendItem } from '../../content/content.types';
 
 @Component({
   selector: 'app-linear-renderer',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="renderer-container" role="region" aria-label="Quadro de visualização do algoritmo">
-      <!-- Accessible Live Region for Screen Readers -->
-      <div class="sr-only" aria-live="polite" aria-atomic="true">
-        {{ currentEvent()?.narration }}
-      </div>
-
       <!-- Chalkboard Container -->
       <div class="chalkboard-container" [style.--col-count]="state().elements.length">
         <!-- Pointers Row (i, j) -->
@@ -66,22 +62,12 @@ import { LinearEvent, PointerInfo } from '../../engine/events';
 
         <!-- Legend Row -->
         <div class="legend-row" aria-label="Legenda das cores">
-          <span class="legend-item">
-            <span class="legend-box box-completed" aria-hidden="true"></span>
-            <span>partição ≤ pivô</span>
-          </span>
-          <span class="legend-item">
-            <span class="legend-box box-comparing" aria-hidden="true"></span>
-            <span>elemento em j</span>
-          </span>
-          <span class="legend-item">
-            <span class="legend-box box-pivot" aria-hidden="true"></span>
-            <span>pivô</span>
-          </span>
-          <span class="legend-item">
-            <span class="legend-box box-normal" aria-hidden="true"></span>
-            <span>não visitado</span>
-          </span>
+          @for (item of effectiveLegend(); track item.label) {
+            <span class="legend-item">
+              <span class="legend-box" [class]="item.colorClass" aria-hidden="true"></span>
+              <span>{{ item.label }}</span>
+            </span>
+          }
         </div>
       </div>
 
@@ -353,6 +339,18 @@ import { LinearEvent, PointerInfo } from '../../engine/events';
 export class LinearRendererComponent {
   public readonly state = input.required<LinearState>();
   public readonly currentEvent = input<LinearEvent | null>(null);
+  public readonly legend = input<readonly LegendItem[]>();
+
+  protected readonly effectiveLegend = computed<readonly LegendItem[]>(() => {
+    return (
+      this.legend() ?? [
+        { label: 'partição ≤ pivô', colorClass: 'box-completed' },
+        { label: 'elemento em j', colorClass: 'box-comparing' },
+        { label: 'pivô', colorClass: 'box-pivot' },
+        { label: 'não visitado', colorClass: 'box-normal' }
+      ]
+    );
+  });
 
   protected readonly pointersMap = computed<Map<number, PointerInfo>>(() => {
     const map = new Map<number, PointerInfo>();
