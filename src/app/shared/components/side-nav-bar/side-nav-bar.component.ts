@@ -34,6 +34,37 @@ import { ALL_ALGORITHM_CONTENTS } from '../../../content';
 
       <!-- Links de Navegação -->
       <div id="primary-nav-links" class="nav-links">
+        <!-- Sandbox & Arena Link Destacado -->
+        <a
+          routerLink="/sandbox"
+          routerLinkActive="active-sublink"
+          class="sandbox-nav-link"
+          [attr.title]="collapsed() ? 'Sandbox & Arena' : null"
+          aria-label="Ir para o Sandbox e Arena de experimentos"
+        >
+          <div class="sandbox-nav-main">
+            <svg
+              class="sandbox-nav-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M10 2v7.31M14 2v7.31M8.5 2h7M14 9.3a6.5 6.5 0 1 1-4 0" />
+              <path d="M5.52 16h12.96" />
+            </svg>
+            @if (!collapsed()) {
+              <span class="sandbox-nav-text">Sandbox & Arena</span>
+            }
+          </div>
+          @if (!collapsed()) {
+            <span class="sandbox-nav-badge">NOVO</span>
+          }
+        </a>
+
         <!-- Grupo 1: Ordenação -->
         <div class="nav-group">
           <button
@@ -262,6 +293,86 @@ import { ALL_ALGORITHM_CONTENTS } from '../../../content';
       gap: 16px;
       padding: 16px 12px;
       box-sizing: border-box;
+    }
+
+    .sandbox-nav-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 9px 12px;
+      background: linear-gradient(135deg, rgba(23, 96, 62, 0.08) 0%, rgba(33, 96, 176, 0.08) 100%);
+      border: 1px solid #c3d0c7;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #1c2621;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.15s ease;
+
+      &:hover {
+        background: linear-gradient(135deg, rgba(23, 96, 62, 0.14) 0%, rgba(33, 96, 176, 0.14) 100%);
+        border-color: #17603e;
+      }
+
+      &:focus-visible {
+        outline: 2px solid #17603e;
+        outline-offset: 2px;
+      }
+
+      &.active-sublink {
+        background: #f3f6f3;
+        border-color: #17603e;
+        color: #17603e;
+        box-shadow: 0 1px 4px rgba(23, 96, 62, 0.12);
+
+        .sandbox-nav-icon {
+          color: #17603e;
+        }
+
+        .sandbox-nav-badge {
+          background: #17603e;
+          color: #ffffff;
+        }
+      }
+    }
+
+    .sandbox-nav-main {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .sandbox-nav-icon {
+      width: 18px;
+      height: 18px;
+      color: #17603e;
+      flex-shrink: 0;
+    }
+
+    .sandbox-nav-text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sandbox-nav-badge {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      background: #8a6a12;
+      color: #ffffff;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+      flex-shrink: 0;
+    }
+
+    .side-nav.collapsed .sandbox-nav-link {
+      justify-content: center;
+      padding: 9px 0;
     }
 
     .nav-group {

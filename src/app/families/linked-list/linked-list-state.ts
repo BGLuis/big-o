@@ -56,23 +56,87 @@ export function createInitialLinkedListState(values: readonly number[] = []): Li
 export function linkedListReducer(state: LinkedListState, event: LinearEvent): LinkedListState {
   switch (event.type) {
     case 'insert': {
+      const pos = Math.max(0, Math.min(event.position, state.order.length));
+      if (pos === 0 || !state.headId) {
+        const newNode: LinkedListNode = {
+          id: event.id,
+          value: event.value,
+          nextId: state.headId,
+          state: 'inserted'
+        };
+        return {
+          ...state,
+          headId: event.id,
+          nodes: {
+            ...state.nodes,
+            [event.id]: newNode
+          },
+          order: [event.id, ...state.order],
+          activeNodeId: event.id
+        };
+      }
+
+      const prevId = state.order[pos - 1];
+      const prevNode = state.nodes[prevId];
+      const nextId = pos < state.order.length ? state.order[pos] : null;
       const newNode: LinkedListNode = {
         id: event.id,
         value: event.value,
-        nextId: state.headId,
+        nextId,
         state: 'inserted'
       };
+      const newOrder = [...state.order];
+      newOrder.splice(pos, 0, event.id);
 
-      const newOrder = [event.id, ...state.order];
+      const updatedNodes: Record<string, LinkedListNode> = {
+        ...state.nodes,
+        [event.id]: newNode
+      };
+      if (prevNode) {
+        updatedNodes[prevId] = {
+          ...prevNode,
+          nextId: event.id
+        };
+      }
+
       return {
         ...state,
-        headId: event.id,
-        nodes: {
-          ...state.nodes,
-          [event.id]: newNode
-        },
+        nodes: updatedNodes,
         order: newOrder,
         activeNodeId: event.id
+      };
+    }
+
+    case 'remove': {
+      const idx = state.order.indexOf(event.id);
+      if (idx === -1) return state;
+
+      const updatedNodes = { ...state.nodes };
+      const removedNode = updatedNodes[event.id];
+      delete updatedNodes[event.id];
+
+      const newOrder = state.order.filter((id) => id !== event.id);
+      let newHeadId = state.headId;
+
+      if (idx === 0) {
+        newHeadId = newOrder[0] ?? null;
+      } else {
+        const prevId = state.order[idx - 1];
+        const prevNode = updatedNodes[prevId];
+        if (prevNode) {
+          updatedNodes[prevId] = {
+            ...prevNode,
+            nextId: removedNode?.nextId ?? null
+          };
+        }
+      }
+
+      return {
+        ...state,
+        headId: newHeadId,
+        nodes: updatedNodes,
+        order: newOrder,
+        activeNodeId: null
       };
     }
 

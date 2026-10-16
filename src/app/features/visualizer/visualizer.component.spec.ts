@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
 import { VisualizerComponent } from './visualizer.component';
 
 describe('VisualizerComponent', () => {
@@ -263,5 +263,37 @@ describe('VisualizerComponent', () => {
     expect(compGrid).toBeTruthy();
     expect(compNote).toBeTruthy();
     expect(compNote?.textContent).toContain('Como Ω e O não coincidem');
+  });
+
+  it('should navigate to sandbox with arena queryParams for sorting algorithms', () => {
+    const router = TestBed.inject(Router);
+    const navSpy = vi.spyOn(router, 'navigate').mockResolvedValue(true);
+
+    component.selectedAlgorithmId.set('quick-sort');
+    component.openInSandbox();
+
+    expect(navSpy).toHaveBeenCalledWith(['/sandbox'], {
+      queryParams: {
+        mode: 'arena',
+        category: 'sorting',
+        left: 'quick-sort',
+        right: 'heap-sort'
+      }
+    });
+  });
+
+  it('should navigate to sandbox with lab queryParams for data structures', () => {
+    const router = TestBed.inject(Router);
+    const navSpy = vi.spyOn(router, 'navigate').mockResolvedValue(true);
+
+    component.selectedAlgorithmId.set('tree-traversal');
+    component.openInSandbox();
+
+    expect(navSpy).toHaveBeenCalledWith(['/sandbox'], {
+      queryParams: {
+        mode: 'lab',
+        structure: 'avl-tree'
+      }
+    });
   });
 });

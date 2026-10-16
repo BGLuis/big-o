@@ -111,6 +111,26 @@ export function hashMapReducer(state: HashMapState, event: HashMapEvent): HashMa
       };
     }
 
+    case 'hash-remove': {
+      const { bucketIndex, key } = event;
+      const updatedBuckets = state.buckets.map((b) => {
+        if (b.index === bucketIndex) {
+          return {
+            ...b,
+            entries: b.entries.filter((e) => e.key !== key)
+          };
+        }
+        return b;
+      });
+
+      return {
+        ...state,
+        buckets: updatedBuckets,
+        activeBucketIndex: bucketIndex,
+        collisionAlert: null
+      };
+    }
+
     case 'complete': {
       return {
         ...state,

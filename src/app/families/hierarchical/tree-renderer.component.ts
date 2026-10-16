@@ -7,6 +7,7 @@ import {
   computed,
   inject,
   input,
+  output,
   signal,
   PLATFORM_ID
 } from '@angular/core';
@@ -53,6 +54,7 @@ import { computeTreeLayout, TreeLayoutResult } from './tree-layout';
               [class.node-red]="node.color === 'red'"
               [class.node-black]="node.color === 'black'"
               [attr.transform]="'translate(' + node.x + ',' + node.y + ')'"
+              (click)="nodeClicked.emit({ id: node.id, value: node.value })"
             >
               @if (node.balanceFactor !== undefined) {
                 <!-- Balance Factor Pill/Badge -->
@@ -296,6 +298,7 @@ export class TreeRendererComponent implements OnInit, OnDestroy {
 
   public readonly state = input.required<TreeState>();
   public readonly currentEvent = input<HierarchicalEvent | null>(null);
+  public readonly nodeClicked = output<{ id: string; value: number }>();
 
   protected readonly containerWidth = signal<number>(600);
   protected readonly containerHeight = signal<number>(360);

@@ -151,6 +151,19 @@ import { ThemeService } from '../../core/services/theme.service';
             <span>Novos dados</span>
           </button>
 
+          <!-- Open in Sandbox Button -->
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="openInSandbox()"
+            aria-label="Abrir no Sandbox">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M10 2v7.31M14 2v7.31M8.5 2h7M14 9.3a6.5 6.5 0 1 1-4 0" />
+              <path d="M5.52 16h12.96" />
+            </svg>
+            <span>Abrir no Sandbox</span>
+          </button>
+
           <!-- Theme Toggle -->
           <button
             type="button"
@@ -627,6 +640,33 @@ export class VisualizerComponent implements OnDestroy {
 
     this.initialValues.set(values);
     this.rebuildEngine();
+  }
+
+  public openInSandbox(): void {
+    const content = this.currentContent();
+    const algoId = this.selectedAlgorithmId();
+
+    if (content.category === 'sorting') {
+      const rightAlgo = algoId === 'quick-sort' ? 'heap-sort' : 'quick-sort';
+      this.router.navigate(['/sandbox'], {
+        queryParams: {
+          mode: 'arena',
+          category: 'sorting',
+          left: algoId,
+          right: rightAlgo
+        }
+      }).catch(() => {});
+    } else if (content.category === 'data-structure') {
+      const structure = algoId === 'tree-traversal' ? 'avl-tree' : algoId;
+      this.router.navigate(['/sandbox'], {
+        queryParams: {
+          mode: 'lab',
+          structure
+        }
+      }).catch(() => {});
+    } else {
+      this.router.navigate(['/sandbox']).catch(() => {});
+    }
   }
 
   public onTogglePlay(): void {

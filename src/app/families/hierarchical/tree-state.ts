@@ -95,25 +95,26 @@ export function treeReducer(state: TreeState, event: HierarchicalEvent): TreeSta
     case 'remove-node': {
       const updatedNodes = { ...state.nodes };
       delete updatedNodes[event.id];
+      const replacement = event.replacementId ?? null;
 
-      // Disconnect from parent if any
+      // Disconnect from parent or replace with replacementId if any
       for (const [nodeId, node] of Object.entries(updatedNodes)) {
         if (node.leftId === event.id || node.rightId === event.id) {
           updatedNodes[nodeId] = {
             ...node,
-            leftId: node.leftId === event.id ? null : node.leftId,
-            rightId: node.rightId === event.id ? null : node.rightId
+            leftId: node.leftId === event.id ? replacement : node.leftId,
+            rightId: node.rightId === event.id ? replacement : node.rightId
           };
         }
       }
 
-      const newRootId = state.rootId === event.id ? null : state.rootId;
+      const newRootId = state.rootId === event.id ? replacement : state.rootId;
 
       return {
         ...state,
         rootId: newRootId,
         nodes: updatedNodes,
-        activeNodeId: state.activeNodeId === event.id ? null : state.activeNodeId
+        activeNodeId: state.activeNodeId === event.id ? replacement : state.activeNodeId
       };
     }
 
@@ -229,7 +230,8 @@ export function treeReducer(state: TreeState, event: HierarchicalEvent): TreeSta
             ...node,
             balanceFactor: event.balanceFactor !== undefined ? event.balanceFactor : node.balanceFactor,
             height: event.height !== undefined ? event.height : node.height,
-            color: event.color !== undefined ? event.color : node.color
+            color: event.color !== undefined ? event.color : node.color,
+            state: event.nodeState !== undefined ? event.nodeState : node.state
           }
         }
       };

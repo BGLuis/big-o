@@ -15,6 +15,7 @@
           <li><a href="#notacao" class="nav-item">Notação</a></li>
           <li><a href="#crescimento" class="nav-item">Crescimento</a></li>
           <li><a href="#trilhas" class="nav-item">Trilhas</a></li>
+          <li><a routerLink="/sandbox" class="nav-item">Sandbox & Arena</a></li>
         </ul>
         <a [routerLink]="['/ordenacao', 'quick-sort']" class="btn-primary btn-sm">
           Entrar na aula
@@ -43,6 +44,7 @@
           <li><a href="#notacao" class="mobile-nav-item" (click)="closeMobileMenu()">Notação</a></li>
           <li><a href="#crescimento" class="mobile-nav-item" (click)="closeMobileMenu()">Crescimento</a></li>
           <li><a href="#trilhas" class="mobile-nav-item" (click)="closeMobileMenu()">Trilhas</a></li>
+          <li><a routerLink="/sandbox" class="mobile-nav-item" (click)="closeMobileMenu()">Sandbox & Arena</a></li>
           <li class="mobile-cta-item">
             <a [routerLink]="['/ordenacao', 'quick-sort']" class="btn-primary" (click)="closeMobileMenu()">
               Entrar na aula
@@ -76,6 +78,9 @@
             <a [routerLink]="['/ordenacao', 'quick-sort']" class="btn-primary btn-hero">
               <img src="assets/hero-play.svg" alt="" class="btn-icon" aria-hidden="true" width="17" height="17">
               <span>Começar a estudar</span>
+            </a>
+            <a routerLink="/sandbox" class="btn-secondary btn-hero">
+              <span>Abrir Sandbox & Arena</span>
             </a>
             <a href="#crescimento" class="btn-secondary btn-hero">
               Ver as curvas de crescimento

@@ -41,6 +41,11 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'sandbox',
+    loadComponent: () => import('./features/sandbox/sandbox.component').then(m => m.SandboxComponent),
+    title: 'Sandbox & Arena · Big O'
+  },
+  {
     path: '',
     pathMatch: 'full',
     loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent)

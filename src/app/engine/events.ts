@@ -50,10 +50,17 @@ export type HierarchicalEvent =
   | (BaseEvent & { readonly type: 'create-node'; readonly id: string; readonly value: number })
   | (BaseEvent & { readonly type: 'link'; readonly parentId: string; readonly childId: string; readonly side: 'left' | 'right' })
   | (BaseEvent & { readonly type: 'unlink'; readonly parentId: string; readonly side: 'left' | 'right' })
-  | (BaseEvent & { readonly type: 'remove-node'; readonly id: string })
+  | (BaseEvent & { readonly type: 'remove-node'; readonly id: string; readonly replacementId?: string | null })
   | (BaseEvent & { readonly type: 'update-node-value'; readonly id: string; readonly value: number })
   | (BaseEvent & { readonly type: 'rotate'; readonly pivotId: string; readonly direction: 'left' | 'right' })
-  | (BaseEvent & { readonly type: 'set-node-meta'; readonly id: string; readonly balanceFactor?: number; readonly height?: number; readonly color?: 'red' | 'black' })
+  | (BaseEvent & {
+      readonly type: 'set-node-meta';
+      readonly id: string;
+      readonly balanceFactor?: number;
+      readonly height?: number;
+      readonly color?: 'red' | 'black';
+      readonly nodeState?: 'default' | 'comparing' | 'inserted' | 'highlighted' | 'matched' | 'deleted' | 'balance-target';
+    })
   | (BaseEvent & { readonly type: 'traversal-output'; readonly values: readonly number[] });
 
 export type StackEvent =
@@ -80,7 +87,8 @@ export type HashMapEvent =
   | (BaseEvent & { readonly type: 'hash-calc'; readonly key: number; readonly hash: number; readonly formula: string })
   | (BaseEvent & { readonly type: 'hash-insert'; readonly bucketIndex: number; readonly id: string; readonly key: number; readonly value: string })
   | (BaseEvent & { readonly type: 'hash-collision'; readonly bucketIndex: number; readonly message: string })
-  | (BaseEvent & { readonly type: 'hash-find'; readonly bucketIndex: number; readonly key: number });
+  | (BaseEvent & { readonly type: 'hash-find'; readonly bucketIndex: number; readonly key: number })
+  | (BaseEvent & { readonly type: 'hash-remove'; readonly bucketIndex: number; readonly key: number });
 
 export type EngineEvent = CoreEvent | LinearEvent | HierarchicalEvent | StackEvent | QueueEvent | GraphEvent | HashMapEvent;
 
